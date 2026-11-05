@@ -1,0 +1,507 @@
+{
+  "descargados": 61,
+  "errores": {},
+  "sin_dividendos": [
+    "VOLARA.MX",
+    "VISTAA.MX",
+    "ALFAA.MX",
+    "AMZN",
+    "TSLA",
+    "AMD"
+  ],
+  "sin_dividendos_MX": [
+    "VOLARA.MX",
+    "VISTAA.MX",
+    "ALFAA.MX"
+  ],
+  "por_simbolo": {
+    "WALMEX.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 41,
+      "primera": "2008-04-15",
+      "ultima": "2025-12-16",
+      "yield_ttm_pct": 3.33,
+      "yield_medio_anual_pct": 2.3
+    },
+    "FEMSAUBD.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 43,
+      "primera": "2000-07-27",
+      "ultima": "2026-10-14",
+      "yield_ttm_pct": 9.18,
+      "yield_medio_anual_pct": 1.77
+    },
+    "GMEXICOB.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 87,
+      "primera": "2000-07-18",
+      "ultima": "2026-08-27",
+      "yield_ttm_pct": 3.36,
+      "yield_medio_anual_pct": 3.41
+    },
+    "CEMEXCPO.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 18,
+      "primera": "2000-05-09",
+      "ultima": "2026-09-15",
+      "yield_ttm_pct": 1.06,
+      "yield_medio_anual_pct": 1.29
+    },
+    "GFNORTEO.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 46,
+      "primera": "2002-10-10",
+      "ultima": "2026-05-28",
+      "yield_ttm_pct": 9.57,
+      "yield_medio_anual_pct": 3.06
+    },
+    "BIMBOA.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 29,
+      "primera": "2000-05-08",
+      "ultima": "2026-05-12",
+      "yield_ttm_pct": 1.89,
+      "yield_medio_anual_pct": 1.07
+    },
+    "ALSEA.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 21,
+      "primera": "2001-07-10",
+      "ultima": "2026-05-06",
+      "yield_ttm_pct": 3.45,
+      "yield_medio_anual_pct": 1.49
+    },
+    "KIMBERA.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 99,
+      "primera": "2000-04-04",
+      "ultima": "2026-09-30",
+      "yield_ttm_pct": 8.17,
+      "yield_medio_anual_pct": 5.33
+    },
+    "GRUMAB.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 39,
+      "primera": "2003-05-12",
+      "ultima": "2026-10-08",
+      "yield_ttm_pct": 3.05,
+      "yield_medio_anual_pct": 1.44
+    },
+    "ASURB.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 29,
+      "primera": "2002-05-28",
+      "ultima": "2026-05-27",
+      "yield_ttm_pct": 7.44,
+      "yield_medio_anual_pct": 3.95
+    },
+    "GAPB.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 47,
+      "primera": "2006-05-04",
+      "ultima": "2026-11-05",
+      "yield_ttm_pct": 6.64,
+      "yield_medio_anual_pct": 4.65
+    },
+    "ORBIA.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 85,
+      "primera": "2002-10-25",
+      "ultima": "2024-12-17",
+      "yield_ttm_pct": 0.0,
+      "yield_medio_anual_pct": 2.77
+    },
+    "AC.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 38,
+      "primera": "2004-11-11",
+      "ultima": "2026-10-27",
+      "yield_ttm_pct": 4.62,
+      "yield_medio_anual_pct": 3.91
+    },
+    "VESTA.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 30,
+      "primera": "2012-11-06",
+      "ultima": "2026-10-14",
+      "yield_ttm_pct": 3.9,
+      "yield_medio_anual_pct": 3.27
+    },
+    "PINFRA.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 19,
+      "primera": "2016-01-12",
+      "ultima": "2026-05-12",
+      "yield_ttm_pct": 2.29,
+      "yield_medio_anual_pct": 1.32
+    },
+    "OMAB.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 44,
+      "primera": "2007-07-11",
+      "ultima": "2026-05-26",
+      "yield_ttm_pct": 4.92,
+      "yield_medio_anual_pct": 4.86
+    },
+    "MEGACPO.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 16,
+      "primera": "2012-11-08",
+      "ultima": "2026-05-20",
+      "yield_ttm_pct": 6.14,
+      "yield_medio_anual_pct": 2.75
+    },
+    "TLEVISACPO.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 22,
+      "primera": "2003-06-26",
+      "ultima": "2025-05-30",
+      "yield_ttm_pct": 0.0,
+      "yield_medio_anual_pct": 1.5
+    },
+    "BOLSAA.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 19,
+      "primera": "2010-04-29",
+      "ultima": "2026-05-08",
+      "yield_ttm_pct": 5.86,
+      "yield_medio_anual_pct": 4.57
+    },
+    "GCARSOA1.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 42,
+      "primera": "2003-05-16",
+      "ultima": "2026-06-29",
+      "yield_ttm_pct": 1.68,
+      "yield_medio_anual_pct": 3.72
+    },
+    "LABB.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 18,
+      "primera": "2021-12-01",
+      "ultima": "2026-09-29",
+      "yield_ttm_pct": 8.02,
+      "yield_medio_anual_pct": 1.28
+    },
+    "CUERVO.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 9,
+      "primera": "2018-05-07",
+      "ultima": "2026-05-11",
+      "yield_ttm_pct": 3.71,
+      "yield_medio_anual_pct": 1.3
+    },
+    "HERDEZ.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 30,
+      "primera": "2003-07-25",
+      "ultima": "2026-10-12",
+      "yield_ttm_pct": 30.39,
+      "yield_medio_anual_pct": 2.89
+    },
+    "GENTERA.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 18,
+      "primera": "2011-05-13",
+      "ultima": "2026-04-22",
+      "yield_ttm_pct": 4.69,
+      "yield_medio_anual_pct": 2.68
+    },
+    "VOLARA.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 0,
+      "primera": null,
+      "ultima": null,
+      "yield_ttm_pct": null,
+      "yield_medio_anual_pct": null
+    },
+    "Q.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 13,
+      "primera": "2016-05-12",
+      "ultima": "2026-11-04",
+      "yield_ttm_pct": 7.99,
+      "yield_medio_anual_pct": 3.33
+    },
+    "FUNO11.MX": {
+      "grupo": "fibra",
+      "n_dividendos": 64,
+      "primera": "2011-05-23",
+      "ultima": "2026-08-07",
+      "yield_ttm_pct": 10.49,
+      "yield_medio_anual_pct": 6.97
+    },
+    "GCC.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 29,
+      "primera": "2003-05-08",
+      "ultima": "2026-05-11",
+      "yield_ttm_pct": 0.98,
+      "yield_medio_anual_pct": 0.82
+    },
+    "AMXB.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 56,
+      "primera": "2001-06-26",
+      "ultima": "2026-07-14",
+      "yield_ttm_pct": null,
+      "yield_medio_anual_pct": null
+    },
+    "CHDRAUIB.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 20,
+      "primera": "2011-04-05",
+      "ultima": "2026-04-22",
+      "yield_ttm_pct": null,
+      "yield_medio_anual_pct": null
+    },
+    "GFINBURO.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 20,
+      "primera": "2003-05-13",
+      "ultima": "2026-05-12",
+      "yield_ttm_pct": null,
+      "yield_medio_anual_pct": null
+    },
+    "VISTAA.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 0,
+      "primera": null,
+      "ultima": null,
+      "yield_ttm_pct": null,
+      "yield_medio_anual_pct": null
+    },
+    "ALFAA.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 0,
+      "primera": null,
+      "ultima": null,
+      "yield_ttm_pct": null,
+      "yield_medio_anual_pct": null
+    },
+    "KOFUBL.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 16,
+      "primera": "2019-04-30",
+      "ultima": "2026-10-12",
+      "yield_ttm_pct": null,
+      "yield_medio_anual_pct": null
+    },
+    "HOTEL.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 2,
+      "primera": "2023-05-29",
+      "ultima": "2026-06-25",
+      "yield_ttm_pct": 9.77,
+      "yield_medio_anual_pct": 2.28
+    },
+    "POSADASA.MX": {
+      "grupo": "bmv",
+      "n_dividendos": 11,
+      "primera": "2003-07-24",
+      "ultima": "2026-05-21",
+      "yield_ttm_pct": 1.19,
+      "yield_medio_anual_pct": 0.62
+    },
+    "FIBRAPL14.MX": {
+      "grupo": "fibra",
+      "n_dividendos": 52,
+      "primera": "2014-08-15",
+      "ultima": "2026-11-03",
+      "yield_ttm_pct": 5.7,
+      "yield_medio_anual_pct": 5.2
+    },
+    "FINN13.MX": {
+      "grupo": "fibra",
+      "n_dividendos": 40,
+      "primera": "2013-05-10",
+      "ultima": "2026-08-13",
+      "yield_ttm_pct": 9.71,
+      "yield_medio_anual_pct": 4.16
+    },
+    "AAPL": {
+      "grupo": "usa",
+      "n_dividendos": 92,
+      "primera": "1987-05-11",
+      "ultima": "2026-08-10",
+      "yield_ttm_pct": 0.47,
+      "yield_medio_anual_pct": 0.69
+    },
+    "MSFT": {
+      "grupo": "usa",
+      "n_dividendos": 91,
+      "primera": "2003-02-19",
+      "ultima": "2026-08-20",
+      "yield_ttm_pct": 1.2,
+      "yield_medio_anual_pct": 1.99
+    },
+    "NVDA": {
+      "grupo": "usa",
+      "n_dividendos": 56,
+      "primera": "2012-11-20",
+      "ultima": "2026-09-10",
+      "yield_ttm_pct": 0.28,
+      "yield_medio_anual_pct": 0.34
+    },
+    "GOOGL": {
+      "grupo": "usa",
+      "n_dividendos": 10,
+      "primera": "2024-06-10",
+      "ultima": "2026-09-04",
+      "yield_ttm_pct": 0.32,
+      "yield_medio_anual_pct": 0.04
+    },
+    "META": {
+      "grupo": "usa",
+      "n_dividendos": 11,
+      "primera": "2024-02-21",
+      "ultima": "2026-09-21",
+      "yield_ttm_pct": 0.48,
+      "yield_medio_anual_pct": 0.05
+    },
+    "AMZN": {
+      "grupo": "usa",
+      "n_dividendos": 0,
+      "primera": null,
+      "ultima": null,
+      "yield_ttm_pct": null,
+      "yield_medio_anual_pct": null
+    },
+    "TSLA": {
+      "grupo": "usa",
+      "n_dividendos": 0,
+      "primera": null,
+      "ultima": null,
+      "yield_ttm_pct": null,
+      "yield_medio_anual_pct": null
+    },
+    "AMD": {
+      "grupo": "usa",
+      "n_dividendos": 0,
+      "primera": null,
+      "ultima": null,
+      "yield_ttm_pct": null,
+      "yield_medio_anual_pct": null
+    },
+    "INTC": {
+      "grupo": "usa",
+      "n_dividendos": 128,
+      "primera": "1992-10-26",
+      "ultima": "2024-08-07",
+      "yield_ttm_pct": 0.0,
+      "yield_medio_anual_pct": 2.23
+    },
+    "JPM": {
+      "grupo": "usa",
+      "n_dividendos": 172,
+      "primera": "1984-03-09",
+      "ultima": "2026-10-06",
+      "yield_ttm_pct": 2.75,
+      "yield_medio_anual_pct": 2.81
+    },
+    "BAC": {
+      "grupo": "usa",
+      "n_dividendos": 162,
+      "primera": "1986-06-02",
+      "ultima": "2026-09-04",
+      "yield_ttm_pct": 2.49,
+      "yield_medio_anual_pct": 2.47
+    },
+    "GS": {
+      "grupo": "usa",
+      "n_dividendos": 110,
+      "primera": "1999-08-10",
+      "ultima": "2026-09-01",
+      "yield_ttm_pct": 2.16,
+      "yield_medio_anual_pct": 1.43
+    },
+    "V": {
+      "grupo": "usa",
+      "n_dividendos": 73,
+      "primera": "2008-08-13",
+      "ultima": "2026-08-11",
+      "yield_ttm_pct": 0.97,
+      "yield_medio_anual_pct": 0.72
+    },
+    "MA": {
+      "grupo": "usa",
+      "n_dividendos": 81,
+      "primera": "2006-10-05",
+      "ultima": "2026-10-09",
+      "yield_ttm_pct": 1.0,
+      "yield_medio_anual_pct": 0.48
+    },
+    "KO": {
+      "grupo": "usa",
+      "n_dividendos": 259,
+      "primera": "1962-03-13",
+      "ultima": "2026-09-15",
+      "yield_ttm_pct": 3.16,
+      "yield_medio_anual_pct": 2.85
+    },
+    "PEP": {
+      "grupo": "usa",
+      "n_dividendos": 219,
+      "primera": "1972-06-05",
+      "ultima": "2026-09-04",
+      "yield_ttm_pct": 5.11,
+      "yield_medio_anual_pct": 2.6
+    },
+    "MCD": {
+      "grupo": "usa",
+      "n_dividendos": 179,
+      "primera": "1968-05-24",
+      "ultima": "2026-09-01",
+      "yield_ttm_pct": 3.41,
+      "yield_medio_anual_pct": 2.55
+    },
+    "JNJ": {
+      "grupo": "usa",
+      "n_dividendos": 259,
+      "primera": "1962-02-13",
+      "ultima": "2026-08-25",
+      "yield_ttm_pct": 2.58,
+      "yield_medio_anual_pct": 2.65
+    },
+    "PFE": {
+      "grupo": "usa",
+      "n_dividendos": 217,
+      "primera": "1972-08-29",
+      "ultima": "2026-07-24",
+      "yield_ttm_pct": 8.85,
+      "yield_medio_anual_pct": 3.79
+    },
+    "XOM": {
+      "grupo": "usa",
+      "n_dividendos": 258,
+      "primera": "1962-02-07",
+      "ultima": "2026-08-17",
+      "yield_ttm_pct": 3.74,
+      "yield_medio_anual_pct": 3.2
+    },
+    "CVX": {
+      "grupo": "usa",
+      "n_dividendos": 229,
+      "primera": "1962-01-31",
+      "ultima": "2026-08-19",
+      "yield_ttm_pct": 5.12,
+      "yield_medio_anual_pct": 3.74
+    },
+    "AMX": {
+      "grupo": "usa",
+      "n_dividendos": 59,
+      "primera": "2001-06-25",
+      "ultima": "2026-07-14",
+      "yield_ttm_pct": 2.22,
+      "yield_medio_anual_pct": 1.92
+    },
+    "FMX": {
+      "grupo": "usa",
+      "n_dividendos": 50,
+      "primera": "1998-07-06",
+      "ultima": "2026-10-14",
+      "yield_ttm_pct": 5.72,
+      "yield_medio_anual_pct": 1.66
+    }
+  }
+}
