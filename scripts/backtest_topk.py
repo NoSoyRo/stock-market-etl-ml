@@ -50,6 +50,7 @@ MIN_NAMES = 10
 CAPITAL = 100_000
 DEFAULT_TOP_K = 2
 DEFAULT_MIN_P_UP = 0.56
+SEED = 42
 
 ScoreMode = Literal["p_up", "p_rel", "signal"]
 WeightMode = Literal["equal", "conviction"]
@@ -313,20 +314,21 @@ def run_topk_backtest(
     }
 
 
-def train_and_backtest(
+def build_test_panel(
     universe: str = "bmv",
-    top_k: int = DEFAULT_TOP_K,
     score_mode: ScoreMode = "p_up",
-    weight_mode: WeightMode = "equal",
     horizon: int = HORIZON,
-    commission_pct: float = Metrics.DEFAULT_COMMISSION_PCT,
-    slippage_pct: float = Metrics.DEFAULT_SLIPPAGE_PCT,
-    min_p_up: float = DEFAULT_MIN_P_UP,
-    cost_mode: CostMode = "turnover",
     entry: EntryMode = "open",
-) -> dict:
-    """Pipeline completo: cargar datos, entrenar ensemble, backtest top-K."""
-    tickers = load_universe_tickers(universe)
+    tickers: dict[str, str] | None = None,
+) -> tuple[pd.DataFrame, dict]:
+    """Entrena el ensemble (semillas fijas) y devuelve el panel de test con ``p_up``/``p_rel``.
+
+    Returns:
+        (test, info): ``test`` = filas del 20% final con las columnas de score; ``info`` =
+        AUC, columna objetivo, fechas y tamaños de train/test.
+    """
+    np.random.seed(SEED)
+    tickers = tickers if tickers is not None else load_universe_tickers(universe)
     df = build_panel(
         tickers,
         horizon=horizon,
@@ -356,6 +358,35 @@ def train_and_backtest(
         scores = test.apply(compute_signal_score, axis=1)
         test["signal_score"] = scores.apply(lambda x: x[0])
 
+    info = {
+        "auc": round(auc, 4),
+        "target_col": target_col,
+        "train_start": str(train.index.min().date()),
+        "train_end": str(train.index.max().date()),
+        "test_start": str(test.index.min().date()),
+        "test_end": str(test.index.max().date()),
+        "n_train": int(len(train)),
+        "n_test": int(len(test)),
+        "seed": SEED,
+    }
+    return test, info
+
+
+def train_and_backtest(
+    universe: str = "bmv",
+    top_k: int = DEFAULT_TOP_K,
+    score_mode: ScoreMode = "p_up",
+    weight_mode: WeightMode = "equal",
+    horizon: int = HORIZON,
+    commission_pct: float = Metrics.DEFAULT_COMMISSION_PCT,
+    slippage_pct: float = Metrics.DEFAULT_SLIPPAGE_PCT,
+    min_p_up: float = DEFAULT_MIN_P_UP,
+    cost_mode: CostMode = "turnover",
+    entry: EntryMode = "open",
+) -> dict:
+    """Pipeline completo: cargar datos, entrenar ensemble, backtest top-K."""
+    test, info = build_test_panel(universe, score_mode, horizon, entry)
+
     bt = run_topk_backtest(
         test,
         horizon=horizon,
@@ -368,16 +399,7 @@ def train_and_backtest(
         cost_mode=cost_mode,
     )
 
-    bt["model"] = {
-        "auc": round(auc, 4),
-        "target_col": target_col,
-        "train_start": str(train.index.min().date()),
-        "train_end": str(train.index.max().date()),
-        "test_start": str(test.index.min().date()),
-        "test_end": str(test.index.max().date()),
-        "n_train": int(len(train)),
-        "n_test": int(len(test)),
-    }
+    bt["model"] = info
     bt["universe"] = universe
     bt["generated_at"] = datetime.now().isoformat(timespec="seconds")
     return bt
