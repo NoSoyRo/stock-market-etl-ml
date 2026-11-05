@@ -120,6 +120,29 @@ def test_vol_falls_back_when_high_equals_low():
     assert rv.iloc[25] > 0 and np.isfinite(rv.iloc[25])
 
 
+def test_vol_is_nan_when_price_is_frozen():
+    """Etiqueta sin operaciones (precio congelado): vol futura NaN, no 0 ni el piso del log."""
+    df = _ohlc()
+    frozen = df.index[100:130]
+    df.loc[frozen, ["Open", "High", "Low", "Close"]] = df["Close"].iloc[99]
+    assert np.isnan(forward_realized_vol(df, 5).iloc[100])      # t+1..t+5 congelados
+    assert forward_realized_vol(df, 5).iloc[90] > 0             # ventana con movimiento
+    assert np.isnan(past_realized_vol(df, 5).iloc[110])         # feature: ventana congelada
+    assert past_realized_vol(df, 1).iloc[110] == 0              # 1d: día plano es un 0 legítimo
+
+
+def test_oscillators_stay_in_range_with_dirty_bars():
+    """Close fuera de [Low, High] con rango ~0 no debe disparar stoch/williams."""
+    from src.ml.features import compute_features
+    df = _ohlc()
+    bad = df.index[200:230]
+    df.loc[bad, ["High", "Low"]] = df.loc[bad, ["Low"]].values
+    df.loc[bad, "Close"] = df["Close"].iloc[199] * 1.05
+    f = compute_features(df)
+    assert f["stoch_k"].dropna().between(0, 100).all()
+    assert f["williams_r"].dropna().between(-100, 0).all()
+
+
 def test_har_recovers_persistent_signal():
     df = _ohlc(1000)
     X = extra_features(df).dropna()

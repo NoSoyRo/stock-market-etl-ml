@@ -82,7 +82,11 @@ def _daily_variance(df: pd.DataFrame) -> pd.Series:
 def past_realized_vol(df: pd.DataFrame, window: int) -> pd.Series:
     """Volatilidad anualizada de los últimos `window` días, hasta t inclusive."""
     var = _daily_variance(df)
-    return np.sqrt(var.rolling(window).mean() * TRADING_DAYS)
+    mean_var = var.rolling(window).mean()
+    if window > 1:
+        # Ventana sin operaciones (precio congelado): vol indefinida, no 0.
+        mean_var = mean_var.where(mean_var > 0)
+    return np.sqrt(mean_var * TRADING_DAYS)
 
 
 def forward_realized_vol(df: pd.DataFrame, horizon: int) -> pd.Series:
@@ -93,7 +97,8 @@ def forward_realized_vol(df: pd.DataFrame, horizon: int) -> pd.Series:
     """
     var = _daily_variance(df)
     fwd_mean = var.rolling(horizon).mean().shift(-horizon)
-    return np.sqrt(fwd_mean * TRADING_DAYS)
+    # Ventana sin operaciones (precio congelado): volatilidad indefinida, no 0.
+    return np.sqrt(fwd_mean.where(fwd_mean > 0) * TRADING_DAYS)
 
 
 # ─── Features extra (causales) ───────────────────────────────────────────────

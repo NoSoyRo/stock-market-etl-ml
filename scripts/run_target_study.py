@@ -102,7 +102,7 @@ def build_panel() -> pd.DataFrame:
         df = feat[FEATS].join(labels[name])
         df["ticker"] = name
         df["date"] = df.index
-        rows.append(df.dropna(subset=["log_rv_22d"]))
+        rows.append(df.dropna(subset=["log_rv_5d", "log_rv_22d"]))
     return pd.concat(rows, ignore_index=True).sort_values("date", kind="stable")
 
 
