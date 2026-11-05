@@ -22,6 +22,13 @@ Uso:
     python scripts/run_target_study.py                  # todo (~10-20 min)
     python scripts/run_target_study.py --fast           # 3 folds, menos árboles
     python scripts/run_target_study.py --targets log_rv_fwd_5 rel_21
+    python scripts/run_target_study.py --fast --entry next_open --horizon-mode business_days
+
+Alineación con la ejecución (M2a; los defaults conservan el estudio original):
+    --entry {close,next_open}            cierre a cierre o Open(t+1) → Close(t+1+h)
+    --horizon-mode {rows,business_days}  h filas del ticker o h días del calendario
+                                         común del universo (unión de fechas)
+    --out RUTA                           otro JSON de salida (default: el de abajo)
 
 Salida: data/eval/target_study.json
 """
@@ -55,8 +62,10 @@ from src.ml.features import (  # noqa: E402
     FEATURE_COLS, add_cross_section_features, add_macro_features, compute_features,
 )
 from src.ml.purged_cv import purged_walk_forward_date_splits  # noqa: E402
+from src.ml.shared.evaluators.cross_section import ic_by_date  # noqa: E402
 from src.ml.targets import (  # noqa: E402
-    EXTRA_FEATURE_COLS, build_targets, extra_features, is_regression, target_horizon,
+    EXTRA_FEATURE_COLS, build_targets, extra_features, is_regression, label_span,
+    target_horizon,
 )
 from src.ml.vol_models import HARModel, naive_forecast, regression_metrics  # noqa: E402
 
@@ -74,25 +83,41 @@ warnings.filterwarnings("ignore", category=UserWarning)
 
 # ─── Datos ───────────────────────────────────────────────────────────────────
 
-def build_panel() -> pd.DataFrame:
-    """Panel fecha × ticker con features (incl. cs_* y HAR) y todas las etiquetas."""
+def build_panel(entry: str = "close", horizon_mode: str = "rows") -> pd.DataFrame:
+    """
+    Panel fecha × ticker con features (incl. cs_* y HAR) y todas las etiquetas.
+
+    Incluye además `ret_<target>` (rendimiento subyacente) para el IC por fecha.
+    `horizon_mode="business_days"` usa como calendario común la unión de las
+    fechas de todos los tickers.
+    """
     macro = {n: store_get(n) for n in MACRO_TICKERS}
     macro = {k: v for k, v in macro.items() if v is not None}
     if "NAFTRAC" not in macro:
         raise RuntimeError("Falta data/market/NAFTRAC.MX.parquet (benchmark IPC)")
     bench = macro["NAFTRAC"]["Close"]
 
-    frames: dict[str, pd.DataFrame] = {}
-    labels: dict[str, pd.DataFrame] = {}
+    bench_open = macro["NAFTRAC"]["Open"] if entry == "next_open" else None
+
+    raws: dict[str, pd.DataFrame] = {}
     for name in BMV_TICKERS:
         raw = store_get(name)
-        if raw is None or len(raw) < 300:
-            continue
+        if raw is not None and len(raw) >= 300:
+            raws[name] = raw
+    calendar = None
+    if horizon_mode == "business_days":
+        calendar = pd.DatetimeIndex(sorted(set().union(*(r.index for r in raws.values()))))
+
+    frames: dict[str, pd.DataFrame] = {}
+    labels: dict[str, pd.DataFrame] = {}
+    for name, raw in raws.items():
         feat = compute_features(raw)
         feat = add_macro_features(feat, macro)
         feat = feat.join(extra_features(raw))
         frames[name] = feat
-        labels[name] = build_targets(raw, bench)
+        labels[name] = build_targets(
+            raw, bench, entry=entry, horizon_mode=horizon_mode, calendar=calendar,
+            bench_open=bench_open, return_cols=True)
 
     # Las cs_* comparan cada ticker contra el universo en la misma fecha.
     frames = add_cross_section_features(frames)
@@ -146,13 +171,16 @@ def regressors(n_trees: int) -> dict:
 # ─── Evaluación ──────────────────────────────────────────────────────────────
 
 def evaluate_target(panel: pd.DataFrame, target: str, n_splits: int,
-                    n_trees: int) -> dict:
-    h = target_horizon(target)
+                    n_trees: int, entry: str = "close") -> dict:
+    h = label_span(target, entry)       # con next_open la etiqueta vive un día más
     embargo = max(MIN_EMBARGO, h)
     data = panel.dropna(subset=[target]).reset_index(drop=True)
     X = data[FEATS]
     y = data[target].to_numpy()
     reg = is_regression(target)
+    # Rendimiento subyacente para el IC por fecha (solo clasificación).
+    ret_col = f"ret_{target}"
+    ret = data[ret_col].to_numpy() if (not reg and ret_col in data) else None
 
     folds: list[dict] = []
     splits = purged_walk_forward_date_splits(
@@ -182,13 +210,18 @@ def evaluate_target(panel: pd.DataFrame, target: str, n_splits: int,
             for name, model in classifiers(n_trees).items():
                 model.fit(X_tr, y_tr.astype(int))
                 p = model.predict_proba(X_te)[:, 1]
-                fold["models"][name] = {"auc": float(roc_auc_score(y_te.astype(int), p))}
+                fold["models"][name] = {
+                    "auc": float(roc_auc_score(y_te.astype(int), p)),
+                    "ic": _fold_ic(test_dates, p, ret[te]) if ret is not None else np.nan,
+                }
         folds.append(fold)
 
     return {
         "target": target,
         "task": "regression" if reg else "classification",
-        "horizon_days": h,
+        "horizon_days": target_horizon(target),
+        "label_span_days": h,
+        "entry": entry,
         "embargo_days": embargo,
         "n_obs": int(len(data)),
         "summary": summarize(folds, reg),
@@ -196,8 +229,15 @@ def evaluate_target(panel: pd.DataFrame, target: str, n_splits: int,
     }
 
 
+def _fold_ic(dates: pd.Series, score: np.ndarray, ret: np.ndarray) -> float:
+    """IC de Spearman promedio por fecha entre la probabilidad y el rendimiento."""
+    panel = pd.DataFrame({"score": score, "ret": ret}, index=pd.DatetimeIndex(dates))
+    ic = ic_by_date(panel, "score", "ret")
+    return float(ic.mean()) if len(ic) else float("nan")
+
+
 def summarize(folds: list[dict], reg: bool) -> dict:
-    metrics = ["skill_vs_naive", "qlike", "spearman", "r2"] if reg else ["auc"]
+    metrics = ["skill_vs_naive", "qlike", "spearman", "r2"] if reg else ["auc", "ic"]
     out: dict[str, dict] = {}
     for model in folds[0]["models"]:
         out[model] = {}
@@ -215,9 +255,10 @@ def print_result(res: dict) -> None:
           f"embargo {res['embargo_days']}d, {res['n_obs']:,} obs, "
           f"~{indep:.0f} periodos independientes en test)")
     if res["task"] == "classification":
-        print(f"   {'modelo':<10} {'AUC':>14}")
+        print(f"   {'modelo':<10} {'AUC':>14} {'IC/fecha':>9}")
         for model, v in s.items():
-            print(f"   {model:<10} {v['auc_mean']:.4f} ± {v['auc_std']:.4f}")
+            print(f"   {model:<10} {v['auc_mean']:.4f} ± {v['auc_std']:.4f} "
+                  f"{v['ic_mean']:>+9.4f}")
     else:
         print(f"   {'modelo':<10} {'skill vs ing.':>14} {'QLIKE':>8} {'Spearman':>9} {'R²':>7}")
         for model, v in s.items():
@@ -230,6 +271,9 @@ def main() -> None:
     parser.add_argument("--targets", nargs="+", default=ALL_TARGETS, choices=ALL_TARGETS)
     parser.add_argument("--splits", type=int, default=6)
     parser.add_argument("--trees", type=int, default=300)
+    parser.add_argument("--entry", choices=["close", "next_open"], default="close")
+    parser.add_argument("--horizon-mode", choices=["rows", "business_days"], default="rows")
+    parser.add_argument("--out", type=Path, default=OUT_PATH, help="JSON de salida")
     parser.add_argument("--fast", action="store_true", help="3 folds y 100 árboles")
     args = parser.parse_args()
     if args.fast:
@@ -240,25 +284,29 @@ def main() -> None:
     print("  ESTUDIO DE OBJETIVOS  |  Purged Walk-Forward CV por fechas")
     print(f"  {args.splits} folds  |  {args.trees} árboles  |  LR · LightGBM · XGBoost")
     print("=" * 66)
+    print(f"  entrada: {args.entry}  |  horizonte: {args.horizon_mode}")
     print("\nConstruyendo panel BMV...")
-    panel = build_panel()
+    panel = build_panel(args.entry, args.horizon_mode)
     print(f"   {len(panel):,} filas · {panel['ticker'].nunique()} tickers · "
           f"{panel['date'].min().date()} → {panel['date'].max().date()}")
 
     results = []
     for target in args.targets:
-        res = evaluate_target(panel, target, args.splits, args.trees)
+        res = evaluate_target(panel, target, args.splits, args.trees, args.entry)
         print_result(res)
         results.append(res)
 
-    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUT_PATH.write_text(json.dumps({
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+    args.out.write_text(json.dumps({
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "config": {"splits": args.splits, "trees": args.trees, "seed": SEED,
-                   "n_jobs": N_JOBS, "features": FEATS},
+                   "n_jobs": N_JOBS, "features": FEATS,
+                   "entry": args.entry, "horizon_mode": args.horizon_mode},
         "results": results,
     }, indent=2))
-    print(f"\nGuardado: {OUT_PATH.relative_to(ROOT)}  ({time.time() - t0:.0f}s)")
+    out = args.out.resolve()
+    shown = out.relative_to(ROOT) if ROOT in out.parents else out
+    print(f"\nGuardado: {shown}  ({time.time() - t0:.0f}s)")
 
 
 if __name__ == "__main__":
