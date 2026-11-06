@@ -214,27 +214,46 @@ def build_signal(
     features:     dict  | None = None,
     kelly_frac:   float = 0.25,
     max_position: float = 0.10,
+    sigma_daily:  float | None = None,
+    payoffs:      tuple[float, float] | None = None,
 ) -> Signal | None:
     """
     Construye una señal de trading completa con sizing y niveles.
 
     Returns None si p_up < 0.50 o el EV del trade es negativo.
+
+    M8 (opcionales; con None conservan el comportamiento histórico):
+      sigma_daily : σ̂ diaria (fracción) → stop/targets = entry·(1 ∓ k·σ̂·√5) en vez de ATR.
+      payoffs     : `stops.Payoffs` (o tupla win, loss en %) estimados del train → Kelly
+                    y EV con esos pagos en vez de HIST_AVG_WIN/LOSS.
     """
     if p_up < 0.50:
         return None
 
-    ev = expected_value(p_up, HIST_AVG_WIN, HIST_AVG_LOSS)
+    avg_win, avg_loss = (HIST_AVG_WIN, HIST_AVG_LOSS) if payoffs is None else tuple(payoffs)
+    ev = expected_value(p_up, avg_win, avg_loss)
     if ev <= 0:
         return None
 
     # Sizing
-    f_kelly  = kelly_fraction(p_up, kelly_frac=kelly_frac, max_f=max_position)
+    if payoffs is None:
+        f_kelly = kelly_fraction(p_up, kelly_frac=kelly_frac, max_f=max_position)
+    else:
+        from src.ml.stops import Payoffs, kelly_fraction_estimated
+        f_kelly = kelly_fraction_estimated(
+            p_up, Payoffs(*payoffs), kelly_frac=kelly_frac, max_f=max_position)
     f_adj    = f_kelly * corr_factor
     shares, capital_invested = position_size(capital_mxn, f_adj, price)
 
     # Niveles
     entry             = round(price * 1.0025, 2)  # +0.25% de slippage estimado
-    stop, t1, t2      = atr_stop(entry, atr, mult_stop=1.5, mult_t1=1.5, mult_t2=3.0)
+    if sigma_daily is None:
+        stop, t1, t2  = atr_stop(entry, atr, mult_stop=1.5, mult_t1=1.5, mult_t2=3.0)
+    else:
+        from src.ml.stops import sigma_stop_levels
+        stop, t1 = sigma_stop_levels(entry, sigma_daily, HIST_HORIZON, 1.0, 1.0)
+        _, t2    = sigma_stop_levels(entry, sigma_daily, HIST_HORIZON, 1.0, 2.0)
+        stop, t1, t2 = round(stop, 2), round(t1, 2), round(t2, 2)
     rr                = r_multiple(entry, stop, t1)
     risk_pct_capital  = round((entry - stop) / entry * f_adj * 100, 3)
 
