@@ -158,8 +158,8 @@ def evaluate_purged_cv(df: pd.DataFrame) -> dict:
     # Deflated Sharpe: número de trials = n_folds × n_features (múltiples pruebas)
     mean_sharpe = np.mean(sharpes)
     n_trials    = N_SPLITS * len(all_feature_cols)
-    n_obs       = int(np.mean([f["n_test"] for f in folds_results]))
-    dsr         = deflated_sharpe_ratio(mean_sharpe, n_trials, n_obs)
+    n_obs       = int(np.mean([f["n_signals"] for f in folds_results]))
+    dsr         = dsr_from_fold_sharpes(sharpes, HORIZON, n_trials, n_obs)
 
     aggregate = {
         "mean_auc":   round(np.mean(aucs), 4),
@@ -178,6 +178,21 @@ def evaluate_purged_cv(df: pd.DataFrame) -> dict:
     return {"folds": folds_results, "aggregate": aggregate,
             "meta": {"n_splits": N_SPLITS, "embargo": EMBARGO, "horizon": HORIZON,
                      "n_features": len(all_feature_cols)}}
+
+
+def dsr_from_fold_sharpes(annual_sharpes, horizon: int, n_trials: int, n_obs: int) -> float:
+    """DSR a partir de Sharpes de fold ANUALIZADOS (×√(252/horizon)).
+
+    `deflated_sharpe_ratio` exige Sharpe POR PERIODO: se des-anualiza aquí, y
+    `sr_std` es la desviación (ddof=1) del Sharpe por periodo entre folds.
+    `n_obs` = nº de observaciones (señales) detrás de cada Sharpe.
+    """
+    per = np.asarray(annual_sharpes, dtype=float) / np.sqrt(252 / horizon)
+    sr_std = float(per.std(ddof=1)) if len(per) > 1 else None
+    if sr_std is not None and sr_std <= 0:
+        sr_std = None
+    return float(deflated_sharpe_ratio(float(per.mean()), n_trials, max(int(n_obs), 2),
+                                       sr_std=sr_std))
 
 
 # ─── MAIN ─────────────────────────────────────────────────────────────────────
