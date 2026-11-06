@@ -1,0 +1,532 @@
+{
+  "generated_at": "2026-11-06T00:48:59.043785+00:00",
+  "config": {
+    "splits": 3,
+    "seed": 0,
+    "boot": 2000,
+    "criterio": "conserva si \u0394skill \u2265 0.01 (promedio de folds); robusto si IC95% > 0",
+    "ensayos": 8,
+    "comparaciones": 16,
+    "objetivo": "Parkinson (targets.log_rv_fwd_*)"
+  },
+  "baseline_check": {
+    "log_rv_fwd_5": {
+      "skill_har": 0.3011,
+      "n_obs": 147549,
+      "skill_target_study": 0.3011,
+      "ok": true
+    },
+    "log_rv_fwd_21": {
+      "skill_har": 0.1865,
+      "n_obs": 147847,
+      "skill_target_study": 0.1865,
+      "ok": true
+    }
+  },
+  "results": [
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "log_gap2_1d",
+        "log_gap2_5d"
+      ],
+      "n_obs": 147528,
+      "n_blocks": 335,
+      "block_dates": 10,
+      "skill_base": 0.3011041351376396,
+      "skill_reg": 0.29459284494474414,
+      "delta_skill_fold_mean": -0.0065112901928954985,
+      "delta_skill_fold_std": 0.002586101647424159,
+      "delta_skill_pooled": -0.006487261268416054,
+      "delta_ci_lo": -0.0090560559126161,
+      "delta_ci_hi": -0.0038885015960480433,
+      "dm_t": -4.900958703220247,
+      "dm_p": 1.490252847769119e-06,
+      "qlike_base": 0.2800163138770117,
+      "qlike_reg": 0.2820112815543892,
+      "delta_qlike": -0.0019949676773775016,
+      "fold_deltas": [
+        -0.00384514492719501,
+        -0.010012457533744468,
+        -0.005676268117747019
+      ],
+      "name": "overnight",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "log_gk_5d",
+        "log_gk_22d"
+      ],
+      "n_obs": 144949,
+      "n_blocks": 335,
+      "block_dates": 10,
+      "skill_base": 0.297253401310388,
+      "skill_reg": 0.2989731431459009,
+      "delta_skill_fold_mean": 0.0017197418355128595,
+      "delta_skill_fold_std": 0.002604139527473827,
+      "delta_skill_pooled": 0.0018866846400021125,
+      "delta_ci_lo": 0.0005876452571047625,
+      "delta_ci_hi": 0.003227646519343594,
+      "dm_t": 2.5846887647824683,
+      "dm_p": 0.010170405541110733,
+      "qlike_base": 0.2675427986970705,
+      "qlike_reg": 0.26296323497052204,
+      "delta_qlike": 0.004579563726548441,
+      "fold_deltas": [
+        0.0031987362118038876,
+        0.0039011598710604334,
+        -0.0019406705763257426
+      ],
+      "name": "garman_klass",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "log_rs_5d",
+        "log_rs_22d"
+      ],
+      "n_obs": 144949,
+      "n_blocks": 335,
+      "block_dates": 10,
+      "skill_base": 0.297253401310388,
+      "skill_reg": 0.29647399938613356,
+      "delta_skill_fold_mean": -0.0007794019242544451,
+      "delta_skill_fold_std": 0.0013950794347972989,
+      "delta_skill_pooled": -0.0008347455877595332,
+      "delta_ci_lo": -0.00155052845772323,
+      "delta_ci_hi": -0.00023330345810703963,
+      "dm_t": -2.2988092799046442,
+      "dm_p": 0.02213271954142665,
+      "qlike_base": 0.2675427986970705,
+      "qlike_reg": 0.26845391033321486,
+      "delta_qlike": -0.0009111116361443794,
+      "fold_deltas": [
+        -0.0007965491631759525,
+        -0.0024793801545306415,
+        0.0009377235449432586
+      ],
+      "name": "rogers_satchell",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "log_semi_dn_5d",
+        "log_semi_dn_22d",
+        "log_semi_up_22d"
+      ],
+      "n_obs": 147526,
+      "n_blocks": 335,
+      "block_dates": 10,
+      "skill_base": 0.30114423967297904,
+      "skill_reg": 0.30096414463068516,
+      "delta_skill_fold_mean": -0.00018009504229388185,
+      "delta_skill_fold_std": 0.0029770308495269174,
+      "delta_skill_pooled": -0.00012833565992725524,
+      "delta_ci_lo": -0.00437508059730865,
+      "delta_ci_hi": 0.005167541941470015,
+      "dm_t": -0.13104531302239678,
+      "dm_p": 0.8958183579806954,
+      "qlike_base": 0.27991087490750266,
+      "qlike_reg": 0.27381936541496604,
+      "delta_qlike": 0.0060915094925366176,
+      "fold_deltas": [
+        0.0008922078391002675,
+        0.002809614251137349,
+        -0.004242107217119262
+      ],
+      "name": "semivar",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "vol_z60",
+        "gap_sigma",
+        "range_atr"
+      ],
+      "n_obs": 145220,
+      "n_blocks": 333,
+      "block_dates": 10,
+      "skill_base": 0.302330254080789,
+      "skill_reg": 0.30217254012659284,
+      "delta_skill_fold_mean": -0.0001577139541961333,
+      "delta_skill_fold_std": 0.0008827521353017276,
+      "delta_skill_pooled": -0.00014608627885469587,
+      "delta_ci_lo": -0.0015844866903586409,
+      "delta_ci_hi": 0.0012579326001257878,
+      "dm_t": -0.2698195926067957,
+      "dm_p": 0.7874666794637597,
+      "qlike_base": 0.27312811280334937,
+      "qlike_reg": 0.2750992093500844,
+      "delta_qlike": -0.0019710965467350516,
+      "fold_deltas": [
+        -0.0004876652341804233,
+        0.001049963039586821,
+        -0.0010354396679947975
+      ],
+      "name": "attention",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "absorption_z"
+      ],
+      "n_obs": 121628,
+      "n_blocks": 224,
+      "block_dates": 10,
+      "skill_base": 0.2958086072111166,
+      "skill_reg": 0.29685321437359374,
+      "delta_skill_fold_mean": 0.001044607162477081,
+      "delta_skill_fold_std": 0.010447282676913522,
+      "delta_skill_pooled": 0.0008996608853376699,
+      "delta_ci_lo": -0.004996979560895917,
+      "delta_ci_hi": 0.007670019858522002,
+      "dm_t": 0.29485721097776535,
+      "dm_p": 0.76837727686896,
+      "qlike_base": 0.289966248736544,
+      "qlike_reg": 0.2808204892233131,
+      "delta_qlike": 0.009145759513230878,
+      "fold_deltas": [
+        -0.005149667585161555,
+        -0.007474700413002022,
+        0.01575818948559482
+      ],
+      "name": "absorption",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "dispersion_z"
+      ],
+      "n_obs": 134335,
+      "n_blocks": 270,
+      "block_dates": 10,
+      "skill_base": 0.2958716047288889,
+      "skill_reg": 0.29580250481890286,
+      "delta_skill_fold_mean": -6.909990998608488e-05,
+      "delta_skill_fold_std": 0.003350690087913989,
+      "delta_skill_pooled": -7.015030529816313e-05,
+      "delta_ci_lo": -0.003385174992527879,
+      "delta_ci_hi": 0.0035665822338655814,
+      "dm_t": -0.04839939059573742,
+      "dm_p": 0.9614338596557921,
+      "qlike_base": 0.2859249984143463,
+      "qlike_reg": 0.28040147220083844,
+      "delta_qlike": 0.005523526213507879,
+      "fold_deltas": [
+        -0.004379379699198438,
+        0.003790974646681433,
+        0.0003811053225587502
+      ],
+      "name": "dispersion",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "log_gap2_1d",
+        "log_gap2_5d",
+        "log_gk_5d",
+        "log_gk_22d",
+        "log_rs_5d",
+        "log_rs_22d",
+        "log_semi_dn_5d",
+        "log_semi_dn_22d",
+        "log_semi_up_22d",
+        "vol_z60",
+        "gap_sigma",
+        "range_atr",
+        "absorption_z",
+        "dispersion_z"
+      ],
+      "n_obs": 119567,
+      "n_blocks": 224,
+      "block_dates": 10,
+      "skill_base": 0.2956508963957925,
+      "skill_reg": 0.3029144983765931,
+      "delta_skill_fold_mean": 0.007263601980800634,
+      "delta_skill_fold_std": 0.012328445375133171,
+      "delta_skill_pooled": 0.006671125101443014,
+      "delta_ci_lo": -0.002548566328671191,
+      "delta_ci_hi": 0.01891986281732306,
+      "dm_t": 1.2367292286688825,
+      "dm_p": 0.2174884961708605,
+      "qlike_base": 0.2720481268868961,
+      "qlike_reg": 0.2546039445056,
+      "delta_qlike": 0.017444182381296136,
+      "fold_deltas": [
+        0.0018510221972737328,
+        -0.004383290113207594,
+        0.024323073858335764
+      ],
+      "name": "todos",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "log_gap2_1d",
+        "log_gap2_5d"
+      ],
+      "n_obs": 147826,
+      "n_blocks": 80,
+      "block_dates": 42,
+      "skill_base": 0.18648735533004646,
+      "skill_reg": 0.1774807512383415,
+      "delta_skill_fold_mean": -0.00900660409170495,
+      "delta_skill_fold_std": 0.016388103612337446,
+      "delta_skill_pooled": -0.010624195302697708,
+      "delta_ci_lo": -0.02122047134704401,
+      "delta_ci_hi": -3.524888782028603e-05,
+      "dm_t": -1.7931221918459672,
+      "dm_p": 0.07678069697146872,
+      "qlike_base": 0.177260049591903,
+      "qlike_reg": 0.17439001088742767,
+      "delta_qlike": 0.0028700387044753306,
+      "fold_deltas": [
+        -0.018179389328700224,
+        -0.02285251784707254,
+        0.014012094900657912
+      ],
+      "name": "overnight",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "log_gk_5d",
+        "log_gk_22d"
+      ],
+      "n_obs": 145190,
+      "n_blocks": 80,
+      "block_dates": 42,
+      "skill_base": 0.1901750890011921,
+      "skill_reg": 0.19331765414105653,
+      "delta_skill_fold_mean": 0.0031425651398644394,
+      "delta_skill_fold_std": 0.004075567633966761,
+      "delta_skill_pooled": 0.003495473617174679,
+      "delta_ci_lo": 0.0017845642626159496,
+      "delta_ci_hi": 0.005381171707648259,
+      "dm_t": 3.6182631540805104,
+      "dm_p": 0.0005211890956259813,
+      "qlike_base": 0.16901016743995878,
+      "qlike_reg": 0.16773644637799834,
+      "delta_qlike": 0.0012737210619604422,
+      "fold_deltas": [
+        0.008336852316039867,
+        0.002708732176056272,
+        -0.0016178890725028205
+      ],
+      "name": "garman_klass",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "log_rs_5d",
+        "log_rs_22d"
+      ],
+      "n_obs": 145190,
+      "n_blocks": 80,
+      "block_dates": 42,
+      "skill_base": 0.1901750890011921,
+      "skill_reg": 0.18703300568454864,
+      "delta_skill_fold_mean": -0.0031420833166434514,
+      "delta_skill_fold_std": 0.0066363732140977336,
+      "delta_skill_pooled": -0.003947208493833387,
+      "delta_ci_lo": -0.007242596178663832,
+      "delta_ci_hi": -0.000734924656469828,
+      "dm_t": -2.142147638687753,
+      "dm_p": 0.03526161162480586,
+      "qlike_base": 0.16901016743995878,
+      "qlike_reg": 0.17064922311709751,
+      "delta_qlike": -0.0016390556771387343,
+      "fold_deltas": [
+        -0.008729738100555884,
+        -0.006878628017229604,
+        0.006182116167855134
+      ],
+      "name": "rogers_satchell",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "log_semi_dn_5d",
+        "log_semi_dn_22d",
+        "log_semi_up_22d"
+      ],
+      "n_obs": 147824,
+      "n_blocks": 80,
+      "block_dates": 42,
+      "skill_base": 0.18642768216178085,
+      "skill_reg": 0.18473924184853166,
+      "delta_skill_fold_mean": -0.0016884403132491805,
+      "delta_skill_fold_std": 0.0032093266289605557,
+      "delta_skill_pooled": -0.0017534210081977758,
+      "delta_ci_lo": -0.009674873329806878,
+      "delta_ci_hi": 0.0073179797149535465,
+      "dm_t": -0.3573557030558082,
+      "dm_p": 0.7217784326727906,
+      "qlike_base": 0.1772217210965983,
+      "qlike_reg": 0.1695166721286608,
+      "delta_qlike": 0.0077050489679375,
+      "fold_deltas": [
+        -0.006174460165654372,
+        -4.241073002519968e-05,
+        0.0011515499559320297
+      ],
+      "name": "semivar",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "vol_z60",
+        "gap_sigma",
+        "range_atr"
+      ],
+      "n_obs": 145199,
+      "n_blocks": 79,
+      "block_dates": 42,
+      "skill_base": 0.19055079951292775,
+      "skill_reg": 0.19031172571702704,
+      "delta_skill_fold_mean": -0.00023907379590071276,
+      "delta_skill_fold_std": 0.002562176639879346,
+      "delta_skill_pooled": -0.0004941852603066646,
+      "delta_ci_lo": -0.003240763076568622,
+      "delta_ci_hi": 0.002108461031315239,
+      "dm_t": -0.2977569680466481,
+      "dm_p": 0.7666803063889277,
+      "qlike_base": 0.1725629456571525,
+      "qlike_reg": 0.17364615765576263,
+      "delta_qlike": -0.0010832119986101396,
+      "fold_deltas": [
+        -0.00218474395429058,
+        -0.0019134824582185406,
+        0.0033810050248069823
+      ],
+      "name": "attention",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "absorption_z"
+      ],
+      "n_obs": 121637,
+      "n_blocks": 54,
+      "block_dates": 42,
+      "skill_base": 0.1810751569867516,
+      "skill_reg": 0.17761247578339592,
+      "delta_skill_fold_mean": -0.0034626812033556886,
+      "delta_skill_fold_std": 0.01897257276926233,
+      "delta_skill_pooled": -0.0010425754015463248,
+      "delta_ci_lo": -0.015528263853243676,
+      "delta_ci_hi": 0.018305539956932588,
+      "dm_t": -0.0851105257604052,
+      "dm_p": 0.9324942191244934,
+      "qlike_base": 0.1791539920277899,
+      "qlike_reg": 0.17459148081091355,
+      "delta_qlike": 0.0045625112168763415,
+      "fold_deltas": [
+        -0.015249671542081678,
+        -0.01844352243766112,
+        0.02330515036967573
+      ],
+      "name": "absorption",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "dispersion_z"
+      ],
+      "n_obs": 134438,
+      "n_blocks": 65,
+      "block_dates": 42,
+      "skill_base": 0.1900924800360142,
+      "skill_reg": 0.18625305135642686,
+      "delta_skill_fold_mean": -0.003839428679587346,
+      "delta_skill_fold_std": 0.005503789965974785,
+      "delta_skill_pooled": -0.0033972544709541517,
+      "delta_ci_lo": -0.009749570093848811,
+      "delta_ci_hi": 0.0026639583908541617,
+      "dm_t": -0.9920768084832875,
+      "dm_p": 0.32489616573137375,
+      "qlike_base": 0.17529054263204377,
+      "qlike_reg": 0.17485002112251413,
+      "delta_qlike": 0.00044052150952964,
+      "fold_deltas": [
+        -0.007393654715732945,
+        0.003934613881788063,
+        -0.008059245204817156
+      ],
+      "name": "dispersion",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "log_gap2_1d",
+        "log_gap2_5d",
+        "log_gk_5d",
+        "log_gk_22d",
+        "log_rs_5d",
+        "log_rs_22d",
+        "log_semi_dn_5d",
+        "log_semi_dn_22d",
+        "log_semi_up_22d",
+        "vol_z60",
+        "gap_sigma",
+        "range_atr",
+        "absorption_z",
+        "dispersion_z"
+      ],
+      "n_obs": 119487,
+      "n_blocks": 54,
+      "block_dates": 42,
+      "skill_base": 0.18449123373880894,
+      "skill_reg": 0.19407148052835912,
+      "delta_skill_fold_mean": 0.009580246789550198,
+      "delta_skill_fold_std": 0.00937706776974868,
+      "delta_skill_pooled": 0.010773050397025216,
+      "delta_ci_lo": -0.007770435324942709,
+      "delta_ci_hi": 0.03194482952219407,
+      "dm_t": 0.8202697770905801,
+      "dm_p": 0.4157363017217205,
+      "qlike_base": 0.17017747985533813,
+      "qlike_reg": 0.16828615164770191,
+      "delta_qlike": 0.0018913282076362115,
+      "fold_deltas": [
+        0.008595264283361548,
+        -0.0013800545004239995,
+        0.02152553058571305
+      ],
+      "name": "todos",
+      "verdict": "descarta"
+    }
+  ]
+}
