@@ -26,6 +26,7 @@ ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 warnings.filterwarnings("ignore")
 
+from src.data.quality import apply_mask, load_quality_mask
 from src.data.store import UNIVERSE_GROUPS, get as store_get, MACRO_TICKERS
 from src.ml.features import (
     FEATURE_COLS,
@@ -57,6 +58,8 @@ WeightMode = Literal["equal", "conviction"]
 CostMode = Literal["turnover", "fixed"]
 EntryMode = Literal["open", "close"]
 SENSITIVITY_COSTS = (0.001, 0.0015, 0.003, 0.005)
+MAX_ABS_FWD_RET = 100.0   # guardián de M3c: |fwd_ret| > 100 % es dato basura, no mercado
+DROP_RULES = ("mask_invalid", "open_nonpos", "fwd_ret_outlier")
 
 
 def load_universe_tickers(universe: str) -> dict[str, str]:
@@ -70,16 +73,77 @@ def load_universe_tickers(universe: str) -> dict[str, str]:
     return tickers
 
 
+def clean_ticker_rows(
+    feat: pd.DataFrame, raw_open: pd.Series, mask: pd.DataFrame, symbol: str
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Quita las filas basura de un ticker (M3c). Devuelve (filas_conservadas, descartes).
+
+    Reglas, evaluadas por separado (una fila puede caer en varias):
+      - ``mask_invalid``: la máscara de M3a la marca no válida (``illiquid`` NO excluye).
+      - ``open_nonpos``: Open ≤ 0 en esa fecha (guardián independiente de la máscara).
+      - ``fwd_ret_outlier``: ``fwd_ret`` no finito o |fwd_ret| > 100 %.
+    Un ``fwd_ret`` NaN (últimas filas sin futuro) no es outlier. ``descartes`` tiene una
+    fila por fecha eliminada y una columna booleana por regla, pero solo de filas que SÍ
+    habrían entrado al panel (features propias y ``fwd_ret`` no nulos); las de calentamiento
+    o sin futuro se eliminan igual pero no se cuentan.
+    """
+    kept_by_mask = feat.index.isin(apply_mask(feat, mask, symbol).index)
+    open_ = raw_open.reindex(feat.index)
+    fr = feat["fwd_ret"]
+    flags = pd.DataFrame(
+        {
+            "mask_invalid": ~kept_by_mask,
+            "open_nonpos": (open_ <= 0).to_numpy(),
+            "fwd_ret_outlier": (fr.notna() & ~(fr.abs() <= MAX_ABS_FWD_RET)).to_numpy(),
+        },
+        index=feat.index,
+    )
+    bad = flags.any(axis=1).to_numpy()
+    own = [c for c in FEATURE_COLS if c in feat.columns] + ["fwd_ret"]
+    # inf cuenta como presente (notna), así que el outlier por Open≈0 sí se reporta
+    relevant = feat[own].notna().all(axis=1).to_numpy()
+    return feat[~bad], flags[bad & relevant]
+
+
+def summarize_mask_drops(drops: pd.DataFrame, cut: pd.Timestamp) -> dict:
+    """Filas y tickers descartados por regla, separando train (< cut) y test (≥ cut)."""
+    out: dict = {}
+    for tag, part in (
+        ("train", drops[drops["date"] < cut]),
+        ("test", drops[drops["date"] >= cut]),
+    ):
+        block = {
+            r: {"rows": int(part[r].sum()), "tickers": int(part.loc[part[r], "ticker"].nunique())}
+            for r in DROP_RULES
+        }
+        block["rows_total"] = int(len(part))
+        block["tickers_total"] = int(part["ticker"].nunique())
+        out[tag] = block
+    return out
+
+
 def build_panel(
     tickers: dict[str, str],
     horizon: int = HORIZON,
     score_mode: ScoreMode = "p_up",
     use_open_entry: bool = True,
+    use_mask: bool = False,
+    mask: pd.DataFrame | None = None,
+    drops_out: list | None = None,
 ) -> pd.DataFrame:
     """Dataset panel con features, retorno futuro y targets.
 
     ``use_open_entry``: True entra al open del día siguiente; False, al close.
+    ``use_mask``: True descarta filas basura (máscara de M3a + Open ≤ 0 + |fwd_ret| > 100 %)
+    ANTES de las features cross-seccionales. Default False = comportamiento previo.
+    ``mask``: máscara ya cargada (por defecto ``load_quality_mask()``).
+    ``drops_out``: lista a la que se agrega un DataFrame con el detalle de lo descartado
+    (columnas ticker, date y una booleana por regla). No va en ``df.attrs`` porque un
+    DataFrame ahí rompe ``pd.concat`` aguas abajo.
     """
+    if use_mask and mask is None:
+        mask = load_quality_mask()
+    drops_parts: list[pd.DataFrame] = []
     macro = {n: store_get(n) for n in MACRO_TICKERS}
     macro = {k: v for k, v in macro.items() if v is not None}
 
@@ -92,6 +156,12 @@ def build_panel(
             feat = compute_features(raw)
             feat = add_macro_features(feat, macro)
             feat["fwd_ret"] = compute_target(raw, horizon=horizon, use_open_entry=use_open_entry)
+            if use_mask:
+                feat, dropped = clean_ticker_rows(feat, raw["Open"], mask, tickers.get(name, name))
+                if len(dropped):
+                    drops_parts.append(
+                        dropped.rename_axis("date").reset_index().assign(ticker=name)
+                    )
             feat["y"] = (feat["fwd_ret"] > 0).astype(int)
             feat["ticker"] = name
             if score_mode == "signal":
@@ -112,6 +182,12 @@ def build_panel(
     df["uni_med"] = df.groupby(df.index)["fwd_ret"].transform("median")
     df = df[df["uni_n"] >= MIN_NAMES]
     df["y_rel"] = (df["fwd_ret"] > df["uni_med"]).astype(int)
+    if use_mask and drops_out is not None:
+        cols = ["ticker", "date", *DROP_RULES]
+        drops_out.append(
+            pd.concat(drops_parts, ignore_index=True)[cols]
+            if drops_parts else pd.DataFrame(columns=cols).astype({r: bool for r in DROP_RULES})
+        )
     return df
 
 
@@ -320,8 +396,12 @@ def build_test_panel(
     horizon: int = HORIZON,
     entry: EntryMode = "open",
     tickers: dict[str, str] | None = None,
+    use_mask: bool = False,
 ) -> tuple[pd.DataFrame, dict]:
     """Entrena el ensemble (semillas fijas) y devuelve el panel de test con ``p_up``/``p_rel``.
+
+    ``use_mask`` (default False) pasa a ``build_panel``; con True, ``info["mask_drops"]``
+    resume las filas descartadas por regla en train y test.
 
     Returns:
         (test, info): ``test`` = filas del 20% final con las columnas de score; ``info`` =
@@ -329,11 +409,14 @@ def build_test_panel(
     """
     np.random.seed(SEED)
     tickers = tickers if tickers is not None else load_universe_tickers(universe)
+    drops_out: list[pd.DataFrame] = []
     df = build_panel(
         tickers,
         horizon=horizon,
         score_mode=score_mode,
         use_open_entry=(entry == "open"),
+        use_mask=use_mask,
+        drops_out=drops_out,
     ).sort_index()
 
     cut = df.index[int(len(df) * TRAIN_RATIO)]
@@ -369,6 +452,8 @@ def build_test_panel(
         "n_test": int(len(test)),
         "seed": SEED,
     }
+    if drops_out:
+        info["mask_drops"] = summarize_mask_drops(drops_out[0], cut)
     return test, info
 
 
