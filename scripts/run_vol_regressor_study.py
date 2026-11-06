@@ -18,6 +18,7 @@ Salida: data/eval/vol_regressor_study.json (o --out)
 from __future__ import annotations
 
 import argparse
+import importlib
 import json
 import sys
 import time
@@ -86,7 +87,15 @@ def baseline_check(panel: pd.DataFrame, n_splits: int) -> dict:
 
 
 def main() -> None:
+    # --extra-module (M7b): importa un módulo que registra regresores en vr.REGRESSORS;
+    # se resuelve ANTES de armar `choices`. Ganchos opcionales: prepare(raws), post_study(...).
+    pre = argparse.ArgumentParser(add_help=False)
+    pre.add_argument("--extra-module", default=None)
+    mod = importlib.import_module(pre.parse_known_args()[0].extra_module) \
+        if pre.parse_known_args()[0].extra_module else None
     p = argparse.ArgumentParser(description="Skill incremental de regresores de vol sobre HAR")
+    p.add_argument("--extra-module", default=None,
+                   help="módulo que registra regresores extra (p. ej. src.ml.vol_calendar)")
     p.add_argument("--regressors", nargs="+", default=list(vr.REGRESSORS),
                    choices=list(vr.REGRESSORS))
     p.add_argument("--splits", type=int, default=6)
@@ -100,6 +109,8 @@ def main() -> None:
     t0 = time.time()
     print(f"Panel BMV + regresores {a.regressors} ...")
     raws = load_raws()
+    if mod is not None and hasattr(mod, "prepare"):
+        mod.prepare(raws)
     panel = build_panel(raws, a.regressors)
     print(f"   {len(panel):,} filas · {panel['ticker'].nunique()} tickers · "
           f"{panel['date'].min().date()} → {panel['date'].max().date()}")
@@ -129,6 +140,7 @@ def main() -> None:
                   f"[{r['delta_ci_lo']:+.4f},{r['delta_ci_hi']:+.4f}] "
                   f"{r['dm_p']:>6.3f} {r['delta_qlike']:>+8.4f}  {r['verdict']}")
 
+    extra = mod.post_study(panel, trials, a.splits) if mod is not None and hasattr(mod, "post_study") else None
     args_out = a.out
     args_out.parent.mkdir(parents=True, exist_ok=True)
     args_out.write_text(json.dumps({
@@ -140,6 +152,7 @@ def main() -> None:
                    "objetivo": "Parkinson (targets.log_rv_fwd_*)"},
         "baseline_check": base,
         "results": results,
+        **({"extra": extra} if extra else {}),
     }, indent=2))
     print(f"\nEnsayos: {len(trials)} regresores × 2 horizontes = {len(results)} comparaciones")
     print(f"Guardado: {args_out}  ({time.time() - t0:.0f}s)")
