@@ -1,0 +1,101 @@
+product:
+  name: evaluacion_riesgo
+  version: "1.0.0"
+  owner: "Equipo Evaluacion/Riesgo"
+  description: >
+    Producto de datos para registrar ejecuciones de backtesting,
+    metricas financieras y experimentos de evaluacion.
+
+storage:
+  engine: sqlserver
+  schema: eval
+
+sources:
+  - path: data/eval/backtest_topk.json
+    description: Resultados de backtesting Top-K
+  - path: data/eval/portfolio_metrics.json
+    description: Metricas del portafolio
+  - path: data/eval/experiments.json
+    description: Resultados de experimentos
+
+tables:
+  backtest_runs:
+    primary_key: run_id
+    description: Registro de ejecuciones de backtesting
+    required_fields:
+      - universe
+      - generated_at
+    optional_fields:
+      - horizon
+      - top_k
+      - score_mode
+      - weight_mode
+      - train_start
+      - train_end
+      - test_start
+      - test_end
+      - n_train
+      - n_test
+      - n_periods
+
+  risk_metrics:
+    primary_key: metric_id
+    foreign_key: run_id
+    description: Metricas de rendimiento y riesgo
+    fields:
+      sharpe_gross:
+        type: float
+        nullable: true
+      sharpe_net:
+        type: float
+        nullable: true
+      max_drawdown:
+        type: float
+        nullable: true
+      calmar_ratio:
+        type: float
+        nullable: true
+      win_rate_net:
+        type: float
+        min: 0
+        max: 1
+      total_return_gross:
+        type: float
+        nullable: true
+      total_return_net:
+        type: float
+        nullable: true
+      auc:
+        type: float
+        min: 0
+        max: 1
+      deflated_sharpe:
+        type: float
+        min: 0
+        max: 1
+        nullable: true
+        status: pending_integration
+
+  experiment_log:
+    primary_key: log_id
+    foreign_key: run_id
+    description: Bitacora de experimentos
+    required_fields:
+      - experiment_name
+      - status
+    json_fields:
+      - configuration_json
+      - results_json
+
+quality_rules:
+  - "top_k debe ser mayor que cero cuando exista"
+  - "n_periods debe ser mayor o igual que cero"
+  - "auc debe estar entre 0 y 1"
+  - "win_rate_net debe estar entre 0 y 1"
+  - "deflated_sharpe debe estar entre 0 y 1 cuando exista"
+  - "Los campos JSON deben contener JSON valido"
+
+consumers:
+  - Dashboard de evaluacion
+  - Equipo Trading Agent
+  - Equipo Features/ML
