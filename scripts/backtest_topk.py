@@ -176,7 +176,8 @@ def build_panel(
 
     feat_frames = add_cross_section_features(feat_frames)
     df = pd.concat(feat_frames.values()).sort_index()
-    df = df.dropna(subset=FEATURE_COLS + ["fwd_ret"])
+    feat_cols = [c for c in FEATURE_COLS if c in df.columns]
+    df = df.dropna(subset=feat_cols + ["fwd_ret"])
 
     df["uni_n"] = df.groupby(df.index)["fwd_ret"].transform("count")
     df["uni_med"] = df.groupby(df.index)["fwd_ret"].transform("median")
@@ -250,12 +251,16 @@ def run_topk_backtest(
     capital: float = CAPITAL,
     min_p_up: float = 0.0,
     cost_mode: CostMode = "turnover",
+    tiebreak: bool = True,
 ) -> dict:
     """
     Backtest top-K long-only sobre el set de test.
 
     ``cost_mode="turnover"`` cobra ``cost_por_lado × Σ|Δw|`` (solo lo que cambia);
     ``"fixed"`` cobra siempre el costo de ida y vuelta completo (100% de rotación).
+    ``tiebreak=True`` ordena por ``p_rank`` (mesetas de la isotónica desempatadas
+    por el score crudo) cuando está presente, manteniendo ``min_p_up`` y el AUC
+    sobre ``p_up``.
 
     Returns:
         Dict con métricas duales, benchmark y curvas de equity.
@@ -263,6 +268,11 @@ def run_topk_backtest(
     score_col = _score_column(score_mode)
     if score_col not in test.columns:
         raise ValueError(f"Columna de score {score_col!r} no encontrada en test")
+    rank_col = (
+        "p_rank"
+        if (tiebreak and score_col in ("p_up", "p_rel") and "p_rank" in test.columns)
+        else score_col
+    )
 
     test = test.copy()
     test["week"] = test.index.to_period("W")
@@ -282,7 +292,12 @@ def run_topk_backtest(
         if len(last) < MIN_NAMES:
             continue
 
-        ranked = last.sort_values(score_col, ascending=False)
+        if tiebreak and "ticker" in last.columns:
+            ranked = last.sort_values(
+                [rank_col, "ticker"], ascending=[False, True], kind="mergesort"
+            )
+        else:
+            ranked = last.sort_values(rank_col, ascending=False)
         if min_p_up > 0 and score_col in ("p_up", "p_rel"):
             ranked = ranked[ranked[score_col] >= min_p_up]
         picks = ranked.head(top_k)
@@ -364,6 +379,7 @@ def run_topk_backtest(
             "capital": capital,
             "min_p_up": min_p_up,
             "cost_mode": cost_mode,
+            "tiebreak": tiebreak,
         },
         "turnover_mean": round(float(turn_s.mean()), 4) if len(turn_s) else 0.0,
         "turnover_series": [round(float(x), 4) for x in turn_s],
@@ -422,13 +438,16 @@ def build_test_panel(
     cut = df.index[int(len(df) * TRAIN_RATIO)]
     train, test = df[df.index < cut], df[df.index >= cut].copy()
 
+    feat_cols = [c for c in FEATURE_COLS if c in train.columns]
     target_col = "y_rel" if score_mode == "p_rel" else "y"
     model = EnsembleModel(top_features=15, calibrate=True)
-    model.fit(train, feature_cols=FEATURE_COLS, target_col=target_col)
+    model.fit(train, feature_cols=feat_cols, target_col=target_col)
 
-    p_test = model.predict_proba(test, FEATURE_COLS)
+    p_test = model.predict_proba(test, feat_cols)
+    p_rank = model.predict_proba_tiebroken(test, feat_cols)
     test["p_up"] = p_test
     test["p_rel"] = p_test
+    test["p_rank"] = p_rank
 
     auc_target = test[target_col]
     auc = (
@@ -468,6 +487,7 @@ def train_and_backtest(
     min_p_up: float = DEFAULT_MIN_P_UP,
     cost_mode: CostMode = "turnover",
     entry: EntryMode = "open",
+    tiebreak: bool = True,
 ) -> dict:
     """Pipeline completo: cargar datos, entrenar ensemble, backtest top-K."""
     test, info = build_test_panel(universe, score_mode, horizon, entry)
@@ -482,6 +502,7 @@ def train_and_backtest(
         slippage_pct=slippage_pct,
         min_p_up=min_p_up,
         cost_mode=cost_mode,
+        tiebreak=tiebreak,
     )
 
     bt["model"] = info
@@ -561,6 +582,13 @@ def main() -> None:
         help="Precio de entrada del retorno futuro: open (t+1) o close",
     )
     parser.add_argument(
+        "--no-tiebreak",
+        dest="tiebreak",
+        action="store_false",
+        default=True,
+        help="Desactivar desempate de mesetas de p_up con el score crudo (p_rank)",
+    )
+    parser.add_argument(
         "--output",
         "--out",
         dest="output",
@@ -580,6 +608,7 @@ def main() -> None:
         min_p_up=args.min_p_up,
         cost_mode=args.cost_mode,
         entry=args.entry,
+        tiebreak=args.tiebreak,
     )
 
     print_summary(result)

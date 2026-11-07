@@ -133,7 +133,12 @@ class FitnessEvaluator:
             
             metrics['win_rate'] = np.mean(true_direction == pred_direction)
         
-        # Sharpe Ratio (si tenemos datos de training)
+        # Sharpe Ratio (si tenemos datos de training).
+        # NOTA (auditoría Handoff 01): en TrainingPipeline._preprocess los targets
+        # y_train vienen escalados con MinMaxScaler en [0, 1], por lo que
+        # np.diff(y_train)/y_train[:-1] NO es un retorno financiero real (y OptimizationPipeline
+        # usa val_rmse directamente sin pasar por FitnessEvaluator.evaluate). Se conserva
+        # sin cambios hasta decidir si se elimina del fitness compuesto o se pasan retornos reales.
         if y_train is not None and len(y_train) > 1:
             returns = np.diff(y_train) / y_train[:-1]
             if returns.std() > 0:

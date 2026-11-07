@@ -83,7 +83,11 @@ def fund_audit(fund: pd.DataFrame) -> dict:
 
 
 def merge_asof_same_day(available: pd.Timestamp) -> dict:
-    """Demuestra que merge_asof(backward) ya usa el dato el MISMO día de available_date."""
+    """Comprueba si el dato de fundamentales se usa el MISMO día de available_date.
+
+    Antes del fix (merge_asof con coincidencia exacta) devolvía True: look-ahead de 1 día si el
+    balance sale tras el cierre. Con ``allow_exact_matches=False`` debe devolver False.
+    """
     from src.ml.features import add_fundamental_features
 
     idx = pd.bdate_range(available - pd.Timedelta(days=3), periods=6)

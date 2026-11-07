@@ -39,3 +39,34 @@ def test_psr_valor_de_la_formula_del_paper_con_asimetria():
     z = 1.0 / np.sqrt(1 + 0.1 + (5 - 1) / 4 * 0.01)
     d = deflated_sharpe_ratio(0.1, 1, 101, skewness=-1.0, kurtosis=5.0)
     assert d == pytest.approx(stats.norm.cdf(z))
+
+
+# ─── n_trials sale del registro de ensayos ────────────────────────────────────
+
+def test_n_trials_cuenta_la_propia_corrida_en_un_registro_vacio(tmp_path):
+    p = str(tmp_path / "trials.jsonl")
+    assert rpc.trials_for_dsr({"h": 5}, {"mean_sharpe": 0.1}, 100, path=p) == 1
+
+
+def test_n_trials_es_idempotente_con_la_misma_configuracion(tmp_path):
+    p = str(tmp_path / "trials.jsonl")
+    a = rpc.trials_for_dsr({"h": 5}, {"mean_sharpe": 0.1}, 100, path=p)
+    b = rpc.trials_for_dsr({"h": 5}, {"mean_sharpe": 0.2}, 100, path=p)  # mismo config
+    assert a == b == 1
+
+
+def test_n_trials_crece_con_otros_ensayos_y_con_configs_distintas(tmp_path):
+    from src.ml.trials import log_trial
+    p = str(tmp_path / "trials.jsonl")
+    log_trial("m9:ridge", {"alpha": 100}, {"ic": 0.03}, 400, path=p)
+    log_trial("m9:lgbm", {"leaves": 31}, {"ic": 0.02}, 400, path=p)
+    assert rpc.trials_for_dsr({"h": 5}, {"mean_sharpe": 0.1}, 100, path=p) == 3
+    assert rpc.trials_for_dsr({"h": 10}, {"mean_sharpe": 0.1}, 100, path=p) == 4
+
+
+def test_menos_ensayos_da_menos_castigo_que_folds_por_features(tmp_path):
+    # Antes n_trials = 6 folds × ~48 features = 288; con el registro es mucho menor.
+    p = str(tmp_path / "trials.jsonl")
+    n = rpc.trials_for_dsr({"h": 5}, {"mean_sharpe": 0.1}, 100, path=p)
+    sh = [0.8, 1.1, 0.9, 1.0, 0.7, 1.2]
+    assert rpc.dsr_from_fold_sharpes(sh, 5, n, 300) >= rpc.dsr_from_fold_sharpes(sh, 5, 288, 300)

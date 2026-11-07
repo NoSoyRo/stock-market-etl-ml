@@ -129,8 +129,14 @@ def fetch_ticker_gdelt_history(
     verbose: bool = True,
     force: bool = False,
     cache_only: bool = False,
+    pending_out: list | None = None,
 ) -> list[Article]:
-    """Descarga artículos GDELT en chunks para un ticker."""
+    """Descarga artículos GDELT en chunks para un ticker.
+
+    Si se pasa ``pending_out``, se le agregan los chunks que NO se pudieron
+    consultar (429 tras los reintentos, o sin caché en ``cache_only``): un chunk
+    sin consultar no es lo mismo que un chunk sin resultados.
+    """
     query = _query_for_ticker(ticker)
     articles: list[Article] = []
     seen: set[str] = set()
@@ -145,6 +151,8 @@ def fetch_ticker_gdelt_history(
                 if verbose:
                     print("skip (sin cache)", end=" ", flush=True)
                 raw = []
+                if pending_out is not None:
+                    pending_out.append((c0, c1))
             else:
                 for attempt in range(CHUNK_FETCH_RETRIES):
                     fetched, ok = fetch_gdelt_range(query, ticker, c0, c1, max_items=250)
@@ -156,6 +164,8 @@ def fetch_ticker_gdelt_history(
                         print("(rate limit, reintento…)", end=" ", flush=True)
                 if raw is None:
                     raw = []
+                    if pending_out is not None:
+                        pending_out.append((c0, c1))
                     if verbose:
                         print("pendiente", end=" ", flush=True)
         n_new = 0
@@ -315,14 +325,21 @@ def build_history_panel(
         if verbose:
             print(f"  {name}: GDELT backfill…")
         try:
+            pending: list = []
             arts = fetch_ticker_gdelt_history(
                 name, start_dt, end_dt,
                 chunk_days=chunk_days, verbose=verbose, force=force, cache_only=cache_only,
+                pending_out=pending,
             )
             df = articles_to_frame(arts)
             if not df.empty:
                 all_frames.append(df)
-            manifest[key] = "ok" if not df.empty else "empty"
+                manifest[key] = "ok"
+            elif pending:
+                # Vacío porque no se consultó (429 / sin caché), no porque GDELT no tenga nada.
+                manifest[key] = "pending"
+            else:
+                manifest[key] = "empty"
         except Exception as exc:
             logger.error("%s: %s", name, exc)
             manifest[key] = f"error:{exc}"

@@ -31,6 +31,7 @@ from src.ml.features import (compute_features, add_macro_features,
                               FEATURE_COLS, CROSS_SECTION_COLS)
 from src.ml.ensemble import EnsembleModel
 from src.ml.purged_cv import purged_walk_forward_splits, deflated_sharpe_ratio
+from src.ml.trials import DEFAULT_PATH as TRIALS_PATH, count_trials, log_trial
 
 HORIZON    = 5
 N_SPLITS   = 6
@@ -120,6 +121,8 @@ def evaluate_purged_cv(df: pd.DataFrame) -> dict:
             else:
                 # Proxy: y=1 → +1%, y=0 → -1%
                 rets = np.where(y_te.values[sigs] == 1, 0.01, -0.01)
+            # Convención: se escala por √(252/HORIZON) y dsr_from_fold_sharpes des-anualiza
+            # con el mismo factor para obtener el Sharpe por señal/periodo que exige el DSR.
             sharpe = (rets.mean() / (rets.std() + 1e-8)) * np.sqrt(252 / HORIZON)
             win_rate = (y_te.values[sigs] == 1).mean()
             n_signals = int(sigs.sum())
@@ -155,10 +158,16 @@ def evaluate_purged_cv(df: pd.DataFrame) -> dict:
     sharpes = [f["sharpe"] for f in folds_results]
     wrs     = [f["win_rate"] for f in folds_results]
 
-    # Deflated Sharpe: número de trials = n_folds × n_features (múltiples pruebas)
+    # Deflated Sharpe: n_trials = ensayos únicos del registro (no folds × features: los folds
+    # no son ensayos distintos).
     mean_sharpe = np.mean(sharpes)
-    n_trials    = N_SPLITS * len(all_feature_cols)
     n_obs       = int(np.mean([f["n_signals"] for f in folds_results]))
+    n_trials    = trials_for_dsr(
+        {"n_splits": N_SPLITS, "embargo": EMBARGO, "horizon": HORIZON,
+         "prob_thresh": PROB_THRESH, "n_features": len(all_feature_cols)},
+        {"mean_sharpe": float(mean_sharpe), "mean_auc": float(np.mean(aucs))},
+        n_obs,
+    )
     dsr         = dsr_from_fold_sharpes(sharpes, HORIZON, n_trials, n_obs)
 
     aggregate = {
@@ -173,11 +182,25 @@ def evaluate_purged_cv(df: pd.DataFrame) -> dict:
             "⚠️ Edge débil, posible sobreajuste"
         ),
         "total_signals": sum(f["n_signals"] for f in folds_results),
+        "n_trials": n_trials,
     }
 
     return {"folds": folds_results, "aggregate": aggregate,
             "meta": {"n_splits": N_SPLITS, "embargo": EMBARGO, "horizon": HORIZON,
                      "n_features": len(all_feature_cols)}}
+
+
+def trials_for_dsr(config: dict, metrics: dict, n_obs: int, *, path: str | None = None) -> int:
+    """Registra esta corrida en el registro de ensayos y devuelve cuántos ensayos únicos hay.
+
+    El DSR descuenta la suerte de haber probado varias configuraciones; el conteo sale del
+    registro (`data/eval/trials.jsonl`) y no de folds × features. Es una cota conservadora:
+    cuenta todos los ensayos registrados, no solo los de esta estrategia. Es idempotente:
+    repetir la misma configuración no infla el conteo. Mínimo 1.
+    """
+    path = path or str(ROOT / TRIALS_PATH)
+    log_trial("purged_cv:ensemble", config, metrics, n_obs, path=path)
+    return max(count_trials(path=path), 1)
 
 
 def dsr_from_fold_sharpes(annual_sharpes, horizon: int, n_trials: int, n_obs: int) -> float:

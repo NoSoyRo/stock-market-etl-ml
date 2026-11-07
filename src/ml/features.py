@@ -634,6 +634,9 @@ def add_fundamental_features(
                 left, fund[["available_date"] + quarterly_cols],
                 left_on="_date", right_on="available_date",
                 direction="backward",
+                # El día de publicación no cuenta: si sale después del cierre, usarlo ese
+                # mismo día sería look-ahead. El dato se usa desde la sesión siguiente.
+                allow_exact_matches=False,
             )
             merged.index = merged["_date"].values
             for col in quarterly_cols:

@@ -84,22 +84,30 @@ def build_dataset(horizon: int = HORIZON,
 
 
 def strategy_metrics(rets: np.ndarray) -> dict:
-    """Métricas de estrategia sobre los retornos netos de los trades tomados."""
+    """Métricas de estrategia sobre los retornos netos de los trades tomados.
+
+    `rets` son retornos por operación individual (múltiples señales por semana
+    solapadas entre tickers), no periodos disjuntos de 5 días: se reporta
+    `sharpe_per_trade` (media/std sin anualizar) y se mantiene `sharpe` por
+    compatibilidad con salidas previas.
+    """
     if len(rets) == 0:
-        return {"n": 0, "win_rate": 0, "avg_ret": 0, "sharpe": 0,
-                "profit_factor": 0, "total_ret": 0}
+        return {"n": 0, "win_rate": 0, "avg_ret": 0, "sharpe_per_trade": 0,
+                "sharpe": 0, "profit_factor": 0, "total_ret": 0}
     rets = np.asarray(rets) / 100  # a fracción
     rets_net = rets - COMM * 2
     wins = (rets_net > 0).sum()
     pf_pos = rets_net[rets_net > 0].sum()
     pf_neg = abs(rets_net[rets_net < 0].sum())
+    sr_per_trade = float(rets_net.mean() / (rets_net.std() + 1e-9))
     return {
-        "n":             int(len(rets)),
-        "win_rate":      round(float(wins / len(rets)), 4),
-        "avg_ret":       round(float(rets_net.mean() * 100), 4),
-        "sharpe":        round(float(rets_net.mean() / (rets_net.std() + 1e-9) * np.sqrt(252 / HORIZON)), 3),
-        "profit_factor": round(float(pf_pos / pf_neg) if pf_neg > 0 else 0.0, 3),
-        "total_ret":     round(float(rets_net.sum() * 100), 2),
+        "n":                int(len(rets)),
+        "win_rate":         round(float(wins / len(rets)), 4),
+        "avg_ret":          round(float(rets_net.mean() * 100), 4),
+        "sharpe_per_trade": round(sr_per_trade, 4),
+        "sharpe":           round(float(sr_per_trade * np.sqrt(252 / HORIZON)), 3),
+        "profit_factor":    round(float(pf_pos / pf_neg) if pf_neg > 0 else 0.0, 3),
+        "total_ret":        round(float(rets_net.sum() * 100), 2),
     }
 
 
