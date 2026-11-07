@@ -17,7 +17,7 @@ Diseño FIJADO ANTES de ver resultados:
 - Scores continuos, sin calibración isotónica. Desempate (solo para el portafolio): jitter 1e-9.
 - Combinación: brazos fijados a priori (xs_lgbm, rank_xendcg, antinoise_l8_m300, ridge_rank);
   λ = 0.25, ventana 104 semanas (520 fechas) y sensibilidad a 52; rezago horizonte + embargo.
-- Cada configuración cuenta como ensayo y se registra en ``data/eval/trials.jsonl`` (no con --fast).
+- Cada configuración cuenta como ensayo y se registra en ``data/eval/trial_log.jsonl`` (no con --fast).
 - El "mejor brazo" para los pasos 3–4 se elige por IC agrupado OOS: es selección sobre el test y
   se declara así en el reporte.
 """

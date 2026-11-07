@@ -15,7 +15,7 @@ rpc = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(rpc)
 
 
-def test_dsr_a_mano_desanualiza_y_usa_sr_std_real():
+def test_dsr_a_mano_desanualiza_y_usa_sr_std_de_folds_si_se_pide():
     h = 5
     per = np.array([0.10, 0.14, 0.06, 0.12, 0.08, 0.10])
     annual = per * np.sqrt(252 / h)
@@ -23,7 +23,7 @@ def test_dsr_a_mano_desanualiza_y_usa_sr_std_real():
     sr0 = expected_max_sharpe(n_trials, per.std(ddof=1))
     z = (per.mean() - sr0) * np.sqrt(T - 1) / np.sqrt(1 + 0.5 * per.mean() ** 2)
     esperado = stats.norm.cdf(z)
-    assert rpc.dsr_from_fold_sharpes(annual, h, n_trials, T) == pytest.approx(esperado)
+    assert rpc.dsr_from_fold_sharpes(annual, h, n_trials, T, use_fold_sr_std=True) == pytest.approx(esperado)
 
 
 def test_dsr_no_depende_de_la_anualizacion():
