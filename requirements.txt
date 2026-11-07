@@ -83,3 +83,10 @@ pydantic>=2.0.0
 
 # Estudio de objetivos (scripts/run_target_study.py)
 xgboost>=2.0.0
+# Multi-agent (orquestador + agentes de dominio, src/agents_mcp/)
+claude-agent-sdk>=0.1.0    # Agent loop + MCP tools in-process, por Anthropic
+anthropic>=0.40.0          # Cliente directo de la API de Messages
+
+# MCP server standalone (mcp_server/) — protocolo MCP oficial vía HTTP,
+# para que claude.ai / Claude Desktop se conecten por URL como "custom connector"
+mcp[cli]>=1.0.0            # SDK oficial de Model Context Protocol (ya viene como dep de claude-agent-sdk)
