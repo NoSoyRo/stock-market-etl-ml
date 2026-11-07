@@ -19,6 +19,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from scipy import stats
 from sklearn.metrics import roc_auc_score
 
 ROOT = Path(__file__).parent.parent
@@ -89,6 +90,7 @@ def evaluate_purged_cv(df: pd.DataFrame) -> dict:
     y = df_reset["y"]
 
     folds_results = []
+    all_rets: list[np.ndarray] = []   # retornos de las señales, para medir asimetría y curtosis
 
     for fold_i, (tr_idx, te_idx) in enumerate(
         purged_walk_forward_splits(df_reset, n_splits=N_SPLITS, horizon=HORIZON, embargo=EMBARGO)
@@ -121,6 +123,7 @@ def evaluate_purged_cv(df: pd.DataFrame) -> dict:
             else:
                 # Proxy: y=1 → +1%, y=0 → -1%
                 rets = np.where(y_te.values[sigs] == 1, 0.01, -0.01)
+            all_rets.append(np.asarray(rets, dtype=float))
             # Convención: se escala por √(252/HORIZON) y dsr_from_fold_sharpes des-anualiza
             # con el mismo factor para obtener el Sharpe por señal/periodo que exige el DSR.
             sharpe = (rets.mean() / (rets.std() + 1e-8)) * np.sqrt(252 / HORIZON)
@@ -168,7 +171,12 @@ def evaluate_purged_cv(df: pd.DataFrame) -> dict:
         {"mean_sharpe": float(mean_sharpe), "mean_auc": float(np.mean(aucs))},
         n_obs,
     )
-    dsr         = dsr_from_fold_sharpes(sharpes, HORIZON, n_trials, n_obs)
+    # Asimetría y curtosis medidas de los retornos de las señales (no se asume normalidad).
+    pooled = np.concatenate(all_rets) if all_rets else np.array([])
+    skew = float(stats.skew(pooled)) if len(pooled) > 2 else 0.0
+    kurt = float(stats.kurtosis(pooled, fisher=False)) if len(pooled) > 3 else 3.0
+    dsr  = dsr_from_fold_sharpes(sharpes, HORIZON, n_trials, n_obs,
+                                 skewness=skew, kurtosis=kurt)
 
     aggregate = {
         "mean_auc":   round(np.mean(aucs), 4),
@@ -183,6 +191,8 @@ def evaluate_purged_cv(df: pd.DataFrame) -> dict:
         ),
         "total_signals": sum(f["n_signals"] for f in folds_results),
         "n_trials": n_trials,
+        "skew": round(skew, 3),
+        "kurtosis": round(kurt, 3),
     }
 
     return {"folds": folds_results, "aggregate": aggregate,
@@ -194,7 +204,7 @@ def trials_for_dsr(config: dict, metrics: dict, n_obs: int, *, path: str | None 
     """Registra esta corrida en el registro de ensayos y devuelve cuántos ensayos únicos hay.
 
     El DSR descuenta la suerte de haber probado varias configuraciones; el conteo sale del
-    registro (`data/eval/trials.jsonl`) y no de folds × features. Es una cota conservadora:
+    registro único (`data/eval/trial_log.jsonl`) y no de folds × features. Es una cota conservadora:
     cuenta todos los ensayos registrados, no solo los de esta estrategia. Es idempotente:
     repetir la misma configuración no infla el conteo. Mínimo 1.
     """
@@ -203,19 +213,28 @@ def trials_for_dsr(config: dict, metrics: dict, n_obs: int, *, path: str | None 
     return max(count_trials(path=path), 1)
 
 
-def dsr_from_fold_sharpes(annual_sharpes, horizon: int, n_trials: int, n_obs: int) -> float:
+def dsr_from_fold_sharpes(annual_sharpes, horizon: int, n_trials: int, n_obs: int, *,
+                          skewness: float = 0.0, kurtosis: float = 3.0,
+                          use_fold_sr_std: bool = False) -> float:
     """DSR a partir de Sharpes de fold ANUALIZADOS (×√(252/horizon)).
 
-    `deflated_sharpe_ratio` exige Sharpe POR PERIODO: se des-anualiza aquí, y
-    `sr_std` es la desviación (ddof=1) del Sharpe por periodo entre folds.
-    `n_obs` = nº de observaciones (señales) detrás de cada Sharpe.
+    `deflated_sharpe_ratio` exige Sharpe POR PERIODO: se des-anualiza aquí.
+    `n_obs` = nº de observaciones (señales) detrás de cada Sharpe. `skewness`/`kurtosis`
+    (no excedente) son los de los retornos de las señales; con los defaults se asume normalidad.
+
+    Escala del azar (SR0): por defecto la del error del estimador, 1/√T (igual que
+    `trial_stats.deflated_sharpe`). Con `use_fold_sr_std=True` se usa la desviación del Sharpe
+    por periodo ENTRE FOLDS; ojo: eso mide ruido temporal, no la dispersión entre
+    configuraciones que pide el paper, así que es solo una aproximación opcional.
     """
     per = np.asarray(annual_sharpes, dtype=float) / np.sqrt(252 / horizon)
-    sr_std = float(per.std(ddof=1)) if len(per) > 1 else None
-    if sr_std is not None and sr_std <= 0:
-        sr_std = None
+    sr_std = None
+    if use_fold_sr_std and len(per) > 1:
+        sr_std = float(per.std(ddof=1))
+        if sr_std <= 0:
+            sr_std = None
     return float(deflated_sharpe_ratio(float(per.mean()), n_trials, max(int(n_obs), 2),
-                                       sr_std=sr_std))
+                                       skewness=skewness, kurtosis=kurtosis, sr_std=sr_std))
 
 
 # ─── MAIN ─────────────────────────────────────────────────────────────────────

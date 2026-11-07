@@ -1,25 +1,43 @@
-"""Registro de ensayos (append-only) para descontar suerte en el DSR."""
+"""Registro de ensayos para descontar suerte en el DSR (adaptador sobre `trial_stats`).
+
+Hay UNA sola bitácora: ``data/eval/trial_log.jsonl`` (formato de `trial_stats.log_trial`:
+``family``, ``hash``, ``config``, ``result``). Esta API (`log_trial(name, ...)` idempotente y
+`count_trials`) la conserva para los estudios M-series: el ``name`` y las métricas viajan en
+``result``, y la familia es lo que está antes de ``:`` en el nombre (``m9_bakeoff:ridge`` →
+``m9_bakeoff``). Así `trial_stats.n_trials(familia)` (N por familia) y `count_trials()` (N global)
+leen el mismo archivo.
+"""
 from __future__ import annotations
 
-import hashlib
 import json
-from datetime import datetime, timezone
 from pathlib import Path
 
-DEFAULT_PATH = "data/eval/trials.jsonl"
+from src.ml import trial_stats as ts
+
+DEFAULT_PATH = "data/eval/trial_log.jsonl"
+config_hash = ts.config_hash
 
 
-def config_hash(config: dict) -> str:
-    """Hash estable (sha256 corto) de un config; independiente del orden de llaves."""
-    blob = json.dumps(config, sort_keys=True, default=str)
-    return hashlib.sha256(blob.encode()).hexdigest()[:16]
+def _family(name: str) -> str:
+    return name.split(":")[0]
 
 
 def _read(path: Path) -> list[dict]:
     if not path.exists():
         return []
-    with path.open(encoding="utf-8") as f:
-        return [json.loads(line) for line in f if line.strip()]
+    rows = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        try:
+            rows.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    return rows
+
+
+def _name(row: dict) -> str:
+    """Nombre del ensayo: el de `result.name` (M-series) o la familia (bitácora de core-satellite)."""
+    res = row.get("result") or {}
+    return res.get("name") or row.get("family", "")
 
 
 def log_trial(name: str, config: dict, metrics: dict, n_obs: int, *,
@@ -29,26 +47,21 @@ def log_trial(name: str, config: dict, metrics: dict, n_obs: int, *,
     Devuelve True si escribió, False si ya existía.
     """
     p = Path(path)
-    h = config_hash(config)
-    if any(r["name"] == name and r["config_hash"] == h for r in _read(p)):
+    h = ts.config_hash(config)
+    if any(r.get("hash") == h and _name(r) == name for r in _read(p)):
         return False
-    rec = {
-        "name": name,
-        "config_hash": h,
-        "config": config,
-        "metrics": metrics,
-        "n_obs": int(n_obs),
-        "ts_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-    }
-    p.parent.mkdir(parents=True, exist_ok=True)
-    with p.open("a", encoding="utf-8") as f:
-        f.write(json.dumps(rec, default=str) + "\n")
+    ts.log_trial(_family(name), config,
+                 {"name": name, "metrics": metrics, "n_obs": int(n_obs)}, p)
     return True
 
 
 def count_trials(tag: str | None = None, *, path: str = DEFAULT_PATH) -> int:
-    """Nº de ensayos únicos; con `tag`, solo los cuyo nombre lo contiene."""
-    recs = _read(Path(path))
+    """Nº GLOBAL de ensayos únicos (nombre, hash); con `tag`, solo los cuyo nombre lo contiene.
+
+    Es el N conservador (todo se probó sobre la misma historia). Para N por familia usa
+    `trial_stats.n_trials(familia, path)`.
+    """
+    seen = {(_name(r), r.get("hash")) for r in _read(Path(path))}
     if tag is not None:
-        recs = [r for r in recs if tag in r["name"]]
-    return len(recs)
+        seen = {k for k in seen if tag in k[0]}
+    return len(seen)

@@ -152,11 +152,9 @@ def probabilistic_sharpe_ratio(
     PSR = Φ[(SR − SR*)·√(T−1) / √(1 − γ3·SR + (γ4−1)/4·SR²)]
     con SR por periodo (no anualizado) y γ4 = kurtosis NO excedente (normal = 3).
     """
-    from scipy import stats
+    from src.ml.trial_stats import probabilistic_sharpe_ratio as _psr  # núcleo único
 
-    denom = 1 - skewness * sharpe_obs + (kurtosis - 1) / 4 * sharpe_obs**2
-    z = (sharpe_obs - sharpe_ref) * np.sqrt(n_obs - 1) / np.sqrt(max(denom, 1e-12))
-    return float(stats.norm.cdf(z))
+    return _psr(sharpe_obs, n_obs, sharpe_ref, skewness, kurtosis)
 
 
 def expected_max_sharpe(n_trials: int, sr_std: float) -> float:
@@ -165,13 +163,9 @@ def expected_max_sharpe(n_trials: int, sr_std: float) -> float:
     SR0 = σ_SR · [(1−γ)·Φ⁻¹(1−1/N) + γ·Φ⁻¹(1−1/(N·e))], γ = Euler–Mascheroni.
     `sr_std` = desviación del Sharpe (por periodo) ENTRE ensayos.
     """
-    from scipy import stats
+    from src.ml.trial_stats import sr0_from_std  # núcleo único
 
-    if n_trials <= 1:
-        return 0.0
-    g = 0.5772156649015329
-    return float(sr_std * ((1 - g) * stats.norm.ppf(1 - 1 / n_trials)
-                           + g * stats.norm.ppf(1 - 1 / (n_trials * np.e))))
+    return sr0_from_std(n_trials, sr_std)
 
 
 def deflated_sharpe_ratio(

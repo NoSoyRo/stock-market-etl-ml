@@ -14,7 +14,7 @@ Diseño FIJADO ANTES de ver resultados:
   step = 5, bootstrap por bloques). Secundaria (informativa): IC contra ``fwd_ret/σ̂``.
 - "Gana" una variante si supera a A (diferencia pareada por fecha del IC crudo) por ≥ 2 errores
   estándar de esa diferencia en la MAYORÍA de folds (≥ 3 de 5). Si no, empate y se queda A.
-- 5 ensayos (A–E), sin tocar hiperparámetros; se registran en ``data/eval/trials.jsonl`` (no --fast).
+- 5 ensayos (A–E), sin tocar hiperparámetros; se registran en ``data/eval/trial_log.jsonl`` (no --fast).
 - D entrena solo con |fwd_ret| ≥ 0.5·σ̂·√5; el test usa TODAS las filas.
 - E quita las 3 features de mercado de las 24 (``MARKET_COLS``, lista fija; el detector por datos
   solo se reporta como diagnóstico: con 31 tickers los feriados lo vuelven inestable).
