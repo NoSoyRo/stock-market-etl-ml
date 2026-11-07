@@ -139,53 +139,71 @@ def compute_embargo_size(n: int, pct: float = 0.01) -> int:
     return max(1, int(n * pct))
 
 
+def probabilistic_sharpe_ratio(
+    sharpe_obs: float,
+    n_obs:      int,
+    sharpe_ref: float = 0.0,
+    skewness:   float = 0.0,
+    kurtosis:   float = 3.0,
+) -> float:
+    """
+    PSR — Bailey & López de Prado (2014): P(SR verdadero > sharpe_ref).
+
+    PSR = Φ[(SR − SR*)·√(T−1) / √(1 − γ3·SR + (γ4−1)/4·SR²)]
+    con SR por periodo (no anualizado) y γ4 = kurtosis NO excedente (normal = 3).
+    """
+    from scipy import stats
+
+    denom = 1 - skewness * sharpe_obs + (kurtosis - 1) / 4 * sharpe_obs**2
+    z = (sharpe_obs - sharpe_ref) * np.sqrt(n_obs - 1) / np.sqrt(max(denom, 1e-12))
+    return float(stats.norm.cdf(z))
+
+
+def expected_max_sharpe(n_trials: int, sr_std: float) -> float:
+    """Sharpe máximo esperado por azar entre n_trials ensayos (SR0 del paper).
+
+    SR0 = σ_SR · [(1−γ)·Φ⁻¹(1−1/N) + γ·Φ⁻¹(1−1/(N·e))], γ = Euler–Mascheroni.
+    `sr_std` = desviación del Sharpe (por periodo) ENTRE ensayos.
+    """
+    from scipy import stats
+
+    if n_trials <= 1:
+        return 0.0
+    g = 0.5772156649015329
+    return float(sr_std * ((1 - g) * stats.norm.ppf(1 - 1 / n_trials)
+                           + g * stats.norm.ppf(1 - 1 / (n_trials * np.e))))
+
+
 def deflated_sharpe_ratio(
     sharpe_obs:   float,
     n_trials:     int,
     n_obs:        int,
     skewness:     float = 0.0,
     kurtosis:     float = 3.0,
+    sr_std:       float | None = None,
 ) -> float:
     """
-    Deflated Sharpe Ratio (DSR) — Bailey & López de Prado (2014).
-
-    Corrige el Sharpe Ratio por la multiplicidad de estrategias evaluadas.
-    Si DSR < 0, la estrategia probablemente no tiene edge real.
+    Deflated Sharpe Ratio — Bailey & López de Prado (2014): PSR contra SR0,
+    el máximo esperado por azar entre n_trials ensayos.
 
     Args:
-        sharpe_obs:  SR observado (anualizado)
-        n_trials:    Número de configuraciones / estrategias probadas
-        n_obs:       Número de observaciones en el test
+        sharpe_obs:  SR observado POR PERIODO (no anualizado; cámbio vs. versión previa)
+        n_trials:    Nº de configuraciones probadas (ver src/ml/trials.py)
+        n_obs:       Nº de periodos (T)
         skewness:    Skewness de los retornos
-        kurtosis:    Kurtosis (3 = normal)
+        kurtosis:    Kurtosis no excedente (3 = normal)
+        sr_std:      Desviación del SR por periodo entre ensayos. Si es None se usa
+                     1/√(T−1), la del estimador bajo H0 (aproximación; mejor pasar la real).
 
     Returns:
-        DSR en escala z (0-1 aprox). >0.95 = evidencia fuerte.
+        Probabilidad en [0, 1]. > 0.95 = evidencia fuerte. Con n_trials ≤ 1 es el PSR contra 0.
     """
-    from scipy import stats
-
     if n_trials <= 1:
-        return float(stats.norm.cdf(sharpe_obs))
-
-    # Máximo SR esperado por azar entre n_trials ensayos
-    sr_max = (
-        (1 - 0.5772156649)  # Euler–Mascheroni
-        * np.sqrt(np.log(n_trials))
-        + 0.5772156649 / np.sqrt(np.log(n_trials))
-    )
-
-    # Varianza del SR estimado
-    var_sr = (
-        1 / n_obs
-        * (1 + 0.5 * sharpe_obs**2
-           - skewness * sharpe_obs
-           + (kurtosis - 3) / 4 * sharpe_obs**2)
-    )
-
-    dsr = stats.norm.cdf(
-        (sharpe_obs - sr_max) / np.sqrt(var_sr + 1e-12)
-    )
-    return float(dsr)
+        return probabilistic_sharpe_ratio(sharpe_obs, n_obs, 0.0, skewness, kurtosis)
+    if sr_std is None:
+        sr_std = 1.0 / np.sqrt(max(n_obs - 1, 1))
+    sr0 = expected_max_sharpe(n_trials, sr_std)
+    return probabilistic_sharpe_ratio(sharpe_obs, n_obs, sr0, skewness, kurtosis)
 
 
 # ─── LSTM vs LGBM comparison (KB-013) ────────────────────────────────────────

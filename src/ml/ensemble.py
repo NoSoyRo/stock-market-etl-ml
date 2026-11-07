@@ -60,6 +60,23 @@ _LGBM_PARAMS = dict(
 TOP_FEATURES = 12   # features WoE a usar
 
 
+def break_ties(p_cal: np.ndarray, p_raw: np.ndarray) -> np.ndarray:
+    """Desempata `p_cal` (mesetas de la isotónica) con el score crudo `p_raw`.
+
+    Devuelve p_cal + un desplazamiento < la mitad de la menor brecha entre
+    valores distintos de p_cal, ordenado por p_raw dentro de cada meseta. Así el
+    orden entre valores distintos de p_cal no cambia, y solo se reordenan los
+    empates. Determinista: no depende del orden de las filas (empates exactos
+    en ambos scores siguen empatados).
+    """
+    p_cal = np.asarray(p_cal, dtype=float)
+    p_raw = np.asarray(p_raw, dtype=float)
+    u = np.unique(p_cal)
+    gap = np.diff(u).min() if len(u) > 1 else 1.0
+    r = pd.Series(p_raw).groupby(p_cal).rank(method="average", pct=True).to_numpy()
+    return p_cal + (r - 0.5) * 0.9 * gap / 2 * 0.999
+
+
 class EnsembleModel:
     """
     Ensemble v1: WoE + Logistic Regression + LightGBM.
@@ -261,6 +278,17 @@ class EnsembleModel:
         if self._mlp is not None:
             p_ens = p_ens + self._mlp.predict_proba(X_sc)[:, 1] * self.w_mlp
         return p_ens
+
+    def predict_proba_tiebroken(
+        self,
+        df: pd.DataFrame,
+        feature_cols: list[str],
+    ) -> np.ndarray:
+        """`predict_proba` con las mesetas de la calibración desempatadas por el
+        score crudo (ver `break_ties`). Úsalo para rankear (top-K); NO para leer
+        probabilidades. `predict_proba` por defecto no cambia."""
+        return break_ties(self.predict_proba(df, feature_cols),
+                          self.predict_proba_raw(df, feature_cols))
 
     def predict_ticker(
         self,

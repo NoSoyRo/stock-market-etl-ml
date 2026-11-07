@@ -248,11 +248,13 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:  # noqa: C901
     # Stochastic %K(14,3)
     low14  = l.rolling(14).min()
     high14 = h.rolling(14).max()
-    raw_k  = (c - low14) / (high14 - low14 + 1e-8) * 100
+    # clip: barras con Close fuera de [Low, High] (datos sucios) con rango ~0
+    # dan valores de 1e9; por definición %K está en [0, 100].
+    raw_k  = ((c - low14) / (high14 - low14 + 1e-8) * 100).clip(0, 100)
     df["stoch_k"] = raw_k.rolling(3).mean()          # %K suavizado
 
     # Williams %R(14)  — igual que Stoch pero invertido y en [-100, 0]
-    df["williams_r"] = (high14 - c) / (high14 - low14 + 1e-8) * -100
+    df["williams_r"] = ((high14 - c) / (high14 - low14 + 1e-8) * -100).clip(-100, 0)
 
     # CCI(20)
     tp        = (h + l + c) / 3

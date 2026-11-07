@@ -6,6 +6,7 @@ import pytest
 from src.ml.purged_cv import purged_walk_forward_date_splits
 from src.ml.targets import (
     build_targets, extra_features, forward_realized_vol, forward_return,
+    forward_return_open, label_span,
     is_regression, past_realized_vol, relative_forward_return, target_horizon,
 )
 from src.ml.vol_models import HARModel, naive_forecast, qlike, regression_metrics
@@ -120,6 +121,29 @@ def test_vol_falls_back_when_high_equals_low():
     assert rv.iloc[25] > 0 and np.isfinite(rv.iloc[25])
 
 
+def test_vol_is_nan_when_price_is_frozen():
+    """Etiqueta sin operaciones (precio congelado): vol futura NaN, no 0 ni el piso del log."""
+    df = _ohlc()
+    frozen = df.index[100:130]
+    df.loc[frozen, ["Open", "High", "Low", "Close"]] = df["Close"].iloc[99]
+    assert np.isnan(forward_realized_vol(df, 5).iloc[100])      # t+1..t+5 congelados
+    assert forward_realized_vol(df, 5).iloc[90] > 0             # ventana con movimiento
+    assert np.isnan(past_realized_vol(df, 5).iloc[110])         # feature: ventana congelada
+    assert past_realized_vol(df, 1).iloc[110] == 0              # 1d: día plano es un 0 legítimo
+
+
+def test_oscillators_stay_in_range_with_dirty_bars():
+    """Close fuera de [Low, High] con rango ~0 no debe disparar stoch/williams."""
+    from src.ml.features import compute_features
+    df = _ohlc()
+    bad = df.index[200:230]
+    df.loc[bad, ["High", "Low"]] = df.loc[bad, ["Low"]].values
+    df.loc[bad, "Close"] = df["Close"].iloc[199] * 1.05
+    f = compute_features(df)
+    assert f["stoch_k"].dropna().between(0, 100).all()
+    assert f["williams_r"].dropna().between(-100, 0).all()
+
+
 def test_har_recovers_persistent_signal():
     df = _ohlc(1000)
     X = extra_features(df).dropna()
@@ -166,3 +190,108 @@ def test_date_splits_accept_unsorted_rows():
     shuffled = dates.sample(frac=1.0, random_state=0).reset_index(drop=True)
     for tr, te in purged_walk_forward_date_splits(shuffled, n_splits=3):
         assert shuffled.iloc[tr].max() < shuffled.iloc[te].min()
+
+
+# ─── M2a: entrada al Open siguiente y horizonte en días hábiles ──────────────
+
+def test_default_build_targets_unchanged_by_new_options():
+    """Con los defaults (close, filas) la salida es idéntica a la previa."""
+    df, bench = _ohlc(), _ohlc(seed=1)["Close"]
+    base = build_targets(df, bench, horizons=(5,), vol_horizons=(5,))
+    explicito = build_targets(df, bench, horizons=(5,), vol_horizons=(5,),
+                              entry="close", horizon_mode="rows")
+    pd.testing.assert_frame_equal(base, explicito)
+    assert list(base.columns) == ["dir_5", "rel_5", "log_rv_fwd_5"]
+
+
+def test_next_open_return_uses_open_t1_and_close_t1_plus_h():
+    df = _ohlc()
+    r = forward_return_open(df["Open"], df["Close"], 5)
+    t = 50
+    esperado = df["Close"].iloc[t + 1 + 5] / df["Open"].iloc[t + 1] - 1.0
+    assert r.iloc[t] == pytest.approx(esperado)
+    assert r.iloc[-6:].isna().all()          # t+1+h no existe
+
+
+def test_build_targets_next_open_matches_manual_label():
+    df, bench_df = _ohlc(), _ohlc(seed=1)
+    out = build_targets(df, bench_df["Close"], horizons=(5,), vol_horizons=(5,),
+                        entry="next_open", bench_open=bench_df["Open"])
+    t = 50
+    r_stock = df["Close"].iloc[t + 6] / df["Open"].iloc[t + 1] - 1
+    r_bench = bench_df["Close"].iloc[t + 6] / bench_df["Open"].iloc[t + 1] - 1
+    assert out["dir_5"].iloc[t] == float(r_stock > 0)
+    assert out["rel_5"].iloc[t] == float(r_stock - r_bench > 0)
+    assert out["dir_5"].iloc[-6:].isna().all()
+
+
+def test_next_open_requires_bench_open():
+    df, bench = _ohlc(), _ohlc(seed=1)["Close"]
+    with pytest.raises(ValueError):
+        build_targets(df, bench, horizons=(5,), vol_horizons=(5,), entry="next_open")
+
+
+def test_next_open_label_never_uses_prices_beyond_horizon():
+    """La etiqueta de t vive hasta t+1+h: mover t+h+2 en adelante no la altera."""
+    df, bench_df = _ohlc(), _ohlc(seed=1)
+    t, h = 100, 5
+    kw = dict(horizons=(h,), vol_horizons=(5,), entry="next_open")
+    base = build_targets(df, bench_df["Close"], bench_open=bench_df["Open"], **kw)
+    shocked = df.copy()
+    shocked.iloc[t + h + 2:] *= 3.0
+    after = build_targets(shocked, bench_df["Close"], bench_open=bench_df["Open"], **kw)
+    assert base["dir_5"].iloc[t] == after["dir_5"].iloc[t]
+
+
+def test_label_span_adds_one_day_for_next_open():
+    assert label_span("dir_5", "close") == 5
+    assert label_span("dir_5", "next_open") == 6
+    assert label_span("log_rv_fwd_5", "next_open") == 5   # la vol no cambia de ventana
+
+
+def test_business_days_differs_from_rows_when_series_has_gaps():
+    """Un ticker con huecos: 5 filas ≠ 5 días hábiles del calendario común."""
+    df, bench = _ohlc(60), _ohlc(60, seed=1)["Close"]
+    calendar = df.index
+    con_huecos = df.drop(df.index[[11, 12, 13]])       # faltan 3 días del calendario
+    t_date = df.index[10]
+    filas = build_targets(con_huecos, bench, horizons=(5,), vol_horizons=(5,))
+    habiles = build_targets(con_huecos, bench, horizons=(5,), vol_horizons=(5,),
+                            horizon_mode="business_days", calendar=calendar)
+    # por filas: la salida es la fila 5 del ticker (= día 18 del calendario)
+    sal_filas = con_huecos["Close"].iloc[con_huecos.index.get_loc(t_date) + 5]
+    assert sal_filas == df["Close"].iloc[18]
+    # por días hábiles: la salida es el día 15 del calendario
+    esperado = float(df["Close"].iloc[15] / df["Close"].iloc[10] - 1 > 0)
+    assert habiles["dir_5"].loc[t_date] == esperado
+    assert filas["dir_5"].loc[t_date] == float(df["Close"].iloc[18] / df["Close"].iloc[10] - 1 > 0)
+
+
+def test_business_days_keeps_original_index_and_nan_when_exit_day_missing():
+    df, bench = _ohlc(60), _ohlc(60, seed=1)["Close"]
+    con_huecos = df.drop(df.index[[15]])                # el día de salida de t=10 no cotizó
+    out = build_targets(con_huecos, bench, horizons=(5,), vol_horizons=(5,),
+                        horizon_mode="business_days", calendar=df.index)
+    assert out.index.equals(con_huecos.index)
+    assert np.isnan(out["dir_5"].loc[df.index[10]])
+
+
+def test_business_days_equals_rows_on_a_complete_series():
+    df, bench = _ohlc(), _ohlc(seed=1)["Close"]
+    a = build_targets(df, bench, horizons=(5, 21), vol_horizons=(5,))
+    b = build_targets(df, bench, horizons=(5, 21), vol_horizons=(5,),
+                      horizon_mode="business_days", calendar=df.index)
+    pd.testing.assert_frame_equal(a, b)
+
+
+def test_business_days_requires_calendar():
+    df, bench = _ohlc(), _ohlc(seed=1)["Close"]
+    with pytest.raises(ValueError):
+        build_targets(df, bench, horizon_mode="business_days")
+
+
+def test_return_cols_expose_underlying_returns():
+    df, bench = _ohlc(), _ohlc(seed=1)["Close"]
+    out = build_targets(df, bench, horizons=(5,), vol_horizons=(5,), return_cols=True)
+    assert (out["dir_5"].dropna() == (out["ret_dir_5"].dropna() > 0).astype(float)).all()
+    assert (out["rel_5"].dropna() == (out["ret_rel_5"].dropna() > 0).astype(float)).all()
