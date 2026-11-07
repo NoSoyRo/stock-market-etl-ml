@@ -61,6 +61,9 @@ def setup(monkeypatch):
     macro = {n: _raw(100 + i) for i, n in enumerate(("USDMXN", "NAFTRAC", "WTI", "SP500"))}
     monkeypatch.setattr(bt, "store_get", lambda n: raws.get(n, macro.get(n)))
     monkeypatch.setattr(bt, "MACRO_TICKERS", list(macro))
+    # FEATURE_COLS crece con el tiempo (p. ej. columnas de tasas que este panel sintético no
+    # tiene): el test solo necesita unas pocas features reales para que `dropna` funcione.
+    monkeypatch.setattr(bt, "FEATURE_COLS", ["ret_5d", "ret_10d", "rsi_14"])
     return raws, tickers, _mask(raws)
 
 
@@ -139,4 +142,5 @@ def test_mascara_se_carga_sola_si_no_se_pasa(setup, monkeypatch):
     assert out[0]["mask_invalid"].sum() == 1
 
 
-GOLDEN = {"shape": (4157, 52), "y_sum": 2003.0, "fwd_sum": -395.14824238241835, "uni_n_sum": 48383.0}
+# Recalculado con el set reducido de FEATURE_COLS del fixture (el real creció con columnas de tasas).
+GOLDEN = {"shape": (4800, 54), "y_sum": 2311.0, "fwd_sum": -534.8894144052009, "uni_n_sum": 57600.0}
