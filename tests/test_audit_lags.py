@@ -35,6 +35,8 @@ def test_lead_lag_detecta_adelanto():
     assert c["t-1"] > 0.99 and abs(c["t"]) < 0.2
 
 
-def test_merge_asof_usa_dato_el_mismo_dia():
+def test_merge_asof_ya_no_usa_el_dato_el_mismo_dia():
+    # Tras el fix (allow_exact_matches=False) el dato publicado el día D se usa desde D+1.
     r = merge_asof_same_day(pd.Timestamp("2024-03-12"))
-    assert r["mismo_dia"] is True
+    assert r["mismo_dia"] is False
+    assert r["primer_dia_con_dato"] > r["available_date"]
