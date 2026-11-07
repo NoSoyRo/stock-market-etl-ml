@@ -186,10 +186,13 @@ class Backtester:
             y_pred=all_preds
         )
         
-        # Métricas duales de portafolio con costos BMV (KB-001 / KB-003)
+        # Métricas duales de portafolio con costos BMV (KB-001 / KB-003).
+        # _simulate_directional_returns produce retornos diarios consecutivos
+        # (np.diff(y_true)/y_true[:-1] sobre barras diarias de precio), por lo que
+        # periods_per_year=252 es la anualización correcta.
         gross, net = self.get_trade_returns()
         if len(gross) > 0:
-            dual = Metrics.calculate_dual_metrics(gross, net)
+            dual = Metrics.calculate_dual_metrics(gross, net, periods_per_year=252)
             aggregate.update(dual)
             aggregate['sharpe_ratio'] = dual['sharpe_gross']
             aggregate['win_rate_net'] = dual['win_rate_net']

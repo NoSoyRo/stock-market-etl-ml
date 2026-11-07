@@ -346,7 +346,8 @@ class Metrics:
     def calculate_all_metrics(
         y_true: np.ndarray,
         y_pred: np.ndarray,
-        risk_free_rate: float = 0.0
+        risk_free_rate: float = 0.0,
+        periods_per_year: float = 252.0,
     ) -> Dict[str, float]:
         """
         Calcular todas las métricas de una vez
@@ -355,6 +356,7 @@ class Metrics:
             y_true: Valores reales
             y_pred: Valores predichos
             risk_free_rate: Tasa libre de riesgo anualizada
+            periods_per_year: Periodos por año para anualizar Sharpe/Sortino/Calmar (default 252)
             
         Returns:
             Dict con todas las métricas
@@ -379,10 +381,16 @@ class Metrics:
             cumulative_returns = np.cumprod(1 + returns) - 1
             
             metrics.update({
-                'sharpe_ratio': Metrics.sharpe_ratio(returns, risk_free_rate),
-                'sortino_ratio': Metrics.sortino_ratio(returns, risk_free_rate),
+                'sharpe_ratio': Metrics.sharpe_ratio(
+                    returns, risk_free_rate, periods_per_year=periods_per_year
+                ),
+                'sortino_ratio': Metrics.sortino_ratio(
+                    returns, risk_free_rate, periods_per_year=periods_per_year
+                ),
                 'max_drawdown': Metrics.max_drawdown(cumulative_returns),
-                'calmar_ratio': Metrics.calmar_ratio(returns, cumulative_returns)
+                'calmar_ratio': Metrics.calmar_ratio(
+                    returns, cumulative_returns, periods_per_year=periods_per_year
+                )
             })
         
         return metrics

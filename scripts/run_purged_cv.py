@@ -121,6 +121,8 @@ def evaluate_purged_cv(df: pd.DataFrame) -> dict:
             else:
                 # Proxy: y=1 → +1%, y=0 → -1%
                 rets = np.where(y_te.values[sigs] == 1, 0.01, -0.01)
+            # Convención: se escala por √(252/HORIZON) y dsr_from_fold_sharpes des-anualiza
+            # con el mismo factor para obtener el Sharpe por señal/periodo que exige el DSR.
             sharpe = (rets.mean() / (rets.std() + 1e-8)) * np.sqrt(252 / HORIZON)
             win_rate = (y_te.values[sigs] == 1).mean()
             n_signals = int(sigs.sum())
