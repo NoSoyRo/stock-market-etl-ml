@@ -1,0 +1,120 @@
+# Fundamentales PIT: ingesta, almacenamiento y hallazgos
+
+Documento del equipo Rojo (Fundamentales PIT). Resume cómo correr la ingesta, dónde queda cada dato y qué encontramos en la corrida real del 26-oct-2026. Lo que no se probó está marcado como tal.
+
+## 1. Qué es el producto
+
+Estados financieros trimestrales por emisora de la BMV (montos, márgenes, crecimiento y UPA), guardados de forma **point-in-time (PIT)**: cada fila trae `available_date`, la fecha desde la cual el dato ya era público. Nadie debe usar una fila antes de esa fecha.
+
+```
+available_date = quarter_end + 70 días
+```
+
+El detalle del contrato y de la capa semántica está en `productos/fundamentales_pit/` (`contrato.yaml`, `capa_semantica.yaml`, README).
+
+## 2. Cómo correr la ingesta
+
+Requisitos: `pip install -r requirements.txt`, `pip install pyarrow pytest` y un `.env` (copiado de `.env.example`) con `DATABURSATIL_API_TOKEN`. **El `.env` no se sube al repo.**
+
+```bash
+# Producto completo (bronze -> silver -> golden + calidad). Pide todos los años a la API.
+python -m productos.fundamentales_pit.capas todo --bronze
+
+# Sin token: arma silver/golden desde data/fundamentals.parquet (solo ratios)
+python -m productos.fundamentales_pit.capas todo
+
+# Dashboard (lee golden)
+python build_dashboard.py
+
+# Tests del producto
+python -m pytest tests/test_fundamentales_pit.py -q
+
+# Ingesta original (alimenta data/fundamentals.parquet, que usa src/ml/features.py)
+python scripts/run_all_ingests.py --fundamentals --force-fundamentals --skip-audit
+```
+
+## 3. Dónde se guarda cada cosa
+
+**Código de las capas** (en `src/etl`, una carpeta por capa y dentro la del producto, como pidió el profe):
+
+| Capa | Archivo |
+|---|---|
+| Bronze | `src/etl/bronze/fundamentales_pit/capa.py` |
+| Silver | `src/etl/silver/fundamentales_pit/capa.py` |
+| Golden | `src/etl/golden/fundamentales_pit/capa.py` |
+| Orquestador (corre las tres en orden) | `productos/fundamentales_pit/capas.py` |
+
+**Datos que genera cada capa:**
+
+| Qué | Dónde |
+|---|---|
+| Bronze: respuesta cruda de la API | `data/fundamentals/bronze/<ticker>/resultado_trimestre/<periodo>.json` |
+| Silver: un trimestre por fila, con montos | `data/fundamentals/silver/fundamentales_trimestre.parquet` |
+| Golden: lo que consumen dashboard, agente y modelos | `data/fundamentals/golden/fundamentales_pit.parquet` |
+| Dividendos (hoy vacío) | `data/fundamentals/golden/dividendos_eventos.parquet` |
+| Reporte de calidad | `data/fundamentals/golden/calidad.md` y `calidad.json` |
+| Ingesta original (solo ratios) | `data/fundamentals.parquet` |
+| Dashboard | `data/dashboard_fundamentales.html` |
+| Precios, noticias, intradía | `data/market/`, `data/news/`, `data/intraday/` |
+
+`data/fundamentals/` y el HTML del dashboard están en el `.gitignore`: se regeneran con los comandos de arriba.
+
+**Tablas SQL.** El repo tiene dos bases: SQL Server `MercadoBursatil` (`sql/01` y `sql/02`, esquemas `control`, `stage`, `golden`, `ml`) y Postgres `mercado` (`sql/03`, esquema `lab`). `sql/04_fundamentales_schema.sql` define las tablas de este producto para SQL Server. **No se ha ejecutado en un servidor real**, y falta confirmar con el profe en qué motor vive golden.
+
+## 4. Resultado de la corrida real (26-oct-2026)
+
+| Dato | Valor |
+|---|---|
+| Llamadas a la API | 1,440 (36 emisoras x 40); 4 fallaron por red y se repitieron después con éxito |
+| Filas en silver y golden | **1,338** (1,336 en la primera descarga y 2 más al reintentar los errores de red; la ingesta original dio 1,146 y el parquet del repo traía 946) |
+| Emisoras con datos | **32 de 36** |
+| Rango de trimestres | 2016-03-31 a 2026-09-30 (2016 llega como comparativo de 2017) |
+| Origen de las filas | 1,208 de reporte propio, 128 de comparativo |
+| Trimestres reexpresados después | 186 |
+| Ratios recortados en +-5 | 64 (el valor real se perdió) |
+| UPA (`fund_eps`) con dato | 100% de las filas |
+| Tests | 24 de 24 en verde (25 de 25 desde el 30-oct) |
+
+**Control de calidad:** 14 reglas en OK y 1 en FALLA (hallazgo 5).
+
+**Actualización del 30-oct-2026.** Se volvió a bajar 2026 (`capas bronze --desde 2026 --forzar`, 144 llamadas, 0 errores) para recoger los reportes de 2026-09-30 (hallazgo 14). Resultado: **1,357 filas** en silver y golden, 32 de 36 emisoras, 20 emisoras con 2026-09-30, 187 trimestres reexpresados y 66 ratios recortados en ±5. Control de calidad sin cambios: 14 reglas en OK y 1 en FALLA (PINFRA). La de trimestres consecutivos pasó de FALLA a OK al reintentar bronze (hallazgo 6). Las reglas están en `contrato.yaml`.
+
+**Actualización del 6-nov-2026.** `capas todo --bronze`: 67 llamadas, 0 errores. Golden pasó de 1,357 a **1,368 filas** (+11, todas de 2026-09-30): ahora son **31 emisoras** con 2026-09-30 (antes 20; la única de las 32 que falta es ALFAA, que no pasa de 2025-09-30). Siguen 32 de 36 emisoras, 187 trimestres reexpresados y 66 ratios recortados en ±5. Control de calidad sin cambios: 14 reglas en OK y 1 en FALLA (PINFRA). El archivo `data/fundamentals.parquet` del repo también se refrescó (vino refrescado en el commit del profe): ahora hay 63 YoY mal calculados por posición, no 35.
+
+**Ingesta original (`run_all_ingests.py --fundamentals`, 27-oct-2026, con `fundamentals.py` corregido):**
+
+| Dato | Valor |
+|---|---|
+| Emisoras con datos | 32 de 36 (mismas 4 sin datos) |
+| Filas | 1,233 (2017-03-31 a 2026-09-30) |
+| Duración | 365 s |
+| Trimestres por emisora | 38 (hasta 2026-06-30), 39 (hasta 2026-09-30) y 35 (ALFAA, hasta 2025-09-30): son todos los trimestres del rango, sin huecos |
+| Emisoras por trimestre | 2025-09-30: 32 · 2025-12-31: 31 · 2026-06-30: 31 · 2026-09-30: 20 |
+| Columnas | las 5 de ratios más `fund_revenue_abs` y `fund_net_abs` |
+
+## 5. Hallazgos
+
+1. **El YoY original estaba mal calculado.** `src/api/fundamentals.py` usaba `pct_change(4)`, que compara contra la fila 4 posiciones atrás; si falta un trimestre, compara contra el equivocado (en 2026T1 y T2 comparaba contra 18 meses antes). Se corrigió de dos formas: golden calcula el YoY por fecha, y `fundamentals.py` ahora rellena los trimestres faltantes antes de calcularlo. La corrección de `fundamentals.py` se probó con datos sintéticos y con la ingesta real del 27-oct: los conteos por emisora cubren todos los trimestres del rango. Además se recalculó el YoY de ingresos por fecha de forma independiente sobre `data/fundamentals.parquet`: de 1,100 filas con YoY de ingresos, 0 difieren y 0 se calcularon sin trimestre previo. Lo mismo con el YoY de utilidad neta: 1,105 filas, 0 difieren.
+2. **Faltaban los trimestres de 2025.** La ingesta original pedía solo años pares y sacaba los impares del comparativo del año siguiente; 2025T3 y T4 dependían de reportes de 2026 que aún no existen. Al pedir 2025 directo: 2025-09-30 pasó de 1 a 32 emisoras y 2025-12-31 de 0 a 31, tanto en el flujo por capas como en la ingesta original.
+3. **ALFAA** antes se cortaba en 2024-12-31 y ahora llega a 2025-09-30 (35 trimestres completos). No tiene 2025-12-31 ni 2026; no sabemos por qué.
+4. **Cuatro emisoras sin estados financieros: GFNORTEO, GENTERA, GFINBURO y Q.** La API responde 400 ("emisora desconocida") y en `/v2/emisoras` su campo `financieros` viene vacío, aunque las emisoras sí existen. No es un error de nombre: la API no los ofrece. Las cuatro son del sector financiero; que esa sea la causa no está comprobado.
+5. **PINFRA 2025-09-30 tiene margen operativo de 284%** (falla la regla de calidad). Viene así de la API: utilidad de operación de 14,195 mdp contra ingresos de 4,993 mdp (en 2024T3 fue 2,821 mdp). No encontramos la causa; el valor puede ser legítimo (por ejemplo, una ganancia extraordinaria), por eso no se corrigió.
+6. **AC aparecía sin 2016-06-30 ni 2017-06-30 en golden** (falla la regla de trimestres consecutivos). Causa verificada en bronze: 4 llamadas de AC (`2T_2017`, `2T_2018`, `4T_2018` y `1T_2019`) terminaron en `ConnectionResetError` (el servidor cerró la conexión); son los únicos 4 archivos con error de red de todo bronze y coinciden con `errores=4`. `bajar_bronze` guardó cada error como si fuera la respuesta y no lo vuelve a pedir porque el archivo ya existe. La ingesta original sí trae esos trimestres. Efecto: 2017-06-30 falta, y 2018-06-30, 2018-12-31 y 2019-03-31 solo llegan como comparativo del año siguiente (posiblemente reexpresado) en lugar de su cifra original. Los bancos no son errores: dieron 400, una respuesta real de la API. **Resuelto:** `bajar_bronze` ahora vuelve a pedir los archivos que guardaron un error de red (`_es_error_de_red` en `src/etl/bronze/fundamentales_pit/capa.py`). Al reintentar: `llamadas=4`, `errores=0`, golden pasó de 1,336 a 1,338 filas, la regla de trimestres consecutivos quedó en OK y los 4 trimestres de AC salen con `origen = reporte_propio`.
+7. **El trimestre 2026-09-30 ya lo reportaron varias emisoras**: el 26-oct solo estaba GAPB, el 27-oct ya había 20 y al 6-nov son 31 de 32 (en golden desde la actualización del 6-nov). El rezago fijo de 70 días las deja disponibles hasta el **2026-12-09**, así que esas 31 filas tienen `available_date` futura y el modelo no debe usarlas todavía. El rezago fijo es conservador: no filtra futuro, pero retrasa información que ya era pública.
+8. **La UPA ya viene en la API** (`basicearningslosspershare`) y entra a golden como `fund_eps`. En WALMEX, utilidad neta entre acciones en circulación coincide con `fund_eps` en tres de los cuatro últimos trimestres y difiere 0.01 en el último; solo se revisó esa emisora.
+9. **Dividendos: la API los trae pero sin fecha de anuncio.** En `/v2/emisoras` cada emisora tiene un historial con fecha (parece la de pago), monto y tipo. La fecha ex-derecho y la moneda solo vienen en el dividendo más reciente, que además se repite en el histórico. La fecha de anuncio, que el contrato usa como `available_date`, no existe. Hay que decidir con qué fecha aproximarla; usar la de pago nunca filtra futuro, pero llega tarde. Incluye a las 4 emisoras que no tienen estados financieros.
+10. **yfinance no es PIT.** `dividend_yield`, `pe_ratio` y `market_cap` en `src/ml/features.py` son un valor de hoy repetido en toda la historia. No están en este producto.
+11. **Margen bruto de 100% en BOLSAA, FUNO11, GAPB y VOLARA.** Pasa en todos sus trimestres (42 o 43 cada una). En bronze las cuatro reportan `costofsales` = 0, así que `grossprofit` = `revenue` (por ejemplo, GAPB 2T-2026: ingresos y utilidad bruta de 11,289.7 mdp). No es un error del cálculo: estas emisoras no separan un costo de ventas y registran sus gastos en otros renglones (administración, venta, otros). Para ellas `fund_gross_margin` no es comparable con el de otras emisoras; usar `fund_oper_margin`. No se corrigió porque viene así de la fuente.
+12. **VESTA 2T-2026 tiene margen neto de 129.7% y YoY de utilidad neta de 267%.** Las cuentas cuadran con bronze (cifras en millones): utilidad de operación 61.0 + ingresos financieros 55.2 − gastos financieros 17.5 ≈ utilidad antes de impuestos 98.8; con impuesto de −3.1 (suma en vez de restar) la utilidad neta queda en 101.8, por encima de los ingresos (78.5). El YoY compara contra 2T-2025, cuando la utilidad neta fue 27.7 (impuestos de 26.8 e ingresos financieros de 14.5). No se corrigió.
+13. **Moneda de los montos (no comprobado).** Los montos de VESTA son mucho menores que los del resto (ingresos de 78.5 millones en 2T-2026 contra 250,947.8 mdp de WALMEX); suponemos que VESTA reporta en dólares. La API no trae un campo de moneda en `resultado_trimestre`, así que no se puede confirmar con los datos. Márgenes y YoY no se ven afectados (son proporciones), pero comparar `fund_revenue_abs` o `fund_net_abs` entre emisoras puede mezclar pesos con dólares. No se revisó qué otras emisoras reportan en otra moneda.
+14. **Bronze no volvía a pedir los trimestres que aún no se publicaban.** Cuando un trimestre no ha salido, la API responde 400 ("Emisora y/o periodo desconocidos"). Bronze guardaba esa respuesta y, como no es un error de red, no la volvía a pedir: la corrida del 30-oct con `--bronze` hizo 0 llamadas y golden siguió con solo GAPB en 2026-09-30. **Resuelto:** `_reintentar` en `src/etl/bronze/fundamentales_pit/capa.py` vuelve a pedir las respuestas que no son 200 de trimestres que cerraron hace menos de 365 días (o que aún no cierran). Los 400 de trimestres viejos, como los de los bancos que la API no ofrece, no se repiten. Probado con `test_bronze_vuelve_a_pedir_trimestres_recientes_no_publicados` (25 de 25 tests en verde) y con la corrida real del 30-oct: `llamadas=67`, que son exactamente las respuestas no-200 dentro de la ventana: 4T-2026 de las 36 emisoras, 3T-2026 de las 16 que aún no lo publican, 4T-2025 a 2T-2026 de los 4 bancos (12) y de ALFAA (3). Golden se mantuvo en 1,357 filas porque ninguno de esos trimestres se había publicado todavía. La corrida del 6-nov también hizo 67 llamadas y 11 ya devolvieron trimestres publicados (todos 2026-09-30): golden pasó a 1,368 filas.
+
+## 6. Pendientes
+
+- [ ] Cargar dividendos desde la API y decidir la fecha de disponibilidad (ver hallazgo 9).
+- [x] Reintentar los archivos de bronze con error de red (hecho en `src/etl/bronze/fundamentales_pit/capa.py`; AC recuperado).
+- [ ] Investigar a PINFRA 2025-09-30, a AC y a ALFAA con la fuente original.
+- [ ] Confirmar la moneda de reporte de VESTA y revisar si otras emisoras reportan en dólares (ver hallazgo 13).
+- [ ] Ejecutar `sql/04_fundamentales_schema.sql` en un servidor real y confirmar con el profe dónde vive golden.
+- [ ] Confirmar con el profe qué significa "webfinals".
+- [ ] Revisar con el equipo dueño de `src/agent/tools.py` el registro de la herramienta `ver_fundamentales`.

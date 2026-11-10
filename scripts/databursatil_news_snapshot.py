@@ -46,6 +46,8 @@ def main() -> None:
 
     print("\n══ DataBursátil News Snapshot ══")
     save_daily_snapshot(date=args.date)
+    from src.data.news_medallion import build_gold
+    build_gold()
 
     if args.rebuild_panel:
         tickers = list(load_universe_tickers(args.universe).keys())

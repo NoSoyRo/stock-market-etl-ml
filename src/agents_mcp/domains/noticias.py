@@ -1,165 +1,97 @@
-"""Agente de dominio: Noticias (segmentadas bmv/usa/etf/crypto/fibra).
-
-Esquema real: src/ml/news.py (NEWS_FEATURE_COLS, dedup TF-IDF, decay
-temporal), src/ml/news_history.py (panel histórico PIT para backtest).
-
-Dos almacenes distintos:
-  - data/news/{slug}_{YYYY-MM-DD}.json + latest.json   (snapshot de producción,
-    lo que lee el portero de src/agent/veto.py)
-  - data/news/history/articles.parquet + daily_features.parquet  (panel
-    histórico point-in-time, vía GDELT, para backtest)
-
-Si la pregunta involucra evaluar sesgos del LLM (como hace veto.py), aplica
-la misma anonimización: ticker/alias fuera del texto, nombres como E1/E2.
-
-TODO equipo Noticias: implementar query_noticias de verdad sobre
-articles.parquet / los snapshots diarios.
-"""
+"""Dominio Noticias del orquestador de main, conectado al medallion local."""
 from __future__ import annotations
 
+import asyncio
 import json
-import re
 from pathlib import Path
 
 from claude_agent_sdk import tool
 
 from src.agents_mcp.domain_agent import DomainAgent
+from src.semantic.domain_queries import NewsDomainQueries
+from src.semantic.models import json_safe
+from src.semantic.repository import DEFAULT_NEWS_ROOT, GOLD_METRICS
+from src.semantic.service import NewsSemanticService
 
-NEWS_DIR = Path("data/news")
-_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-
-SYSTEM_PROMPT = """Eres el agente de dominio de Noticias: titulares y
-features de sentimiento por ticker, segmentados por universo (bmv, usa,
-etf, crypto, fibra). Si te preguntan sobre sesgos o evaluación del portero
-de noticias, anonimiza igual que src/agent/veto.py (nunca repitas el nombre
-real de la emisora en ese contexto). Si no hay cobertura de noticias para
-un ticker/fecha, dilo — no inventes sentimiento."""
-
-
-@tool(
-    "schema_noticias",
-    "Describe las columnas, almacenes y la disciplina de anonimización del dominio Noticias.",
-    {},
-)
-async def schema_noticias(args: dict) -> dict:
-    return {
-        "content": [{
-            "type": "text",
-            "text": (
-                "NEWS_FEATURE_COLS (src/ml/news.py): news_sent_score, "
-                "news_count_7d, news_sent_delta, news_sent_vol, "
-                "news_relevance_avg, news_esg_score. "
-                "Producción: data/news/{bmv|usa|etf|crypto|fibra}_"
-                "{YYYY-MM-DD}.json + latest.json. "
-                "Histórico PIT: data/news/history/articles.parquet, "
-                "daily_features.parquet (GDELT). "
-                "Dedup TF-IDF (umbral coseno 0.5) + decay temporal "
-                "(lambda=0.3/día) ya aplicados en estas features."
-            ),
-        }]
-    }
+SYSTEM_PROMPT = """Eres el agente de dominio de Noticias del sistema stock-market.
+Consulta siempre tus tools: son tu única fuente de métricas y titulares.
+Responde en español citando fecha de cálculo, ventana, método, fuentes y
+advertencias. Sin fecha, query_noticias usa el último resultado disponible
+para la entidad; puede ser antiguo: informa la fecha y el estado stale.
+No interpretes ausencia de cobertura como sentimiento neutral. No mezcles
+ventanas o métodos distintos ni sumes conteos de ventanas superpuestas.
+Consulta evidencia antes de atribuir eventos o explicar un movimiento.
+Para consultas históricas, respeta fecha y corte; nunca uses información futura.
+Para evaluar sesgos del LLM o del portero/veto, pide anonimizar=true en las
+tools de consulta Y evidencia, con un ticker a la vez; usa solo E1 en la
+respuesta y no repitas el nombre o ticker que recibiste en la pregunta.
+Las consultas son de solo lectura: no descargan ni recalculan noticias.
+"""
 
 
-def _latest_news_file() -> Path | None:
-    """Archivo YYYY-MM-DD.json más reciente en data/news/ (snapshot
-    combinado de todos los universos, no los segmentados bmv_/usa_/...)."""
-    candidatos = [p for p in NEWS_DIR.glob("*.json") if _DATE_RE.match(p.stem)]
-    if not candidatos:
-        return None
-    return max(candidatos, key=lambda p: p.stem)
+def _reply(payload):
+    return {'content': [{'type': 'text', 'text': json.dumps(
+        json_safe(payload), ensure_ascii=False, allow_nan=False)}]}
 
 
-def _load_news_file(fecha: str | None) -> tuple[Path | None, list[dict]]:
-    if fecha:
-        path = NEWS_DIR / f"{fecha}.json"
-        if not path.exists():
-            return path, []
-    else:
-        path = _latest_news_file()
-        if path is None:
-            return None, []
-    with open(path, encoding="utf-8") as f:
-        return path, json.load(f)
+def create_news_tools(news_root=DEFAULT_NEWS_ROOT, *, service=None):
+    """Construye tools aisladas por raíz, útiles también sin invocar al LLM."""
+    service = service or NewsSemanticService(Path(news_root))
+    queries = NewsDomainQueries(service)
+
+    @tool('schema_noticias', 'Describe los datasets, métricas y cortes del dominio Noticias.', {})
+    async def schema_noticias(args):
+        return _reply({
+            'datasets': {'gold': 'gold/historical_features.parquet',
+                         'silver': 'silver/articles.parquet'},
+            'metrics': list(GOLD_METRICS),
+            'queries': ['query_noticias', 'historial_noticias', 'evidencia_noticias', 'cobertura_noticias'],
+            'rules': ['Solo lectura; sin scraping ni llamadas al modelo desde las consultas.',
+                      'Sin fecha: último resultado disponible, nunca se presenta como dato de hoy.',
+                      'Corte ISO-8601 con zona horaria; disponibilidad <= corte.',
+                      'Ventanas superpuestas: no sumar conteos de artículos.',
+                      'Sesgos: anonimizar=true oculta ticker, alias, URLs e identificadores de evidencia.',
+                      'El golden PySpark sin ponderación no sustituye estas métricas ML.'],
+        })
+
+    @tool('query_noticias', 'Métricas por ticker o topic y fecha opcional; sin entidad resume hasta 15 tickers. '
+          'Para evaluar sesgos usa anonimizar=true y un ticker.', {
+              'type': 'object', 'properties': {
+                  'ticker': {'type': 'string'}, 'topic': {'type': 'string'},
+                  'fecha': {'type': 'string', 'description': 'YYYY-MM-DD; opcional.'},
+                  'corte': {'type': 'string', 'description': 'Fecha/hora ISO-8601 con zona horaria.'},
+                  'anonimizar': {'type': 'boolean', 'default': False}}, 'required': [],
+              'additionalProperties': False})
+    async def query_noticias(args):
+        return _reply(await asyncio.to_thread(queries.query, **args))
+
+    @tool('historial_noticias', 'Serie histórica por ticker o topic; preserva huecos y no suma ventanas.',
+          {'entity_type': str, 'entity_id': str, 'inicio': str, 'fin': str})
+    async def historial_noticias(args):
+        return _reply(await asyncio.to_thread(service.consultar_historial, **args))
+
+    @tool('evidencia_noticias', 'Titulares y procedencia de un resultado; excluye observaciones posteriores al corte. '
+          'Para sesgos: anonimizar=true y entity_type=ticker.', {
+              'type': 'object', 'properties': {
+                  'entity_type': {'type': 'string', 'enum': ['ticker', 'topic']},
+                  'entity_id': {'type': 'string'}, 'fecha': {'type': 'string'},
+                  'corte': {'type': 'string'}, 'limit': {'type': 'integer', 'minimum': 1, 'maximum': 100},
+                  'offset': {'type': 'integer', 'minimum': 0},
+                  'anonimizar': {'type': 'boolean', 'default': False}},
+              'required': ['entity_type', 'entity_id', 'fecha'], 'additionalProperties': False})
+    async def evidencia_noticias(args):
+        return _reply(await asyncio.to_thread(queries.evidence, **args))
+
+    @tool('cobertura_noticias', 'Entidades, fechas, fuentes y métodos realmente disponibles en el medallion.', {})
+    async def cobertura_noticias(args):
+        return _reply(await asyncio.to_thread(service.consultar_cobertura))
+
+    return [schema_noticias, query_noticias, historial_noticias, evidencia_noticias, cobertura_noticias]
 
 
-def _fmt_item(item: dict) -> str:
-    sources = ", ".join(item.get("sources", [])) or "sin fuente registrada"
-    return (
-        f"- {item.get('ticker')}: sentimiento={item.get('news_sent_score')}, "
-        f"n_articulos={item.get('n_articles')}, "
-        f"relevancia_prom={item.get('news_relevance_avg')}, "
-        f"delta_sent={item.get('news_sent_delta')}, vol_sent={item.get('news_sent_vol')}, "
-        f"fuentes=[{sources}]"
-    )
+def create_news_agent(news_root=DEFAULT_NEWS_ROOT):
+    return DomainAgent(name='noticias', system_prompt=SYSTEM_PROMPT, tools=create_news_tools(news_root))
 
 
-@tool(
-    "query_noticias",
-    "Da el sentimiento/cobertura de noticias de un ticker (o un resumen de "
-    "varios) en una fecha dada. ticker y fecha son opcionales: sin ticker "
-    "resume varios; sin fecha usa el snapshot más reciente en data/news/.",
-    {
-        "type": "object",
-        "properties": {
-            "ticker": {"type": "string", "description": "Ticker a consultar, ej. WALMEX. Opcional."},
-            "fecha": {"type": "string", "description": "YYYY-MM-DD. Opcional, default: más reciente."},
-        },
-        "required": [],
-    },
-)
-async def query_noticias(args: dict) -> dict:
-    ticker = (args.get("ticker") or "").strip().upper() or None
-    fecha = (args.get("fecha") or "").strip() or None
-
-    path, items = _load_news_file(fecha)
-
-    if path is None:
-        return {
-            "content": [{
-                "type": "text",
-                "text": "No hay ningún snapshot de noticias en data/news/.",
-            }]
-        }
-    if not items and fecha:
-        return {
-            "content": [{
-                "type": "text",
-                "text": f"No existe el archivo de noticias para la fecha {fecha} ({path}).",
-            }]
-        }
-
-    fecha_real = fecha or path.stem
-
-    if ticker:
-        match = [it for it in items if it.get("ticker", "").upper() == ticker]
-        if not match:
-            return {
-                "content": [{
-                    "type": "text",
-                    "text": (
-                        f"No hay noticias registradas para {ticker} en la fecha "
-                        f"{fecha_real} (archivo {path.name}, {len(items)} tickers "
-                        f"cubiertos ese día, {ticker} no está entre ellos)."
-                    ),
-                }]
-            }
-        lineas = [_fmt_item(it) for it in match]
-        texto = f"Noticias de {ticker} — {fecha_real} ({path.name}):\n" + "\n".join(lineas)
-        return {"content": [{"type": "text", "text": texto}]}
-
-    # Sin ticker: resumen de varios (hasta 15 para no saturar la respuesta).
-    muestra = items[:15]
-    lineas = [_fmt_item(it) for it in muestra]
-    extra = f"\n… y {len(items) - 15} tickers más." if len(items) > 15 else ""
-    texto = (
-        f"Resumen de noticias — {fecha_real} ({path.name}), {len(items)} tickers "
-        f"con cobertura:\n" + "\n".join(lineas) + extra
-    )
-    return {"content": [{"type": "text", "text": texto}]}
-
-
-noticias_agent = DomainAgent(
-    name="noticias",
-    system_prompt=SYSTEM_PROMPT,
-    tools=[schema_noticias, query_noticias],
-)
+# Mismo nombre e interfaz que importa src.agents_mcp.orchestrator en main.
+noticias_agent = create_news_agent()

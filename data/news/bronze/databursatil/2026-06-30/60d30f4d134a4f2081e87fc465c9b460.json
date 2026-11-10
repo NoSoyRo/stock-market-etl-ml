@@ -1,0 +1,510 @@
+{
+    "schema_version": 1,
+    "batch_id": "60d30f4d134a4f2081e87fc465c9b460",
+    "source": "databursatil",
+    "fetched_at": "2026-06-30T04:43:21.781311+00:00",
+    "representation": "legacy_import",
+    "origin": "history/databursatil/2026-06-30.json",
+    "payload": {
+        "date": "2026-06-30",
+        "fetched_at": "2026-06-30T04:43:21.781311+00:00",
+        "creditos_disponibles": 105065,
+        "noticias": [
+            {
+                "n": "Banxico recomprará valores del gobierno para inyectar liquidez; descarta QE",
+                "c": "El Banco de México dijo que a partir del tercer trimestre de este año llevará a cabo recompras de Certificados...",
+                "f": "https://www.axisnegocios.com/articulo.phtml?id=149784"
+            },
+            {
+                "n": "SpaceX llegará al Nasdaq 100: estas son las implicaciones para el mercado",
+                "c": "Space Exploration Technologies (SpaceX), la compañía que recientemente concretó el mayor debut bursátil en Estados Unidos, está a pocos días...",
+                "f": "https://www.axisnegocios.com/articulo.phtml?id=149782"
+            },
+            {
+                "n": "Fibra Mty pagará 172 mdd para internalizar administración de Fibra Macquarie",
+                "c": "Fibra Mty, un fideicomiso de inversión en bienes raíces principalmente industriales, firmó un acuerdo con Macquarie Asset Management y Macquarie...",
+                "f": "https://www.axisnegocios.com/articulo.phtml?id=149775"
+            },
+            {
+                "n": "Mexicana Sinda obtiene 213 mdd en su debut en el NYSE, Fresnillo invierte 94 mdd extra",
+                "c": " Sinda, una minera con concesiones de oro y plata en México, concretó su listado en el mercado de valores...",
+                "f": "https://www.axisnegocios.com/articulo.phtml?id=149793"
+            },
+            {
+                "n": "Heineken replicará modelo de ahorro de agua de Chihuahua en otras cerveceras del mundo",
+                "c": "Heineken, la segunda cervecera más grande del mundo, buscará replicar en sus operaciones mundiales el modelo de eficiencia hídrica desarrollado...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149777"
+            },
+            {
+                "n": "General Atlantic, inversionista de Ollamani, nombra asesor estratégico a Novak Djokovic",
+                "c": "General Atlantic, una firma estadounidense de capital privado que proporciona capital y apoyo estratégico a empresas en crecimiento, anunció el...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149779"
+            },
+            {
+                "n": "Autlán confirma viabilidad y mayores recursos de oro en división Metallorum",
+                "c": "Compañía Minera Autlán, una empresa especializada en la producción de ferroaleaciones y metales preciosos, dijo que concluyó y actualizó el...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149780"
+            },
+            {
+                "n": "Alaska Airlines recortará cinco rutas a México en temporada de invierno",
+                "c": "Alaska Airlines recortará varias de sus rutas hacia México durante la próxima temporada de invierno, reportó la plataforma digital especializada...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149783"
+            },
+            {
+                "n": "BMV mantendrá suspensión de acciones de Value por falta de entrega de reporte anual 2025",
+                "c": "La cotización de las acciones de Value Grupo Financiero, un intermediario financiero con operaciones en México, continuará suspendida en la...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149778"
+            },
+            {
+                "n": "Equinox Gold firma acuerdo para acceder a terrenos de mina Los Filos en Guerrero",
+                "c": "La minera canadiense Equinox Gold firmó los acuerdos necesarios para tener acceso a los terrenos que albergan su mina Los...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149781"
+            },
+            {
+                "n": "Mercado Libre suma a Nissan y Novo Nordisk a oferta de tienda en México",
+                "c": "La empresa farmacéutica danesa Novo Nordisk y el fabricante de automóviles japonés Nissan anunciaron la incorporación de su tienda en...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149786"
+            },
+            {
+                "n": "Trump confirma nuevas conversaciones con Irán el martes tras ataques del fin de semana ",
+                "c": "El presidente estadounidense Donald J. Trump dijo que habrá una nueva ronda de diálogos con el gobierno de Irán para...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149791"
+            },
+            {
+                "n": "Suprema Corte de EUA concluye que Trump carece de autoridade para despedir a Cook de la Fed",
+                "c": "La Suprema Corte de Estados Unidos dictaminó que, por el momento, el presidente Donald J. Trump carece de la autoridad...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149787"
+            },
+            {
+                "n": "CAF crea Fondo para la Recuperación y Reconstrucción de Venezuela",
+                "c": "El Banco de Desarrollo de América Latina y el Caribe (CAF) creará el Fondo para la Recuperación y Reconstrucción de...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149788"
+            },
+            {
+                "n": "Mayoría de empresas México acelera planes de expansión internacional por revisión T-MEC ",
+                "c": "La mayoría de las empresas que operan en México está acelerando sus planes de expansión internacional para aprovechar la oportunidad...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149797"
+            },
+            {
+                "n": "Inversión mixta se traducirá en 13 nuevos proyectos eólicos en México: AMDEE",
+                "c": "La Asociación Mexicana de Energía Eólica (AMDEE) dijo que el esquema de inversión mixta, impulsado por la Comisión Federal de...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149790"
+            },
+            {
+                "n": "ANÁLISIS E. Covarrubias | IPC inicia la semana al alza apoyado por el rebote tecnológico y la expectativa del T-MEC",
+                "c": "El apetito por riesgo regresó a los mercados globales al inicio de la semana, impulsado por una recuperación en las...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149795"
+            },
+            {
+                "n": "Acciones de gigantes tecnológicos abren la semana al alza en EUA",
+                "c": "Las acciones de algunas de las principales empresas tecnológicas estadounidenses presentan ganancias en los mercados bursátiles estadounidenses en gran medida...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149798"
+            },
+            {
+                "n": "Rotoplas paga a accionistas reembolso de capital por 0.17 pesos",
+                "c": "Grupo Rotoplas, una compañía mexicana especializada en soluciones para el manejo de agua, dijo que realizó el pago de un...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149796"
+            },
+            {
+                "n": "Dow Jones arranca semana corta con máximo histórico ",
+                "c": "La sesión en Wall Street terminó el lunes en sentido positivo, acelerando respecto del tono de las primeras horas, a...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149776"
+            },
+            {
+                "n": "Peso suma segundo avance en tres días por tropiezo del dólar",
+                "c": "El peso mexicano comenzó la semana con una inercia positiva, derivada de la tendencia bajista del dólar estadounidense y a...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149789"
+            },
+            {
+                "n": "Covalto recibe mejora en nota local de PCR Verum y HR Ratings ante mejor desempeño financiero",
+                "c": "Grupo Covalto, un banco digital de nicho en México, recibió un incremento en su clasificación crediticia en escala local por...",
+                "f": "https://www.axisnegocios.com/breves.phtml?id=149794"
+            },
+            {
+                "t": "2026-06-29 21:45:00"
+            }
+        ],
+        "cables": {
+            "boletines": [
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688127",
+                    "t": "18:27 (VERUM) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688125",
+                    "t": "17:21 (HONA) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688124",
+                    "t": "17:19 (POWR) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688123",
+                    "t": "17:15 (EMVL) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688122",
+                    "t": "17:08 (CITI) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688117",
+                    "t": "16:55 (FITCH) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688118",
+                    "t": "16:55 (MEDICA) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688119",
+                    "t": "16:55 (MOODYS) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688120",
+                    "t": "16:55 (DHIC) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688111",
+                    "t": "16:26 (FITCH) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688085",
+                    "t": "13:52 (VINTE) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688084",
+                    "t": "13:46 (HR) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688082",
+                    "t": "13:08 (AFIRALM) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688079",
+                    "t": "12:52 (AFIRALM) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688081",
+                    "t": "12:52 (BACOMER) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688078",
+                    "t": "12:51 (AFIRALM) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688077",
+                    "t": "12:50 (BACOMER) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688076",
+                    "t": "12:49 (GPH) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688075",
+                    "t": "12:46 (MOODYS) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688073",
+                    "t": "12:20 (IDEAL) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688070",
+                    "t": "11:45 (VITRO) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688069",
+                    "t": "11:27 (BACOMER) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688068",
+                    "t": "11:22 (BACOMER) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688067",
+                    "t": "11:21 (BACOMER) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688066",
+                    "t": "11:19 (BACOMER) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688065",
+                    "t": "11:18 (BACOMER) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688058",
+                    "t": "10:01 (EMISORAS) DERECHOS DECRETADOS"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688057",
+                    "t": "09:39 (SP) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688045",
+                    "t": "07:20 (VITRO) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687966",
+                    "t": "18:08 (FITCH) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687965",
+                    "t": "18:06 (FITCH) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687964",
+                    "t": "18:05 (FITCH) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687963",
+                    "t": "18:02 (HIRCB) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687949",
+                    "t": "16:53 (QXO) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687948",
+                    "t": "16:41 (BACOMER) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687944",
+                    "t": "16:13 (CITI) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687943",
+                    "t": "16:11 (CITI) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687929",
+                    "t": "15:27 (MOODYS) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687922",
+                    "t": "14:38 (BACTIN) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687918",
+                    "t": "13:43 (HR) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687917",
+                    "t": "13:34 (HR) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687914",
+                    "t": "13:06 (VERUM) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687913",
+                    "t": "12:55 (MINSA) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687911",
+                    "t": "12:30 (VERUM) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687910",
+                    "t": "12:23 (BACOMER) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687909",
+                    "t": "12:18 (AFIRALM) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687908",
+                    "t": "12:12 (VITRO) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687907",
+                    "t": "11:45 (VERUM) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687906",
+                    "t": "11:23 (VERUM) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687904",
+                    "t": "11:08 (VERUM) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687903",
+                    "t": "11:07 (AFIRALM) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687901",
+                    "t": "10:55 (VERUM) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687900",
+                    "t": "10:26 (BACOMER) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687899",
+                    "t": "10:25 (VITRO) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687893",
+                    "t": "10:01 (EMISORAS) DERECHOS DECRETADOS"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687892",
+                    "t": "09:33 (BAC0527) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687889",
+                    "t": "09:22 (VITRO) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687887",
+                    "t": "08:57 (MINSA) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687883",
+                    "t": "08:10 (VITRO) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687877",
+                    "t": "07:20 (MINSA) BOLETIN DE PRENSA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687878",
+                    "t": "07:20 (VITRO) BOLETIN DE PRENSA"
+                }
+            ],
+            "top": [],
+            "valuaciones": [
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688102",
+                    "t": "16:00 (BMV) RECOMPRA DE ACCIONES 2 de 5"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688103",
+                    "t": "16:00 (BMV) RECOMPRA DE ACCIONES 3 de 5"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688104",
+                    "t": "16:00 (BMV) RECOMPRA DE ACCIONES 4 de 5"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688105",
+                    "t": "16:00 (BMV) RECOMPRA DE ACCIONES 5 de 5"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687937",
+                    "t": "16:01 (BMV) RECOMPRA DE ACCIONES 2 de 7"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687938",
+                    "t": "16:01 (BMV) RECOMPRA DE ACCIONES 3 de 7"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687939",
+                    "t": "16:01 (BMV) RECOMPRA DE ACCIONES 4 de 7"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687940",
+                    "t": "16:01 (BMV) RECOMPRA DE ACCIONES 5 de 7"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687941",
+                    "t": "16:01 (BMV) RECOMPRA DE ACCIONES 6 de 7"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687942",
+                    "t": "16:01 (BMV) RECOMPRA DE ACCIONES 7 de 7"
+                }
+            ],
+            "flash": [],
+            "generales": [
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688126",
+                    "t": "17:43 Rotoplas paga a accionistas reembolso de capital por 0.17 pesos"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688112",
+                    "t": "16:37 (ACTPI) INFORME TRIMESTRAL AL IV TRIM. 2025 DICTAMINADO USD"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688113",
+                    "t": "16:37 (ACTPI) INFORMACION GENERAL AL IV INFO. TRIM. 2025 DICT."
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688114",
+                    "t": "16:37 (ACTPI) LISTA DE NOTAS AL IV INFO. TRIM. 2025 DICT."
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688115",
+                    "t": "16:37 (ACTPI) POLITICAS CONTABLES AL IV INFO. TRIM. 2025 DICT."
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688116",
+                    "t": "16:37 (ACTPI) INFORMACION FIN. NIC34 AL IV INFO. TRIM. 2025 DICT."
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688094",
+                    "t": "14:55 INF Analytics: curvas históricas de bonos del gobierno de EUA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688093",
+                    "t": "14:54 INF Analytics: Tasas promedio pagarés bancarios diversos plazos"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688059",
+                    "t": "10:14 BMV reinicia operaciones tras receso administrativo"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688050",
+                    "t": "08:50 Comcast sube en bolsa tras anunciar escisión en dos compañías"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=688038",
+                    "t": "14:03 Producción de crudo de Pemex sube 0.2% en mayo y 1.8% anual (R)"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687958",
+                    "t": "17:24 Indexity - OMA - Cumplimiento de su ODS"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687957",
+                    "t": "17:23 Indexity - NM Fitch Ratificó su Calificación"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687955",
+                    "t": "17:21 Indexity - DHIC Evento Relevante Mejora de Calificación"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687954",
+                    "t": "17:20 Indexity - Banxico - Monetary Policy Decision"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687935",
+                    "t": "15:40 GM Financial pagará dividendo en efectivo de 1,500 mdp"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687931",
+                    "t": "15:30 Banorte y BYD firman alianza comercial y financiera"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687920",
+                    "t": "14:26 INF Analytics: curvas históricas de bonos del gobierno de EUA"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687919",
+                    "t": "14:24 INF Analytics: Tasas promedio pagarés bancarios diversos plazos"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687915",
+                    "t": "13:11 Banco Sabadell México recaba 4,000 mdp con bono a 3 años"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687902",
+                    "t": "10:59 Mundial 2026: Popular en la cancha, pero frío en la bolsa"
+                },
+                {
+                    "f": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=687880",
+                    "t": "07:56 Calendario de pago de dividendos y distribuciones BMV 2026"
+                }
+            ]
+        }
+    }
+}

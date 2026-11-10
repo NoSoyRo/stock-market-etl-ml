@@ -71,3 +71,17 @@ htmlcov/
 temp/
 tmp/
 backfill.pid
+
+# Producto Fundamentales PIT (Equipo Rojo): capas generadas, se regeneran con
+#   python -m productos.fundamentales_pit.capas todo
+data/fundamentals/bronze/
+data/fundamentals/silver/
+# golden SÍ se versiona (pesa KB): lo copian las imágenes del MCP y del job diario.
+data/dashboard_fundamentales.html
+# Librería de gráficas del dashboard: build_dashboard.py la descarga sola
+vendor/apexcharts.min.js
+
+# News runtime locks (news JSON, CSV and Parquet are versioned)
+data/news/.medallion.lock
+# Office editor temporary lock files
+~$*

@@ -8,6 +8,7 @@ import pandas as pd
 
 from src.agent.base import ObservationAgent
 from src.agent.book import Book
+from src.agent.fundamentales import AgenteFundamentales
 from src.agent.woe_obs import explain_ticker
 from src.data.universes import UNIVERSES
 from src.ml.risk_engine import atr_stop
@@ -206,14 +207,48 @@ class AgenteNoticias(ObservationAgent):
     name = "ver_noticias"
     description = (
         "Titulares del ticker. Por defecto usa los que ya vienen en la señal. "
+        "semantica=true consulta gold/silver local sin descargar datos. "
         "en_vivo=true baja noticias nuevas (Yahoo, Google, DataBursátil)."
     )
 
-    def observe(self, ticker: str = "", en_vivo: bool = False, **params) -> dict:
+    def observe(
+        self,
+        ticker: str = "",
+        en_vivo: bool = False,
+        semantica: bool = False,
+        con_evidencia: bool = False,
+        **params,
+    ) -> dict:
         found = find_ticker(ticker)
         if not found:
             return {"ok": False, "error": f"{ticker} no está en los universos"}
         name, cfg, sym = found
+        if semantica:
+            if en_vivo:
+                return {
+                    "ok": False,
+                    "status": "invalid_input",
+                    "error": "La consulta semántica local y la consulta en vivo son operaciones separadas.",
+                }
+            from src.semantic.service import NewsSemanticService
+
+            service = NewsSemanticService()
+            result = service.consultar_empresa(name)
+            output = {
+                "api_version": 2,
+                "ok": result["status"] in {"ok", "no_recent_articles", "stale"},
+                "ticker": name,
+                "fuente": "news_semantic_gold",
+                "resultado": result,
+            }
+            if con_evidencia and result.get("data"):
+                output["evidencia"] = service.consultar_evidencia(
+                    "ticker",
+                    name,
+                    result["data"]["date_utc"],
+                    periodo="reciente",
+                )
+            return output
         if not en_vivo:
             cached = _cached_news(cfg["slug"], name)
             return {"ok": True, "ticker": name, "fuente": "senal_guardada", "titulares": cached[:5]}
@@ -234,6 +269,14 @@ class AgenteNoticias(ObservationAgent):
         return _schema(self.name, self.description, {
             "ticker": {"type": "string"},
             "en_vivo": {"type": "boolean", "description": "true solo si la señal guardada no alcanza"},
+            "semantica": {
+                "type": "boolean",
+                "description": "Consulta la capa semántica local gold, sin red ni escrituras.",
+            },
+            "con_evidencia": {
+                "type": "boolean",
+                "description": "Incluye evidencia silver reciente al usar semantica=true.",
+            },
         }, required=["ticker"])
 
 
@@ -438,5 +481,6 @@ def build_tools(book: Book) -> dict[str, ObservationAgent]:
         AgenteSalida(),
         AgenteModelos(),
         AgenteHorizontes(),
+        AgenteFundamentales(),  # Equipo Rojo: fundamentales PIT
     ]
     return {a.name: a for a in agents}

@@ -66,6 +66,26 @@ COMMENT ON TABLE lab.news_daily IS
     'Noticias, varias por ticker y día. Días hábiles llenan price+metric+news; fin de semana solo news.';
 
 -- Días hábiles llenan price+metric+news; fin de semana solo news.
+CREATE TABLE IF NOT EXISTS lab.news_feature_daily (
+    ticker              text             NOT NULL,
+    trade_date          date             NOT NULL,
+    universe            text,
+    news_sent_score     double precision,
+    news_count_7d       double precision,
+    news_sent_delta     double precision,
+    news_sent_vol       double precision,
+    news_relevance_avg  double precision,
+    news_esg_score      double precision,
+    n_articles          integer,
+    sources             text,
+    loaded_at           timestamptz      NOT NULL DEFAULT now(),
+    PRIMARY KEY (ticker, trade_date)
+);
+
+COMMENT ON TABLE lab.news_feature_daily IS
+    'Features agregadas de noticias por ticker y fecha (Golden). Grano ticker × trade_date.';
+
+-- Días hábiles llenan price+metric+news; fin de semana solo news.
 CREATE TABLE IF NOT EXISTS lab.decision (
     id           serial PRIMARY KEY,
     decided_at   timestamptz NOT NULL DEFAULT now(),
@@ -122,6 +142,9 @@ COMMENT ON TABLE lab.run_log IS
 
 CREATE INDEX IF NOT EXISTS news_daily_ticker_date_idx
     ON lab.news_daily (ticker, trade_date);
+
+CREATE INDEX IF NOT EXISTS news_feature_daily_date_idx
+    ON lab.news_feature_daily (trade_date);
 
 CREATE INDEX IF NOT EXISTS decision_session_date_idx
     ON lab.decision (session_date);

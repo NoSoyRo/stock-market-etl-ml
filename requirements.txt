@@ -1,5 +1,6 @@
 # Core dependencies
 pandas>=2.1.0
+pyarrow>=14.0.0            # Parquet news silver/gold storage
 numpy>=1.24.0
 python-dotenv>=1.0.0
 pyyaml>=6.0
@@ -13,6 +14,7 @@ sqlalchemy>=2.0.0          # ORM and database toolkit
 requests>=2.31.0
 urllib3>=2.0.0
 httpx>=0.25.0              # Modern HTTP client
+feedparser>=6.0.10         # RSS/Atom feed parser
 
 # Data validation
 jsonschema>=4.19.0
@@ -85,8 +87,10 @@ pydantic>=2.0.0
 xgboost>=2.0.0
 # Multi-agent (orquestador + agentes de dominio, src/agents_mcp/)
 claude-agent-sdk>=0.1.0    # Agent loop + MCP tools in-process, por Anthropic
-anthropic>=0.40.0          # Cliente directo de la API de Messages
+anthropic>=0.40.0         # Cliente directo de la API de Messages
 
-# MCP server standalone (mcp_server/) — protocolo MCP oficial vía HTTP,
-# para que claude.ai / Claude Desktop se conecten por URL como "custom connector"
-mcp[cli]>=1.0.0            # SDK oficial de Model Context Protocol (ya viene como dep de claude-agent-sdk)
+# MCP 2: servidor de noticias y servidor HTTP standalone (mcp_server/)
+mcp[cli]>=2.3.0,<3
+
+# News dashboard
+flask>=3.1,<4

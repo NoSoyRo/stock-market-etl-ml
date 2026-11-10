@@ -1,0 +1,1 @@
+"""Capa golden de noticias."""

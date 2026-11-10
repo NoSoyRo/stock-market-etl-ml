@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light"><title>Observatorio · Noticias</title>
+  <link rel="stylesheet" href="{{ url_for('news.static',filename='news.css') }}">
+  <script defer src="{{ url_for('news.static',filename='news.js') }}"></script>
+</head>
+<body data-base="{{ url_for('news.index') }}">
+<aside class="sidebar">
+  <a class="brand" href="#overview"><span class="brand-symbol">◈</span> Observatorio<span class="brand-sub">INTELIGENCIA DE NOTICIAS</span></a>
+  <span class="nav-label">ESPACIO DE ANÁLISIS</span>
+  <nav aria-label="Secciones"><a class="active" href="#overview"><span>◫</span> Panorama</a><a href="#history"><span>↗</span> Evolución histórica</a><a href="#evidence"><span>▤</span> Fuentes y evidencia</a><a href="#assistant"><span>✳</span> Analista de IA</a></nav>
+  <div class="side-note"><span class="live-dot"></span> Evidencia antes que conclusiones<p>Indicadores y artículos con fecha de corte y procedencia.</p></div>
+  <div class="side-footer">MERCADOS & CONTEXTO<br><span>Datos locales · cortes en UTC</span></div>
+</aside>
+<main>
+<header class="topbar"><span>Workspace <b>/ Noticias</b></span><span id="coverageBadge" class="pill">Consultando cobertura…</span></header>
+<section id="overview" class="page-heading"><div><div class="eyebrow">OBSERVATORIO DE MERCADOS</div><h1>El contexto detrás<br>de cada noticia<span>.</span></h1><p>Explora el sentimiento, sigue su evolución y consulta la evidencia.</p></div><button id="refresh" class="button secondary" type="button">↻ Actualizar vista</button></section>
+<form id="filters" class="filterbar" aria-label="Filtros de noticias">
+  <label>ANALIZAR<select id="entityType"><option value="ticker">Empresa</option><option value="topic">Tema</option></select></label>
+  <label>SELECCIÓN<select id="entityId" aria-label="Empresa o tema"><option value="WALMEX">WALMEX</option></select></label>
+  <label>CORTE DE CONSULTA<input id="snapshotDate" type="date" aria-label="Fecha de consulta; vacío significa hoy UTC"><small>Vacío: hoy UTC</small></label>
+  <button class="button primary" type="submit">Consultar <span>→</span></button>
+</form>
+<div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+<div class="workspace">
+<div class="analysis-column">
+  <div class="section-title"><h2 id="entityHeading">Panorama informativo</h2><span id="cutoff" class="subtle">Sin corte seleccionado</span></div>
+  <div class="metric-grid">
+    <article class="metric-card"><div class="metric-label">SENTIMIENTO GENERAL <span>↗</span></div><div id="sentiment" class="metric-value">—</div><p id="interpretation">Consulta una empresa o un tema.</p><div class="sentiment-track"><span id="sentimentMarker"></span></div><div class="scale"><span>Negativo</span><span>Positivo</span></div></article>
+    <article class="metric-card"><div class="metric-label">ARTÍCULOS RECIENTES <span>▤</span></div><div id="articleCount" class="metric-value">—</div><p id="windowLabel">Ventana pendiente</p><span id="sourceCount" class="metric-tag">Fuentes por consultar</span></article>
+    <article class="metric-card"><div class="metric-label">CAMBIO DE SENTIMIENTO <span>⇄</span></div><div id="delta" class="metric-value">—</div><p>Frente a la ventana anterior, según la fórmula del indicador.</p><span id="method" class="metric-tag">Método pendiente</span></article>
+  </div>
+  <section id="history" class="panel"><div class="panel-heading"><div><span class="eyebrow">PERSPECTIVA TEMPORAL</span><h2>Evolución del sentimiento</h2></div><span class="legend"><i></i> Score observado</span></div>
+    <form id="rangeForm" class="range-controls"><label>Desde<input id="fromDate" type="date" required></label><label>Hasta<input id="toDate" type="date" required></label><button class="button secondary" type="submit">Ver periodo</button></form>
+    <div id="chart" class="chart" role="img" aria-label="Gráfica histórica de sentimiento"><p class="empty">Elige una selección para explorar su histórico.</p></div>
+    <p class="chart-note">Se muestran observaciones guardadas. Los huecos no se rellenan y los conteos entre días no se suman.</p>
+  </section>
+  <section id="evidence" class="panel"><div class="panel-heading"><div><span class="eyebrow">DE LOS DATOS A LOS HECHOS</span><h2>Noticias que respaldan el corte</h2></div><span id="evidenceCount" class="pill">—</span></div>
+    <div id="sources" class="source-chips"></div><div id="articles"><p class="empty">La evidencia aparecerá después de consultar.</p></div>
+    <button id="moreArticles" type="button" class="button secondary more" hidden>Cargar más noticias</button>
+  </section>
+</div>
+<aside id="assistant" class="assistant-panel">
+  <div class="assistant-heading"><span class="assistant-icon">✳</span><div><h2>Tu analista de noticias</h2><span id="agentBadge" class="subtle">Comprobando disponibilidad…</span></div><button id="clearChat" class="icon-button" title="Nueva conversación" aria-label="Nueva conversación">↺</button></div>
+  <p class="assistant-intro">Pregunta por los datos o pide una explicación con fuentes. El analista consulta las herramientas antes de responder.</p>
+  <div class="suggestions"><button type="button" data-question="Explica el sentimiento de la selección del panel y consulta las noticias que lo respaldan.">¿Qué explica este sentimiento? ↗</button><button type="button" data-question="Consulta el tema trump y su evidencia reciente. Distingue hechos e interpretaciones.">¿Qué está pasando con Trump? ↗</button></div>
+  <div id="messages" class="messages" role="log" aria-live="polite"><div class="message assistant">Selecciona una empresa o tema y conversemos sobre sus noticias. Las respuestas incluirán el contexto disponible y sus límites.</div></div>
+  <form id="chatForm"><label class="sr-only" for="question">Pregunta al analista</label><textarea id="question" placeholder="Pregunta sobre las noticias…" maxlength="2000" rows="3" required></textarea><div class="composer-footer"><span id="chatHint">Las respuestas pueden contener errores.</span><button id="send" class="send-button" type="submit" aria-label="Enviar pregunta">↑</button></div></form>
+</aside>
+</div>
+<footer class="page-footer">Observatorio de noticias <span>Sentimiento informativo ≠ predicción de precios. Revisa siempre las fuentes.</span></footer>
+</main>
+</body></html>

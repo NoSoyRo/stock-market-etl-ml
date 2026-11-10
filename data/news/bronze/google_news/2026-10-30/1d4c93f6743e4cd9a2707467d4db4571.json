@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "batch_id": "1d4c93f6743e4cd9a2707467d4db4571",
+  "source": "google_news",
+  "fetched_at": "2026-10-30T04:07:25.369876+00:00",
+  "representation": "normalized_extract",
+  "origin": null,
+  "payload": [
+    {
+      "ticker": "ORBIA",
+      "title": "Conglomerado mexicano Orbia brilla en la BMV pero sigue bajo la lupa de S&P por su deuda - El Cronista",
+      "summary": "Conglomerado mexicano Orbia brilla en la BMV pero sigue bajo la lupa de S&P por su deuda &nbsp;&nbsp; El Cronista",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPZjlfQUx2Ni1lRndjN18zeHJEZF9UVEJTaXAwVWh1X0FjNWV2Rlp5a2ZtRW5PMnlnc1ZKc3F6cGZwRmJyc0tURE5ham5OU0ZPcy1yWE5FS2tmcVRCY0Y4MXRjcTJEc2RFR1lZU0xCTHo2NnNncEZGUmdzT2tsV2EwZHlHcFFTVlVCdnNhb1QzT1lGa2RHY0pUaWRrbDlZRXViTGVNRDRVZFUtSTZYaWI5YlI3U2c3NGFWX1hNd1UxakF4Yl9EWnVrWHdBZDhndGVER3l2VNIB7wFBVV95cUxPSFo4ZXFLUFkyU3VHQTdzUXJPOEUzVHpWbGZaeWNweFIwcl83akNUS0VvQ2hQRkFybWlQSEcyWHJ5RUl1eXBvOEpaVTV1VXM5NnpnaWh3RFF2TEpoZFhVOU1vVjRvQl9XYjBhSGpZR09PbmhpU3ZJcDhzeGdxRFM3di1jLTNBSVk2WlVibmdsaTB2Q0t5YTRHMUJuRjFObDUtQXg3ckJadjEwcW1icDIwMWNycl9XNlNqWVRKUDVhVXhRZUJFS2N6OHFEUzNjUjdSaHZMdFBTT09UOHlzc3U4czVHX253R1dXR1k5OTZfWQ?oc=5",
+      "published_ts": 1778655600,
+      "source": "google_news",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "ORBIA",
+      "title": "¿Venta en puerta? Orbia salta en la BMV por posible acuerdo con magnate chino por Netafim - El Cronista",
+      "summary": "¿Venta en puerta? Orbia salta en la BMV por posible acuerdo con magnate chino por Netafim &nbsp;&nbsp; El Cronista",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPOExrVzdUOVhDMWR0R21sVXM1OXFmTXNlWFQ2bjBORXA5ZHhCNjRNQVFDRUk1LVhlcUpBckRFU3paVmgwd2g5enpNWDljQjZPWGhZR05ETlNfdGJrbGRuYjJmSUE4Z2J0Q2lBclNWUy1yYlVqVzlZT2lRQ0FhSWdaT2ZEc1N6NnpiSVZDRWU4akRtSkx0U2J0d29ZX3RxSFNhRWtudS1YUmlWNzV6cXBwRkUyRjZjTk1OcUI0MG8tQkhfN1VQQlo2RTZvR2F5Z2d6Smh5aThuWVVHd3Yz0gH3AUFVX3lxTE1wVkhzUVRoamNIa1JxWFlRWWhLWDNtNE1XOHdMUHF1TF9aQjkyUVU1MDhldTJDcVYzQnNWal9oX3hjWG1Mb0NBTWlsNEJmYl80Q1lpdmZUSVlXNGRkeTJPeHNUWXNsUXUwZWRBZGVnYVpqbHZibWxranZ0Q043d3NYcFNGMTl3R2huc2Q5emU3dmI1WFB0LXBzUEJ5T09nSjRJd2UyNms4b0hVQjhFMzFOX1V1YlJOUGprdkRtYll3SDFMSVJ6STRSNkpnWWlJdnBsdDZCR3BtYUJfNUZjX1FTZnJWa0cwZmdjZWEzSVAxWGhJU2U2aTQ?oc=5",
+      "published_ts": 1770624000,
+      "source": "google_news",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "ORBIA",
+      "title": "Orbia sube 20% en la BMV, ante posible venta de negocio agrícola - El Economista",
+      "summary": "Orbia sube 20% en la BMV, ante posible venta de negocio agrícola &nbsp;&nbsp; El Economista",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPaG1CUlNUSUxuRlJXVUppeFJyUERJNjRUWW9seHhBT3B4SDVIUHA3cklQakIwdm1IT282SVZmczVkWnZPblpGRXRraTZ1SUtBZFlfTUFTaUp4V2dIZVZxLTVYMDdvTXhlM0RmWDJmajlXRVVPQ0d4NEVySW5kLWlRTlhwbEhpcFBudGdtM2pKMTNtME1DdVFLazNTVnpKcjBfLV9FakMwVkFmVTlmSzY40gG0AUFVX3lxTE1nV1lnV0VKUjRpUVlsSVZvRzduZmJFeEtLbTY2bkh1WHlWTGJsTGlaaE5EbGdOb3lPVDZOcExkRUZzMjJkV3VyRjZRckRpMnZndHcyX3FJYUdURzNiVTNTNXkySDNORVM4bkM5UXJOR0s2Z3g4WDkyOHY4cmp3T19YQUh5dHB2TmFWek5oY3VzeUdCTVIweXRMMHo0OEo4RVpOamFkUVFDZ1J5SGEyNk5kNmU1SQ?oc=5",
+      "published_ts": 1760511600,
+      "source": "google_news",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "ORBIA",
+      "title": "Acciones de Orbia se disparan 18% en la BMV por rumores de venta de Netafim - EL CEO",
+      "summary": "Acciones de Orbia se disparan 18% en la BMV por rumores de venta de Netafim &nbsp;&nbsp; EL CEO",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQcVEyZkk3RHp2T3VsYVFvQjdrWWFVWWxpY0NVZC1uRTN0RTJaQmVtb0FEdk5FQnJPWUlaZGRhcklKd2tjM2phc1djbGJRYVhQUEFEa2MwZnd5VDMzVzBrWkJuV1N6V1l4cnlJbWMxeXlEdElKQ1pMQmpFT0pBd2RiQmtHTVExaEpHbjZxb1AzT3g4RXQxVC1hR1hCZVhhQTdqMTEwMw?oc=5",
+      "published_ts": 1760511600,
+      "source": "google_news",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "ORBIA",
+      "title": "Orbia, la empresa mexicana que pasó de vender cables de acero a liderar en soluciones de sostenibilidad - Expansión ESG",
+      "summary": "Orbia, la empresa mexicana que pasó de vender cables de acero a liderar en soluciones de sostenibilidad &nbsp;&nbsp; Expansión ESG",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNTTh1b3RkZEVXMmlEUWZUTVZHQy16emJBOFFYOHBQQzFOcWJjS3lWa25NVndNYzdnN2FFU1F0a0dMSVRrbklpekxfMTdqWVJWTWhCUVRHUDFER2hTY1RnS0dRclhoRmFhSnJtRzhoRjV5VW80SDR4bVhLTE9KeTZmT29vTzFlZU9MYUM1bVNuUFV5Zk1kYkU5Q1Y2aFVxZ3NlVGh2SWJpYm1OUQ?oc=5",
+      "published_ts": 1762329600,
+      "source": "google_news",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "ORBIA",
+      "title": "Precio de acciones, noticias, cotización e historial de Orbia Advance Corporation, S.A.B. de C.V. (ORBIA.MX) - Yahoo",
+      "summary": "Precio de acciones, noticias, cotización e historial de Orbia Advance Corporation, S.A.B. de C.V. (ORBIA.MX) &nbsp;&nbsp; Yahoo",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1qUWRubmRfOEMzSWRiMThCRnd4T1g5eVB2aXowc21MYWhNOFRra1lvbERicm5WNTVWTUdQcW03cEF3QkwxZzhwRlBibWY4MVJfbUZLdVU3cw?oc=5",
+      "published_ts": 1623031457,
+      "source": "google_news",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "ORBIA",
+      "title": "Mexichem cambia de nombre a Orbia Advance Corporation - MILENIO",
+      "summary": "Mexichem cambia de nombre a Orbia Advance Corporation &nbsp;&nbsp; MILENIO",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOTTdUaXcwdUFKVmJLOFVvaXQ0WTZrUzlLaHh3QTl4eDdMdGozR0RTWTJhNWlHLVBzQnlSRklfVUlXUEtxcGViQlN0VWo1WTNCNGwyTjZkVm9MRkxzWHhrS3JDenpUVEpqaE5aUW1TVjNVR2UyaFVwQktLMDE2c1Q5bGhPRUg1UkpE0gGIAUFVX3lxTE9JVDlrZ1g5MVlpajNQaDdOZlM4RGpUOWhtalBOaUJIcmlrc0RMYlNTX0tVWkdkbHVHcVEydlhtcG5FaUZPaE1MWnhqTnpMOFh3RzZISUlJUGp5T0F2SlFlX0liR2pNRUJtUzN6T045Ny1wLXJFT0NYZ3dqdmpaZnJDcm1DZTlPUm8?oc=5",
+      "published_ts": 1566889200,
+      "source": "google_news",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "ORBIA",
+      "title": "Mexichem evoluciona a Orbia para resolver grandes retos globales - Manufactura",
+      "summary": "Mexichem evoluciona a Orbia para resolver grandes retos globales &nbsp;&nbsp; Manufactura",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPeTBoYmlMbllTUFJwTm5Mc053YllWV2hUV2wyUUhOa0plOXVkYzV0WUliM0JUUDRnRDNoVXREWUhiN0NUd21RMVdZelNhTnhkYldXY2tTRXIxTW12bW1xZHZwWTZjcW9BOU9BSVNidXd4YlNscnVRN2RuU3h4SjVaQk5NRExJYVE0Z1Y1MjZUNG94SlEwTkpuNWwxTXVueTFpOHVDMm1qNXFkSjE1dmfSAbsBQVVfeXFMTlI1U3dvMEJTVmVWTzFiNjZubHZoN1dfTGhqam0tcmh3aWdyLXNDblVYWWtMZUR5VGt4aUFySDdPRFVqaVhHc3ZYcDFKM1pxVEdrWU9fN0xNM2FEWTIyNkdtTlRURi1mNlF3UzVwaW9MLVdZX2NFN2o5c2pjeHdvRGVEajdSUnVCNWR0aUUwbnZGU3k2M2RUbXQ2cGgtTXk2Q3RMMEMyWlZPV09RMmdzeUVPcEdrRWVldWFlZw?oc=5",
+      "published_ts": 1567666800,
+      "source": "google_news",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "ORBIA",
+      "title": "Orbia: el conglomerado de la familia Del Valle pierde la mitad de su valor - EL CEO",
+      "summary": "Orbia: el conglomerado de la familia Del Valle pierde la mitad de su valor &nbsp;&nbsp; EL CEO",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOemd6dDFZVERTMENuQzdtMFh1MEV4dWRoTTZLdGxvVXpGTXhvM0YxWXVpR0Y2eV9SczlNcGZTZHViT2FVaF9GZHBocHk3VzJTVXFKcGMtZVFSeWlNQWZPTlJDM3pxaHlVU29nN0c1bUpOU3JwSHFfWG81aTlxUDJ2dWxnWlltU3RHMUIzdDN6N25qbFI3WTFxcGthY003TDA?oc=5",
+      "published_ts": 1738656000,
+      "source": "google_news",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "ORBIA",
+      "title": "Rumor de compra convierte a la acción de Orbia en la más atractiva en la Bolsa - EL CEO",
+      "summary": "Rumor de compra convierte a la acción de Orbia en la más atractiva en la Bolsa &nbsp;&nbsp; EL CEO",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBLZUtYOVVUT0piMEFpd1hSNW55V1dsTTZSRVBvdDRuMlY3Q1VOSXMxOFpNR1VhZ2hoOUNHOHk2ajQ2YjA2cWduR2l1Ql9VbmZtX3h0ZEZhVVJjUUJidlg0UG4yX2NBaXNHc3M4S09YWmZaNFRVY1JuZw?oc=5",
+      "published_ts": 1578902400,
+      "source": "google_news",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "filas": 1368,
+  "emisoras": 32,
+  "controles": [
+    {
+      "control": "esquema: columnas del contrato",
+      "ok": true,
+      "filas_afectadas": 0,
+      "detalle": "faltan=[] sobran=[]"
+    },
+    {
+      "control": "esquema: tipos",
+      "ok": true,
+      "filas_afectadas": 0,
+      "detalle": "columnas con tipo distinto: []"
+    },
+    {
+      "control": "nulos solo donde el contrato los permite",
+      "ok": true,
+      "filas_afectadas": 0,
+      "detalle": "{}"
+    },
+    {
+      "control": "llave única ['ticker', 'quarter_end']",
+      "ok": true,
+      "filas_afectadas": 0,
+      "detalle": ""
+    },
+    {
+      "control": "available_date = quarter_end + 70 días",
+      "ok": true,
+      "filas_afectadas": 0,
+      "detalle": ""
+    },
+    {
+      "control": "quarter_end es fin de trimestre",
+      "ok": true,
+      "filas_afectadas": 0,
+      "detalle": ""
+    },
+    {
+      "control": "fund_gross_margin en [-5.0, 1.0]",
+      "ok": true,
+      "filas_afectadas": 0,
+      "detalle": ""
+    },
+    {
+      "control": "fund_oper_margin en [-5.0, 1.0]",
+      "ok": false,
+      "filas_afectadas": 1,
+      "detalle": ""
+    },
+    {
+      "control": "fund_net_margin en [-5.0, 5.0]",
+      "ok": true,
+      "filas_afectadas": 0,
+      "detalle": ""
+    },
+    {
+      "control": "completitud: >= 32 de 36 emisoras",
+      "ok": true,
+      "filas_afectadas": 0,
+      "detalle": "hay 32 emisoras"
+    },
+    {
+      "control": "trimestres consecutivos (sin huecos dentro de cada emisora)",
+      "ok": true,
+      "filas_afectadas": 0,
+      "detalle": ""
+    },
+    {
+      "control": "informativo: YoY nulo por no tener el mismo trimestre del año anterior",
+      "ok": true,
+      "filas_afectadas": 101,
+      "detalle": ""
+    },
+    {
+      "control": "informativo: emisoras con formato no corporativo (bancos/seguros)",
+      "ok": true,
+      "filas_afectadas": 0,
+      "detalle": "[]"
+    },
+    {
+      "control": "informativo: ratios recortados en ±5 (el valor real se perdió)",
+      "ok": true,
+      "filas_afectadas": 66,
+      "detalle": "la ingesta original aplica clip(-5, 5)"
+    },
+    {
+      "control": "informativo: trimestres con cifra reexpresada después",
+      "ok": true,
+      "filas_afectadas": 187,
+      "detalle": ""
+    }
+  ]
+}

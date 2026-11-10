@@ -159,6 +159,8 @@ def fetch_ticker_gdelt_history(
                     if ok:
                         raw = fetched
                         _save_chunk_cache(cache_path, raw)
+                        from src.data.news_medallion import ingest
+                        ingest("gdelt", [dict(d, ticker=ticker) for d in raw])
                         break
                     if attempt + 1 < CHUNK_FETCH_RETRIES and verbose:
                         print("(rate limit, reintento…)", end=" ", flush=True)

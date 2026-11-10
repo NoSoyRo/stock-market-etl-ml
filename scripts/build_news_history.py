@@ -115,6 +115,9 @@ def main() -> None:
             verbose=True,
         )
 
+        from src.data.news_medallion import build_gold
+        build_gold()
+
         stats = history_stats()
         print(f"\n✅ Stats: {json.dumps(stats, indent=2)}\n")
     finally:

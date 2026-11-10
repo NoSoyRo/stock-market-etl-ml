@@ -15,6 +15,8 @@ COPY deploy/mcp/requirements-mcp.txt requirements-mcp.txt
 RUN pip install --no-cache-dir -r requirements-mcp.txt
 
 COPY src ./src
+# Producto Fundamentales PIT: src/agent/tools.py importa productos.fundamentales_pit.
+COPY productos ./productos
 COPY scripts ./scripts
 COPY mcp_server ./mcp_server
 COPY sql ./sql
@@ -25,6 +27,7 @@ COPY data/market ./data/market
 COPY data/news ./data/news
 COPY data/eval ./data/eval
 COPY data/fundamentals.parquet ./data/fundamentals.parquet
+COPY data/fundamentals/golden ./data/fundamentals/golden
 COPY data/lab ./data/lab
 
 EXPOSE 8080
