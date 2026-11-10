@@ -36,6 +36,18 @@ from src.ml.features import (
     compute_signal_score,
     compute_target,
 )
+from src.ml.dividend_features import (
+    DIVIDEND_FEATURE_COLS,
+    DIVIDENDS_FILE,
+    add_dividend_features,
+    build_dividend_panel,
+)
+from src.ml.rates_features import (
+    RATES_FEATURE_COLS,
+    add_rates_features,
+    build_rates_panel,
+    compute_rates_features,
+)
 from src.ml.ensemble import EnsembleModel
 from src.ml.shared.evaluators.costs import (
     breakeven_cost_per_side,
@@ -60,6 +72,59 @@ EntryMode = Literal["open", "close"]
 SENSITIVITY_COSTS = (0.001, 0.0015, 0.003, 0.005)
 MAX_ABS_FWD_RET = 100.0   # guardián de M3c: |fwd_ret| > 100 % es dato basura, no mercado
 DROP_RULES = ("mask_invalid", "open_nonpos", "fwd_ret_outlier")
+
+
+# Columnas de FEATURE_COLS que NO salen de compute_features/add_macro_features: tasas
+# (snapshots diarios desde julio de 2026, ~4 meses) y dividendos (solo tickers con historial
+# en data/dividends/dividends.json). Se calculan y van en el panel, pero NO entran por defecto
+# al dropna ni a los modelos: con tasas en NaN antes de julio, exigirlas dejaría ~4 meses de panel.
+AUX_FEATURE_COLS = list(RATES_FEATURE_COLS) + list(DIVIDEND_FEATURE_COLS)
+
+
+def model_feature_cols(columns) -> list[str]:
+    """Features con historia completa (las que sí salen de precios y macro) presentes en `columns`."""
+    cols = set(columns)
+    return [c for c in FEATURE_COLS if c in cols and c not in AUX_FEATURE_COLS]
+
+
+def add_aux_features(frames: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]:
+    """Agrega las columnas de tasas y dividendos a cada frame, SOLO con datos locales (sin red).
+
+    Misma lógica que el SuperModel, pero sin llamar a la API: tasas desde ``data/rates/tasas`` y
+    dividendos desde ``data/dividends/dividends.json`` (sin importar su antigüedad). Si falta
+    alguna fuente, esas columnas quedan en NaN y el panel sigue funcionando.
+    Ojo con la fuga: los dividendos usan la fecha ex real; el aviso real llega algo antes,
+    pero no sabemos cuánto, así que ``dias_a_ex_date`` puede mirar levemente al futuro.
+    """
+    try:
+        raw_rates = build_rates_panel()
+        rates_panel = compute_rates_features(raw_rates) if not raw_rates.empty else None
+    except Exception as exc:  # fuentes locales ausentes o malformadas
+        print(f"  tasas: {exc}")
+        rates_panel = None
+    for t, df in frames.items():
+        frames[t] = add_rates_features(df, rates_panel) if rates_panel is not None else _nan_cols(
+            df, RATES_FEATURE_COLS)
+
+    div_panel = None
+    try:
+        if DIVIDENDS_FILE.exists():
+            dividends = json.loads(DIVIDENDS_FILE.read_text())
+            if dividends:
+                date_idx = pd.DatetimeIndex(sorted(set().union(*(df.index for df in frames.values()))))
+                closes = pd.DataFrame({t: df["Close"] for t, df in frames.items() if "Close" in df.columns})
+                div_panel = build_dividend_panel(dividends, date_idx, close_panel=closes)
+    except Exception as exc:
+        print(f"  dividendos: {exc}")
+    for t, df in frames.items():
+        frames[t] = add_dividend_features(df, t, div_panel)
+    return frames
+
+
+def _nan_cols(df: pd.DataFrame, cols) -> pd.DataFrame:
+    for c in cols:
+        df[c] = np.nan
+    return df
 
 
 def load_universe_tickers(universe: str) -> dict[str, str]:
@@ -130,8 +195,13 @@ def build_panel(
     use_mask: bool = False,
     mask: pd.DataFrame | None = None,
     drops_out: list | None = None,
+    aux_features: bool = True,
 ) -> pd.DataFrame:
     """Dataset panel con features, retorno futuro y targets.
+
+    ``aux_features``: True agrega las columnas de tasas y dividendos (``AUX_FEATURE_COLS``,
+    con datos locales) para que el panel traiga todo ``FEATURE_COLS``; no cambian qué filas
+    entran ni con qué features se entrena por defecto (ver ``model_feature_cols``).
 
     ``use_open_entry``: True entra al open del día siguiente; False, al close.
     ``use_mask``: True descarta filas basura (máscara de M3a + Open ≤ 0 + |fwd_ret| > 100 %)
@@ -174,9 +244,11 @@ def build_panel(
     if not feat_frames:
         raise RuntimeError("Sin datos suficientes para el universo solicitado")
 
+    if aux_features:
+        feat_frames = add_aux_features(feat_frames)
     feat_frames = add_cross_section_features(feat_frames)
     df = pd.concat(feat_frames.values()).sort_index()
-    feat_cols = [c for c in FEATURE_COLS if c in df.columns]
+    feat_cols = model_feature_cols(df.columns)   # sin tasas/dividendos (ver AUX_FEATURE_COLS)
     df = df.dropna(subset=feat_cols + ["fwd_ret"])
 
     df["uni_n"] = df.groupby(df.index)["fwd_ret"].transform("count")
@@ -438,7 +510,7 @@ def build_test_panel(
     cut = df.index[int(len(df) * TRAIN_RATIO)]
     train, test = df[df.index < cut], df[df.index >= cut].copy()
 
-    feat_cols = [c for c in FEATURE_COLS if c in train.columns]
+    feat_cols = model_feature_cols(train.columns)
     target_col = "y_rel" if score_mode == "p_rel" else "y"
     model = EnsembleModel(top_features=15, calibrate=True)
     model.fit(train, feature_cols=feat_cols, target_col=target_col)
