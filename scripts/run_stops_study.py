@@ -35,13 +35,12 @@ sys.path.insert(0, str(ROOT))
 warnings.filterwarnings("ignore")
 
 from scripts.backtest_topk import (  # noqa: E402
-    HORIZON, SEED, TRAIN_RATIO, build_panel, load_universe_tickers,
+    HORIZON, SEED, TRAIN_RATIO, build_panel, load_universe_tickers, model_feature_cols,
 )
 from scripts.run_m1_report import rebalance_panel, sharpe  # noqa: E402
 from scripts.run_rotation_study import wide  # noqa: E402
 from src.data.store import get as store_get  # noqa: E402
 from src.ml.ensemble import EnsembleModel  # noqa: E402
-from src.ml.features import FEATURE_COLS  # noqa: E402
 from src.ml.labeling import triple_barrier_labels  # noqa: E402
 from src.ml.risk_engine import HIST_AVG_LOSS, HIST_AVG_WIN, kelly_fraction  # noqa: E402
 from src.ml.shared.evaluators.cross_section import auc_by_date, ic_summary  # noqa: E402
@@ -169,7 +168,7 @@ def fit_tail_scores(train: pd.DataFrame, test: pd.DataFrame, cut: pd.Timestamp) 
     """Modelos de cola por k entrenados en train purgado (sin los últimos ~7 hábiles)."""
     import lightgbm as lgb
     tr = train[train.index < cut - pd.Timedelta(days=10)]
-    cols = FEATURE_COLS + ["log_sig5"]
+    cols = model_feature_cols(train.columns) + ["log_sig5"]
     out = {}
     for k in KS:
         y = tr[f"tail_{k}"]
@@ -344,8 +343,9 @@ def main() -> None:
     train, test = df[df.index < cut].copy(), df[df.index >= cut].copy()
     np.random.seed(SEED)
     model = EnsembleModel(top_features=15, calibrate=True)
-    model.fit(train, feature_cols=FEATURE_COLS, target_col="y")
-    test["p_up"] = model.predict_proba(test, FEATURE_COLS)
+    feat_cols = model_feature_cols(train.columns)   # sin tasas/dividendos (casi todo NaN)
+    model.fit(train, feature_cols=feat_cols, target_col="y")
+    test["p_up"] = model.predict_proba(test, feat_cols)
     for k, s in fit_tail_scores(train, test, cut).items():
         test[f"ptail_{k}"] = s.to_numpy()
     rp = rebalance_panel(test)

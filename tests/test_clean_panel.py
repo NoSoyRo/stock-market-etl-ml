@@ -1,6 +1,7 @@
 """Tests de M3c · `build_panel(use_mask=...)` con un panel sintético (sin red ni datos reales)."""
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -56,7 +57,7 @@ def _mask(raws: dict[str, pd.DataFrame]) -> pd.DataFrame:
 
 
 @pytest.fixture()
-def setup(monkeypatch):
+def setup(monkeypatch, tmp_path):
     raws, tickers = _universe()
     macro = {n: _raw(100 + i) for i, n in enumerate(("USDMXN", "NAFTRAC", "WTI", "SP500"))}
     monkeypatch.setattr(bt, "store_get", lambda n: raws.get(n, macro.get(n)))
@@ -64,6 +65,9 @@ def setup(monkeypatch):
     # FEATURE_COLS crece con el tiempo (p. ej. columnas de tasas que este panel sintético no
     # tiene): el test solo necesita unas pocas features reales para que `dropna` funcione.
     monkeypatch.setattr(bt, "FEATURE_COLS", ["ret_5d", "ret_10d", "rsi_14"])
+    # Fuentes de tasas y dividendos aisladas de los datos reales del repo (vacías por defecto).
+    monkeypatch.setattr(bt, "build_rates_panel", lambda: pd.DataFrame())
+    monkeypatch.setattr(bt, "DIVIDENDS_FILE", tmp_path / "no_hay_dividendos.json")
     return raws, tickers, _mask(raws)
 
 
@@ -142,5 +146,48 @@ def test_mascara_se_carga_sola_si_no_se_pasa(setup, monkeypatch):
     assert out[0]["mask_invalid"].sum() == 1
 
 
-# Recalculado con el set reducido de FEATURE_COLS del fixture (el real creció con columnas de tasas).
-GOLDEN = {"shape": (4800, 54), "y_sum": 2311.0, "fwd_sum": -534.8894144052009, "uni_n_sum": 57600.0}
+# Recalculado con el set reducido de FEATURE_COLS del fixture (el real creció con columnas de tasas);
+# 62 columnas = 54 + 8 auxiliares (tasas y dividendos, en NaN aquí).
+GOLDEN = {"shape": (4800, 62), "y_sum": 2311.0, "fwd_sum": -534.8894144052009, "uni_n_sum": 57600.0}
+
+
+# ─── Columnas de tasas y dividendos en el panel ───────────────────────────────
+
+def test_panel_trae_las_columnas_auxiliares_sin_perder_filas(setup, monkeypatch, tmp_path):
+    raws, tickers, _ = setup
+    idx = next(iter(raws.values())).index
+    rates = pd.DataFrame(
+        {"tiie28": 7.0, "tiie91": 7.1, "cete28": 6.5, "cete91": 6.6, "cete182": 6.7,
+         "cete364": 6.9, "tasa_obj": 7.0}, index=idx[-30:])
+    monkeypatch.setattr(bt, "build_rates_panel", lambda: rates)
+    name = next(iter(tickers))
+    ex = str(idx[100].date())
+    f = tmp_path / "dividends.json"
+    f.write_text(json.dumps({name: [{"pago_date": ex, "ex_date": ex, "pago": 1.0,
+                                     "tipo": "DIVIDENDO EN EFECTIVO", "divisa": "MXN",
+                                     "source": "historico"}]}))
+    monkeypatch.setattr(bt, "DIVIDENDS_FILE", f)
+
+    con = bt.build_panel(tickers)                          # aux_features=True por defecto
+    sin = bt.build_panel(tickers, aux_features=False)
+
+    assert all(c in con.columns for c in bt.AUX_FEATURE_COLS)
+    assert len(con) == len(sin)                            # las auxiliares no recortan el panel
+    assert con["tiie28_level"].notna().any()               # tasas con datos locales
+    assert con.loc[con["ticker"] == name, "dias_a_ex_date"].notna().any()   # dividendos del ticker
+    assert con.loc[con["ticker"] != name, "dias_a_ex_date"].isna().all()    # sin historial: NaN
+
+
+def test_sin_fuentes_locales_las_auxiliares_quedan_en_nan(setup):
+    _, tickers, _ = setup                                  # fixture: tasas y dividendos vacíos
+    df = bt.build_panel(tickers)
+    assert all(c in df.columns for c in bt.AUX_FEATURE_COLS)
+    assert df[bt.AUX_FEATURE_COLS].isna().all().all()
+    assert len(df) > 0                                     # y el panel sigue existiendo
+
+
+def test_model_feature_cols_excluye_tasas_y_dividendos(monkeypatch):
+    todas = [f"f{i}" for i in range(5)] + bt.AUX_FEATURE_COLS
+    monkeypatch.setattr(bt, "FEATURE_COLS", todas)
+    assert bt.model_feature_cols(todas) == [f"f{i}" for i in range(5)]
+    assert bt.model_feature_cols(["f0", "tiie28_level"]) == ["f0"]
