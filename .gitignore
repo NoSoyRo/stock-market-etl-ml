@@ -72,6 +72,21 @@ temp/
 tmp/
 backfill.pid
 
+# Capas del producto Precios & FX: se regeneran con el ETL de src/etl (bronze → silver → gold)
+data/market/bronze/*
+data/market/silver/*
+data/market/gold/*
+data/intraday/bronze/*
+data/intraday/silver/*
+data/intraday/gold/*
+!data/*/bronze/_diccionario.md
+!data/*/silver/_diccionario.md
+!data/*/gold/_diccionario.md
+mercado_test.db
+
+# Carpeta temporal de Spark al escribir las capas
+_spark_tmp/
+
 # Producto Fundamentales PIT (Equipo Rojo): capas generadas, se regeneran con
 #   python -m productos.fundamentales_pit.capas todo
 data/fundamentals/bronze/
