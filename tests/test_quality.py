@@ -152,3 +152,40 @@ def test_apply_mask():
     out = apply_mask(df, long.reset_index(drop=True), "X")
     assert len(out) == 19 and df.index[3] not in out.index
     assert len(apply_mask(df, long.reset_index(drop=True), "OTRO")) == 20
+
+
+# ---------- N7: causalidad y cobertura ----------
+
+def test_causalidad_serie_cortada_vs_completa():
+    """Agregar datos futuros no cambia banderas pasadas."""
+    df = _ohlcv(400, seed=3)
+    df.iloc[50, df.columns.get_loc("Volume")] = 0
+    df.iloc[120:123, df.columns.get_loc("Close")] = df["Close"].iloc[119]
+    df.iloc[200, df.columns.get_loc("Close")] *= 1.4
+    df.iloc[201, df.columns.get_loc("Close")] *= 0.7
+    half = len(df) // 2
+    full = compute_quality_mask(df)
+    cut = compute_quality_mask(df.iloc[:half])
+    pd.testing.assert_frame_equal(full.iloc[:half], cut)
+
+
+def test_mask_coverage_ausentes_y_fechas_posteriores():
+    from src.data.quality import mask_coverage
+
+    idx = pd.bdate_range("2020-01-01", periods=10)
+    mask = pd.DataFrame({"ticker": "AAA", "date": idx, "valid": True})
+    dates = pd.bdate_range("2020-01-06", periods=10)  # algunas > idx.max()
+    cov = mask_coverage(mask, ["AAA", "BBB"], dates)
+    assert cov["missing_tickers"] == ["BBB"]
+    expected = float((dates > idx.max()).mean())
+    assert cov["frac_after_max"]["AAA"] == expected
+    assert "BBB" not in cov["frac_after_max"]
+
+
+def test_mask_coverage_completa():
+    from src.data.quality import mask_coverage
+
+    idx = pd.bdate_range("2020-01-01", periods=10)
+    mask = pd.DataFrame({"ticker": "AAA", "date": idx, "valid": True})
+    cov = mask_coverage(mask, ["AAA"], idx)
+    assert cov["missing_tickers"] == [] and cov["frac_after_max"]["AAA"] == 0.0
