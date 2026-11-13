@@ -1,0 +1,573 @@
+{
+  "manifest_diagnosis": {
+    "summary": {
+      "ok": 2,
+      "parcial_pendiente": 1,
+      "nunca_consultado": 36
+    },
+    "entries": {
+      "WALMEX:2023-01-01:2024-12-31": {
+        "manifest": "ok",
+        "query": "Walmex",
+        "chunks_expected": 9,
+        "chunks_cached": 3,
+        "chunks_with_articles": 3,
+        "diagnosis": "ok"
+      },
+      "GMEXICOB:2023-01-01:2024-12-31": {
+        "manifest": "empty",
+        "query": "Grupo Mexico",
+        "chunks_expected": 9,
+        "chunks_cached": 1,
+        "chunks_with_articles": 1,
+        "diagnosis": "parcial_pendiente"
+      },
+      "ALSEA:2023-01-01:2024-12-31": {
+        "manifest": "empty",
+        "query": "Alsea",
+        "chunks_expected": 9,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "WALMEX:2018-01-01:2026-06-29": {
+        "manifest": "ok",
+        "query": "Walmex",
+        "chunks_expected": 35,
+        "chunks_cached": 11,
+        "chunks_with_articles": 11,
+        "diagnosis": "ok"
+      },
+      "FEMSAUBD:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "FEMSA",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "GMEXICOB:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Grupo Mexico",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "CEMEXCPO:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Cemex",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "GFNORTEO:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Banorte",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "BIMBOA:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Bimbo",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "ALSEA:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Alsea",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "KIMBERA:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Kimberly",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "GRUMAB:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Gruma",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "ASURB:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Asur",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "GAPB:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "GAP",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "ORBIA:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Orbia",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "AC:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Arca Continental",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "VESTA:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Vesta",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "PINFRA:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Pinfra",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "OMAB:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "OMA",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "MEGACPO:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Megacable",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "TLEVISA:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Televisa",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "BOLSAA:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Bolsa Mexicana",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "GCARSOA1:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Carso",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "LABB:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Genomma",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "CUERVO:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Cuervo",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "HERDEZ:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Herdez",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "GENTERA:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Gentera",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "VOLARA:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Volaris",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "Q:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Qualitas",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "FUNO11:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Fibra Uno",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "GCC:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "GCC",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "AMXL:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "AMXL",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "CHDRAUIB:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "CHDRAUIB",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "GFINBURO:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "GFINBURO",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "VISTA:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Vista Energy",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "ALFAA:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "ALFAA",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "KOFUBL:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "KOFUBL",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "HOTEL:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "City Express",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      },
+      "POSADAS:2018-01-01:2026-06-29": {
+        "manifest": "empty",
+        "query": "Posadas",
+        "chunks_expected": 35,
+        "chunks_cached": 0,
+        "chunks_with_articles": 0,
+        "diagnosis": "nunca_consultado"
+      }
+    },
+    "probe_last_60d": [
+      {
+        "ticker": "CEMEXCPO",
+        "ok": true,
+        "n_raw": 23,
+        "n_relevant": 3,
+        "result": "con resultados"
+      },
+      {
+        "ticker": "ALSEA",
+        "ok": false,
+        "n_raw": 0,
+        "n_relevant": 0,
+        "result": "429/error"
+      },
+      {
+        "ticker": "WALMEX",
+        "ok": false,
+        "n_raw": 0,
+        "n_relevant": 0,
+        "result": "429/error"
+      }
+    ]
+  },
+  "archive": {
+    "start": "2026-11-06",
+    "end": "2026-11-06",
+    "n_days": 1,
+    "per_ticker": {
+      "WALMEX": {
+        "n_headlines": 19,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "FEMSAUBD": {
+        "n_headlines": 34,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "GMEXICOB": {
+        "n_headlines": 30,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "CEMEXCPO": {
+        "n_headlines": 10,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "GFNORTEO": {
+        "n_headlines": 12,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "BIMBOA": {
+        "n_headlines": 16,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "ALSEA": {
+        "n_headlines": 10,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "KIMBERA": {
+        "n_headlines": 23,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "GRUMAB": {
+        "n_headlines": 10,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "ASURB": {
+        "n_headlines": 10,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "GAPB": {
+        "n_headlines": 12,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "ORBIA": {
+        "n_headlines": 10,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "AC": {
+        "n_headlines": 30,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "VESTA": {
+        "n_headlines": 9,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "PINFRA": {
+        "n_headlines": 10,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "OMAB": {
+        "n_headlines": 20,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "MEGACPO": {
+        "n_headlines": 10,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "TLEVISA": {
+        "n_headlines": 17,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "BOLSAA": {
+        "n_headlines": 34,
+        "n_ticker_days": 1,
+        "days_with_headline": 1,
+        "pct_days_with_headline": 100.0
+      },
+      "GCARSOA1": {
+        "n_headlines": 11,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "LABB": {
+        "n_headlines": 19,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "CUERVO": {
+        "n_headlines": 27,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "HERDEZ": {
+        "n_headlines": 10,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "GENTERA": {
+        "n_headlines": 10,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "VOLARA": {
+        "n_headlines": 30,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "Q": {
+        "n_headlines": 10,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "FUNO11": {
+        "n_headlines": 10,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "GCC": {
+        "n_headlines": 11,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "AMXL": {
+        "n_headlines": 2,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "CHDRAUIB": {
+        "n_headlines": 22,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "GFINBURO": {
+        "n_headlines": 3,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "VISTA": {
+        "n_headlines": 11,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "ALFAA": {
+        "n_headlines": 6,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "KOFUBL": {
+        "n_headlines": 8,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "HOTEL": {
+        "n_headlines": 30,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      },
+      "POSADAS": {
+        "n_headlines": 10,
+        "n_ticker_days": 1,
+        "days_with_headline": 0,
+        "pct_days_with_headline": 0.0
+      }
+    },
+    "n_headlines_total": 556,
+    "n_snapshot_days": 1,
+    "pct_ticker_days_with_headline": 2.78,
+    "n_ticker_days_cumulative": 36
+  }
+}

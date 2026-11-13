@@ -77,7 +77,11 @@ class TestLSTMSeqInterface:
         assert metrics["n_samples"] > 0
         probs = pred.predict_proba(df, ["feat_a", "feat_b"])
         assert probs.ndim == 1
-        assert np.all((probs >= 0) & (probs <= 1))
+        # Las primeras `sequence_length` filas de cada ticker no tienen secuencia completa
+        # y salen NaN por diseño (para fusionar en el SuperModel): se validan las demás.
+        valid = probs[~np.isnan(probs)]
+        assert len(valid) > 0
+        assert np.all((valid >= 0) & (valid <= 1))
 
     def test_graceful_fallback_without_tf(self, monkeypatch):
         monkeypatch.setattr("src.ml.lstm_seq.TF_AVAILABLE", False)

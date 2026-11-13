@@ -248,11 +248,13 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:  # noqa: C901
     # Stochastic %K(14,3)
     low14  = l.rolling(14).min()
     high14 = h.rolling(14).max()
-    raw_k  = (c - low14) / (high14 - low14 + 1e-8) * 100
+    # clip: barras con Close fuera de [Low, High] (datos sucios) con rango ~0
+    # dan valores de 1e9; por definición %K está en [0, 100].
+    raw_k  = ((c - low14) / (high14 - low14 + 1e-8) * 100).clip(0, 100)
     df["stoch_k"] = raw_k.rolling(3).mean()          # %K suavizado
 
     # Williams %R(14)  — igual que Stoch pero invertido y en [-100, 0]
-    df["williams_r"] = (high14 - c) / (high14 - low14 + 1e-8) * -100
+    df["williams_r"] = ((high14 - c) / (high14 - low14 + 1e-8) * -100).clip(-100, 0)
 
     # CCI(20)
     tp        = (h + l + c) / 3
@@ -632,6 +634,9 @@ def add_fundamental_features(
                 left, fund[["available_date"] + quarterly_cols],
                 left_on="_date", right_on="available_date",
                 direction="backward",
+                # El día de publicación no cuenta: si sale después del cierre, usarlo ese
+                # mismo día sería look-ahead. El dato se usa desde la sesión siguiente.
+                allow_exact_matches=False,
             )
             merged.index = merged["_date"].values
             for col in quarterly_cols:
