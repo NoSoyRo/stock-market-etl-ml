@@ -1,0 +1,150 @@
+{
+ "id": "reglas_v1",
+ "descripcion": "E-frozen, E-refit, R-frozen, R-refit y REV de oos_v2, sin reajustes.",
+ "corte": "2026-11-12",
+ "primera_senal": "2026-11-13",
+ "documento": {
+  "ruta": "avances/2026-11-09_oos_v2_preregistro.md",
+  "sha256": "6141450fd554bb9f745a5a82bed875e4ab0fdde9168374487c39871720924669",
+  "preregistro_n2": "avances/2026-11-12_N2_preregistro.md",
+  "preregistro_n2_sha256": "4bc947525a8c9127d69c30af6db67570d3ace5006a09b9fb5ca13677e250a31b"
+ },
+ "definicion": {
+  "reglas": [
+   "E-frozen",
+   "E-refit",
+   "R-frozen",
+   "R-refit",
+   "REV"
+  ],
+  "definidas_en": "avances/2026-11-09_oos_v2_preregistro.md (carteras, panel, costos, semilla 42)",
+  "script_referencia": "scripts/run_oos_v2.py",
+  "universo_panel": [
+   "AC.MX",
+   "ALFAA.MX",
+   "ALSEA.MX",
+   "AMXB.MX",
+   "ASURB.MX",
+   "BIMBOA.MX",
+   "BOLSAA.MX",
+   "CEMEXCPO.MX",
+   "CHDRAUIB.MX",
+   "CUERVO.MX",
+   "FEMSAUBD.MX",
+   "FUNO11.MX",
+   "GAPB.MX",
+   "GCARSOA1.MX",
+   "GCC.MX",
+   "GENTERA.MX",
+   "GFINBURO.MX",
+   "GFNORTEO.MX",
+   "GMEXICOB.MX",
+   "GRUMAB.MX",
+   "HERDEZ.MX",
+   "HOTEL.MX",
+   "KIMBERA.MX",
+   "KOFUBL.MX",
+   "LABB.MX",
+   "MEGACPO.MX",
+   "OMAB.MX",
+   "ORBIA.MX",
+   "PINFRA.MX",
+   "POSADASA.MX",
+   "Q.MX",
+   "TLEVISACPO.MX",
+   "VESTA.MX",
+   "VISTAA.MX",
+   "VOLARA.MX",
+   "WALMEX.MX"
+  ],
+  "entrenamiento": {
+   "frozen": "train < 2023-03-09",
+   "refit": "train hasta 2026-06-09 (sin reentrenar)"
+  },
+  "ventana_evaluacion": "fechas de señal >= 2026-11-13"
+ },
+ "criterio": {
+  "E_R": "S1 IC medio > 0; S2 neto@0.30% > EW neto. Falla grosera: IC <= 0 o exceso < -0.0725%/sem",
+  "REV": "S1 IC > 0; S2' bruto > EW bruto. Falla grosera: IC <= 0",
+  "alarma_fuga": "IC medio > 0.10"
+ },
+ "reevaluacion": {
+  "cada_semanas": 13,
+  "primera": "señales 2026-11-13 -> 2027-02-12",
+  "ventana": "acumulada desde la primera señal",
+  "ensayos": "5 filas log_trial por evaluación, familia oos_v2_prosp"
+ },
+ "potencia_semanas": {
+  "sigma_semanal": 0.1744,
+  "ic_0.03": {
+   "se_igual_ic": 34,
+   "t2": 135
+  },
+  "ic_0.01": {
+   "se_igual_ic": 304,
+   "t2": 1217
+  }
+ },
+ "hash_codigo": {
+  "combinado": "8b308c599a10d68e6a10d59901494c54826bae8f3364f9a118a3245dea796df1",
+  "archivos": {
+   "scripts/backtest_topk.py": "97e356ace0330166cdaf2a94a2f614eaeb457fda4a6e97afaa705764b204f9d7",
+   "scripts/run_m1_report.py": "4783c5e212af82baa992b950813070e50f1e1483f5e78b66ccc41ecd11bf9cb4",
+   "scripts/run_oos_v2.py": "1541703b45549eccb0579d8c9d94629493d61f4d4707a72b6609545b994dc756",
+   "scripts/run_rotation_study.py": "42326f75c493b6c842002416bf57425fa2a5dfac3f3208c13522b85122418c80",
+   "src/ml/cs_targets.py": "495dedadfc2a5a756c02c8454eeb4ebcaf2cf56ca61226ad27acb3be6e0b4fbd",
+   "src/ml/ensemble.py": "143c4ef51436303e62ab22bfe13ab0ffc943a576e3b8f8051783368648e70e1c",
+   "src/ml/features.py": "a2c3eba7fc94211f3e5f3311927593e306609c60b72f4676888d160f6467bfa8",
+   "src/ml/kb_enhance.py": "c4f300b04909e4010c3e7a64e6b88d253adb9a2d2fd9bb66d9696deae186edd9",
+   "src/ml/rank_models.py": "ea38d9e95ec959362b4a7f32c995cf8d8ea332e6fb14e0e59bd9e0079c19c096",
+   "src/ml/shared/evaluators/costs.py": "66f06aabe26412ac1e65099834589551b9b90941bead85991471ac4893f6c9a3",
+   "src/ml/shared/evaluators/cross_section.py": "b0a18bd48f644e134ab139f651c51dea7f55785abef2335b7b801ec552c202f0",
+   "src/ml/shared/evaluators/portfolio_rules.py": "715c9aadf15eb3dcd6ad4cf8734276e684d69477bc792e9d4e4b167c7d8575fd",
+   "src/ml/trials.py": "fc7ba15deb5123eb5938689621521753f8ad8c8bd63c56c61ae8aba5ac1eafb7"
+  }
+ },
+ "hash_datos": {
+  "ohlcv": {
+   "corte": "2026-11-12",
+   "combinado": "7a93a83035886d5a8762d67d1e8d796ea5930c4d6f6fa77aabe3a7262be113c7",
+   "por_ticker": {
+    "AC.MX": "ff38eaad282b2d99a5e9ac9b2297baa3be25c03f3cbc3a474134691c08f9b880",
+    "ALFAA.MX": null,
+    "ALSEA.MX": "e8b6cd33c3899ed5de8b0f57312f0f946b47971b4bcc9b6d268c6297e82a8322",
+    "AMXB.MX": "37a967583aef3ec07d5e43fa15232060693ff41e6307ac604900ab532313ff26",
+    "ASURB.MX": "1950ecd8abb3140a71258496891bdfa533f51d6b05e2c2e5115671a8c5083ca0",
+    "BIMBOA.MX": "a220b3cbaa0540a0f9211facde328f800bd7c6c3aabab354717327413080d16b",
+    "BOLSAA.MX": "329796eaf77b334fa7f76a43e1a9cde088e1231fc1cc9a31b9f87cb00c67a2f5",
+    "CEMEXCPO.MX": "f3878b7be55c03175c1c1967856c7a0b46c7be0f903b6e786e1367b9d0d0c763",
+    "CHDRAUIB.MX": "97d02102f739f5733c163eb21b15453c652458ab9c0816e87fbe94d7a40c205b",
+    "CUERVO.MX": "d577e7287d6ddab106397c0a545cbda6c5267fe65580aa08c3e6832e38df362a",
+    "FEMSAUBD.MX": "44ac3673bcd35467bbfd77a876fc258a056b7d747a97f855c1de74f15dae5ce1",
+    "FUNO11.MX": "5771eb0c61cffd713fee429783099a2aab671c8d1fcb4ff82952f028d9418446",
+    "GAPB.MX": "f71e69dd9c91026739ba5729f4da983c5b3197c0e80fd67f05fe9d90c8eb599f",
+    "GCARSOA1.MX": "0b2672d647e7fea5b0ba32a021eb43b1c6fdbfa7006a113932906aff056e17c7",
+    "GCC.MX": "47f6a60b5aa8c195123db67a0ea4dffc71936f0f780712350f41358dd54430ee",
+    "GENTERA.MX": "8d96e2c36b48a95cde415d7ee8a2e80d653708ff95e2b23e9625440ce05ffee0",
+    "GFINBURO.MX": "f4c39ba19a99623e76f5329527f080b2ed72b101a92f13b684fd305f8365f0e3",
+    "GFNORTEO.MX": "853b624dda05984458520e46b261d0548c423b8baaf3c3a675d8fe9164c3ed7a",
+    "GMEXICOB.MX": "b6a2c19b28b165b96391b173d11759e496e422a23f3778885dd1436ea740cd35",
+    "GRUMAB.MX": "b96dfca5c249124c7906677c35430c4580ea9c49eb67835976234c5d67d6972f",
+    "HERDEZ.MX": "0118f48f959e88702d4312ac357b0b6237f0e6b608186f08c2bfa430c22420a8",
+    "HOTEL.MX": "b9aba0c522cff50c6349c10804dce66c0a93ec9d3e088f2c532a28307dd07db7",
+    "KIMBERA.MX": "dbecc3b63d0c66088f2fb36dd75974613db44eec6caf1a82b5f531fba135ebe7",
+    "KOFUBL.MX": "57580bb7ea169b0d1a00bc45003e2c0ca7842ee68e2e50b517af02f0a19d18d7",
+    "LABB.MX": "efe0eeac9ebbd202bcfc13e815795ffcbc35e0ef0af436b2f2a4544c78ca5656",
+    "MEGACPO.MX": "d7066397d38e67ad6450b431e5b24d8a6bfde96e9e0269803d81c95729228a91",
+    "OMAB.MX": "0a16ebde66a67bb2527faa00ad310d65c2a35f6a4f96447329b769b559795d5b",
+    "ORBIA.MX": "81a2711aab11a4798633d21357ba4b6785dbea7ea91881c114ae43120a408aab",
+    "PINFRA.MX": "82fba37c7aa69d4bceee10ce35c3ebf01c0d340589bc80efa3e94f9ae669a335",
+    "POSADASA.MX": "007a973372f3124951493f530b102adff38e7bf4e219e14f431a71d76b21cca6",
+    "Q.MX": "80932c377c75fe929e326460fa4ab7402174cf2d7fbff882252718d4bbcb05fc",
+    "TLEVISACPO.MX": "4b47afba0a894164257637e601b9f5deea36ce9a05cfaeeacfdc0fd9cebb32de",
+    "VESTA.MX": "7092eb5164279434c4dd82ebeed7f4703ce624da3a2fad766563b6a1fc6c0f90",
+    "VISTAA.MX": "cc4b39e7ad5fac346fa7e7062f3468d5bb69b8da3ea091d689a73e8d8c9a85fb",
+    "VOLARA.MX": "b55f1b66d533516179a4fe75c88021b07ca0cbdbfcf5558b6a177d6efaa4c368",
+    "WALMEX.MX": "06de59ce78da3e654d771ebc423e18efd9f64a7233e3639312ac0997d3570a5d"
+   }
+  }
+ }
+}
