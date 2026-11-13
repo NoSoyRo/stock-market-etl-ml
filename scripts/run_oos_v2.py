@@ -30,6 +30,7 @@ from scripts.backtest_topk import (  # noqa: E402
 )
 from scripts.run_m1_report import rebalance_panel  # noqa: E402
 from scripts.run_rotation_study import run_cell, wide  # noqa: E402
+from src.data.quality import load_quality_mask, mask_coverage  # noqa: E402
 from src.ml.cs_targets import build_variant  # noqa: E402
 from src.ml.ensemble import EnsembleModel  # noqa: E402
 from src.ml.features import FEATURE_COLS  # noqa: E402
@@ -88,11 +89,17 @@ def classify(m: dict, gross_only: bool) -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser(description="OOS v2")
     ap.add_argument("--no-log", action="store_true")
+    ap.add_argument("--tag", default=None, help="sufijo: salida oos_v2_<tag>.json y familia oos_v2_<tag> (no pisa oos_v2.json)")
     args = ap.parse_args()
+    family = FAMILY if not args.tag else f"{FAMILY}_{args.tag}"
     np.random.seed(SEED)
 
     tickers = load_universe_tickers("bmv")
     panel = build_panel(tickers, horizon=HORIZON, use_open_entry=True, use_mask=True).sort_index(kind="stable")
+    cov = mask_coverage(load_quality_mask(), list(tickers.values()), panel.index.unique())
+    if cov["missing_tickers"] or any(f > 0 for f in cov["frac_after_max"].values()):
+        late = {t: round(f, 3) for t, f in cov["frac_after_max"].items() if f > 0}
+        print(f"ADVERTENCIA máscara incompleta: sin cobertura {cov['missing_tickers']}; fracción de fechas posteriores a su máx: {late}", flush=True)
     last_signal = panel.index.max()
     test_mask = panel.index >= OOS_START
     print(f"Panel {panel.shape} · {panel['ticker'].nunique()} tickers · {panel.index.min().date()} → {last_signal.date()}"
@@ -149,7 +156,7 @@ def main() -> None:
     n_total = 0
     for name, r in results.items():
         if not args.no_log:
-            log_trial(f"{FAMILY}:{name}", {"rule": "M5 10d/K10/2K" if name != "REV" else "5 peores ret_5d semanal",
+            log_trial(f"{family}:{name}", {"rule": "M5 10d/K10/2K" if name != "REV" else "5 peores ret_5d semanal",
                                           "window": f"{OOS_START.date()}→{last_signal.date()}", "mask": True,
                                           "train": meta.get(name.split("-")[-1], "n/a") if name != "REV" else "n/a"},
                       {"ic_mean": r["ic"]["mean"], "t": r["ic"]["t"], "excess_net030_pct": r["excess_net030_pct"],
@@ -159,7 +166,7 @@ def main() -> None:
            "preregistro": "avances/2026-11-09_oos_v2_preregistro.md",
            "window": [str(OOS_START.date()), str(last_signal.date())], "meta": meta, "results": results,
            "n_trials_logged": 0 if args.no_log else 5}
-    out = ROOT / "data" / "eval" / "oos_v2.json"
+    out = ROOT / "data" / "eval" / (f"oos_v2_{args.tag}.json" if args.tag else "oos_v2.json")
     out.write_text(json.dumps(rep, indent=2, ensure_ascii=False, default=float), encoding="utf-8")
     print(f"\n{'id':9}{'IC':>8}{'t':>6}{'n':>4}{'rot':>6}{'netE%':>8}{'netEW%':>8}{'exc%':>8}{'pctRnd':>7}  veredicto")
     for name, r in results.items():

@@ -1,0 +1,147 @@
+{
+ "id": "flujo_residual",
+ "descripcion": "Imbalance de casas 5d residualizado por retorno 5d (idea 3.1); signo esperado negativo.",
+ "corte": "2026-11-12",
+ "primera_senal": "2026-11-13",
+ "documento": {
+  "ruta": "avances/2026-11-12_N2_preregistro.md",
+  "sha256": "4bc947525a8c9127d69c30af6db67570d3ace5006a09b9fb5ca13677e250a31b"
+ },
+ "definicion": {
+  "universo": [
+   "AC",
+   "ALSEA",
+   "AMXB",
+   "ASURB",
+   "BIMBOA",
+   "BOLSAA",
+   "CEMEXCPO",
+   "CUERVO",
+   "FEMSAUBD",
+   "FUNO11",
+   "GAPB",
+   "GCARSOA1",
+   "GCC",
+   "GENTERA",
+   "GFINBURO",
+   "GFNORTEO",
+   "GMEXICOB",
+   "GRUMAB",
+   "HERDEZ",
+   "HOTEL",
+   "KIMBERA",
+   "KOFUBL",
+   "LABB",
+   "MEGACPO",
+   "OMAB",
+   "ORBIA",
+   "PINFRA",
+   "Q",
+   "TLEVISACPO",
+   "VESTA",
+   "VISTAA",
+   "VOLARA",
+   "WALMEX"
+  ],
+  "n_universo": 33,
+  "mapa": "data/microstructure/hechos_ticker_map.json (confianza alta)",
+  "imb_5d": "media de flow_imbalance diario en 5 días hábiles, >=4 de 5 presentes; sin rellenar",
+  "ret_5d": "Close(t)/Close(t-5)-1",
+  "resid": "residuo por fecha de OLS imb_5d ~ ret_5d, min 15 nombres",
+  "fecha_senal": "último día hábil de cada semana",
+  "objetivo": "retorno 5d, entrada Open t+1 -> Close t+6",
+  "ic": "Spearman por fecha; t via ic_summary (bloques de 4 semanas)",
+  "cartera": {
+   "largo": "5 menores resid",
+   "freq": "semanal",
+   "pesos": "iguales",
+   "costo_por_lado": 0.003,
+   "benchmark": "EW del universo, misma frecuencia"
+  },
+  "semilla": 42
+ },
+ "criterio": {
+  "signo_esperado": "negativo",
+  "exito": {
+   "semanas_min": 26,
+   "ic_medio_max": -0.04,
+   "t_max": -2.0,
+   "neto_vs_ew": ">"
+  },
+  "abandono": {
+   "semanas_min": 26,
+   "ic_medio_min": -0.02
+  },
+  "inconcluso": "entre -0.04 y -0.02 o t > -2: seguir hasta 52 semanas con t <= -2.4",
+  "miradas_intermedias": "a 13 semanas solo fuga: |IC| > 0.10 = sospecha",
+  "ensayos": "log_trial familia n2_flujo, solo al evaluar"
+ },
+ "potencia_semanas": {
+  "sigma_semanal": 0.1744,
+  "ic_0.03": {
+   "se_igual_ic": 34,
+   "t2": 135
+  },
+  "ic_0.01": {
+   "se_igual_ic": 304,
+   "t2": 1217
+  }
+ },
+ "hash_codigo": {
+  "combinado": "cfd5e72e24d48d8a3f60921440bb1e59d1d64ef125029d9a8bf6665e0465d477",
+  "archivos": {
+   "src/data/hechos_map.py": "111eb663500bc5c3639c93f5a224f29047a4a840e774a7b1f56837af1c72ef30",
+   "src/ml/flow_features.py": "03527199b81c1dd10a4f80180d7df486d172fb6c5115e3b2df9bd44c9aa54b67",
+   "src/ml/shared/evaluators/costs.py": "66f06aabe26412ac1e65099834589551b9b90941bead85991471ac4893f6c9a3",
+   "src/ml/shared/evaluators/cross_section.py": "b0a18bd48f644e134ab139f651c51dea7f55785abef2335b7b801ec552c202f0",
+   "src/ml/shared/evaluators/portfolio_rules.py": "715c9aadf15eb3dcd6ad4cf8734276e684d69477bc792e9d4e4b167c7d8575fd"
+  }
+ },
+ "hash_datos": {
+  "hechos": {
+   "corte": "2026-11-12",
+   "n_archivos": 229,
+   "combinado": "d4732c269f6e994e11ec885f45bf0b0687cad6f827a3b1469651bd7583e8f99e"
+  },
+  "ohlcv": {
+   "corte": "2026-11-12",
+   "combinado": "6bb0be232f0c9771efb86dac888f3713a4e261121d27748385e35dc3e654ba46",
+   "por_ticker": {
+    "AC.MX": "ff38eaad282b2d99a5e9ac9b2297baa3be25c03f3cbc3a474134691c08f9b880",
+    "ALSEA.MX": "e8b6cd33c3899ed5de8b0f57312f0f946b47971b4bcc9b6d268c6297e82a8322",
+    "AMXB.MX": "37a967583aef3ec07d5e43fa15232060693ff41e6307ac604900ab532313ff26",
+    "ASURB.MX": "1950ecd8abb3140a71258496891bdfa533f51d6b05e2c2e5115671a8c5083ca0",
+    "BIMBOA.MX": "a220b3cbaa0540a0f9211facde328f800bd7c6c3aabab354717327413080d16b",
+    "BOLSAA.MX": "329796eaf77b334fa7f76a43e1a9cde088e1231fc1cc9a31b9f87cb00c67a2f5",
+    "CEMEXCPO.MX": "f3878b7be55c03175c1c1967856c7a0b46c7be0f903b6e786e1367b9d0d0c763",
+    "CUERVO.MX": "d577e7287d6ddab106397c0a545cbda6c5267fe65580aa08c3e6832e38df362a",
+    "FEMSAUBD.MX": "44ac3673bcd35467bbfd77a876fc258a056b7d747a97f855c1de74f15dae5ce1",
+    "FUNO11.MX": "5771eb0c61cffd713fee429783099a2aab671c8d1fcb4ff82952f028d9418446",
+    "GAPB.MX": "f71e69dd9c91026739ba5729f4da983c5b3197c0e80fd67f05fe9d90c8eb599f",
+    "GCARSOA1.MX": "0b2672d647e7fea5b0ba32a021eb43b1c6fdbfa7006a113932906aff056e17c7",
+    "GCC.MX": "47f6a60b5aa8c195123db67a0ea4dffc71936f0f780712350f41358dd54430ee",
+    "GENTERA.MX": "8d96e2c36b48a95cde415d7ee8a2e80d653708ff95e2b23e9625440ce05ffee0",
+    "GFINBURO.MX": "f4c39ba19a99623e76f5329527f080b2ed72b101a92f13b684fd305f8365f0e3",
+    "GFNORTEO.MX": "853b624dda05984458520e46b261d0548c423b8baaf3c3a675d8fe9164c3ed7a",
+    "GMEXICOB.MX": "b6a2c19b28b165b96391b173d11759e496e422a23f3778885dd1436ea740cd35",
+    "GRUMAB.MX": "b96dfca5c249124c7906677c35430c4580ea9c49eb67835976234c5d67d6972f",
+    "HERDEZ.MX": "0118f48f959e88702d4312ac357b0b6237f0e6b608186f08c2bfa430c22420a8",
+    "HOTEL.MX": "b9aba0c522cff50c6349c10804dce66c0a93ec9d3e088f2c532a28307dd07db7",
+    "KIMBERA.MX": "dbecc3b63d0c66088f2fb36dd75974613db44eec6caf1a82b5f531fba135ebe7",
+    "KOFUBL.MX": "57580bb7ea169b0d1a00bc45003e2c0ca7842ee68e2e50b517af02f0a19d18d7",
+    "LABB.MX": "efe0eeac9ebbd202bcfc13e815795ffcbc35e0ef0af436b2f2a4544c78ca5656",
+    "MEGACPO.MX": "d7066397d38e67ad6450b431e5b24d8a6bfde96e9e0269803d81c95729228a91",
+    "OMAB.MX": "0a16ebde66a67bb2527faa00ad310d65c2a35f6a4f96447329b769b559795d5b",
+    "ORBIA.MX": "81a2711aab11a4798633d21357ba4b6785dbea7ea91881c114ae43120a408aab",
+    "PINFRA.MX": "82fba37c7aa69d4bceee10ce35c3ebf01c0d340589bc80efa3e94f9ae669a335",
+    "Q.MX": "80932c377c75fe929e326460fa4ab7402174cf2d7fbff882252718d4bbcb05fc",
+    "TLEVISACPO.MX": "4b47afba0a894164257637e601b9f5deea36ce9a05cfaeeacfdc0fd9cebb32de",
+    "VESTA.MX": "7092eb5164279434c4dd82ebeed7f4703ce624da3a2fad766563b6a1fc6c0f90",
+    "VISTAA.MX": "cc4b39e7ad5fac346fa7e7062f3468d5bb69b8da3ea091d689a73e8d8c9a85fb",
+    "VOLARA.MX": "b55f1b66d533516179a4fe75c88021b07ca0cbdbfcf5558b6a177d6efaa4c368",
+    "WALMEX.MX": "06de59ce78da3e654d771ebc423e18efd9f64a7233e3639312ac0997d3570a5d"
+   }
+  },
+  "mapa_json": "33ac8af41ec2309a840be2d598eb6c6f52bc8160231684d6b2435d8297d9f57b"
+ }
+}

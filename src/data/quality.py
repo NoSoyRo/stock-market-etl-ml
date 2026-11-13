@@ -128,3 +128,17 @@ def apply_mask(
     ok = m["valid"] & ~m["illiquid"] if require_liquid else m["valid"]
     ok = ok.reindex(pd.DatetimeIndex(df.index)).fillna(True).to_numpy(dtype=bool)
     return df[ok]
+
+
+def mask_coverage(mask: pd.DataFrame, tickers: list[str], dates) -> dict:
+    """Cobertura de la máscara sobre un conjunto de tickers y fechas (no modifica nada).
+
+    Devuelve `missing_tickers` (ausentes de la máscara) y `frac_after_max`: por ticker
+    presente, fracción de `dates` posteriores a su fecha máxima en la máscara
+    (esas filas pasarían sin filtrar en `apply_mask`).
+    """
+    d = pd.DatetimeIndex(dates)
+    max_by = mask.groupby("ticker")["date"].max()
+    missing = [t for t in tickers if t not in max_by.index]
+    frac = {t: float((d > max_by[t]).mean()) if len(d) else 0.0 for t in tickers if t in max_by.index}
+    return {"missing_tickers": missing, "frac_after_max": frac}
