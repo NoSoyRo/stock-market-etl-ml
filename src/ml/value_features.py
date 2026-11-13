@@ -20,8 +20,10 @@ def ttm_eps_on_prices(close: pd.Series, events: pd.DataFrame) -> pd.Series:
     ev["ttm"] = ev["reported"].rolling(4, min_periods=4).sum()
     # El número se puede usar al día siguiente del anuncio.
     ev["available"] = ev["announced"] + pd.Timedelta(days=1)
-    left = pd.DataFrame({"date": pd.to_datetime(close.index).tz_localize(None)})
+    # Misma resolución en ambos lados: pandas 2+/3 puede traer ns en uno y us en otro.
+    left = pd.DataFrame({"date": pd.to_datetime(close.index).tz_localize(None).astype("datetime64[ns]")})
     right = ev[["available", "ttm"]].rename(columns={"available": "date"})
+    right["date"] = right["date"].astype("datetime64[ns]")
     merged = pd.merge_asof(left.sort_values("date"), right.sort_values("date"), on="date", direction="backward")
     out = pd.Series(merged["ttm"].to_numpy(), index=close.index)
     return out / close.replace(0, np.nan)
