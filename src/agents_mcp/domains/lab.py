@@ -21,15 +21,20 @@ TODO equipo Trading Agent: implementar query_lab de verdad sobre Postgres
 from __future__ import annotations
 
 import json
+import logging
+import os
 from pathlib import Path
 
 from claude_agent_sdk import tool
 
 from src.agents_mcp.domain_agent import DomainAgent
 
+logger = logging.getLogger(__name__)
+
 ROOT = Path(__file__).resolve().parents[3]
 BOOK_PATH = ROOT / "data" / "agent" / "book.json"
 PLANS_PATH = ROOT / "data" / "lab" / "entry_plans.jsonl"
+OUTCOMES_PATH = ROOT / "data" / "lab" / "outcomes.jsonl"
 LLM_SIM_PATHS = [
     ROOT / "data" / "eval" / "forecast_demo" / "llm_sim_3m.json",
     ROOT / "data" / "eval" / "forecast_demo" / "llm_sim_2m.json",
@@ -57,7 +62,8 @@ async def schema_lab(args: dict) -> dict:
                 "lab.decision (regla, pesos, veto, gemelo en raw jsonb), "
                 "lab.entry_plan (ticker, usd, horizonte='20d', stop, "
                 "precio de entrada), lab.outcome (score a 20 días hábiles). "
-                "Fallback sin Postgres: data/lab/entry_plans.jsonl. "
+                "Fallback sin Postgres: data/lab/entry_plans.jsonl y "
+                "data/lab/outcomes.jsonl. "
                 "Job que escribe esto: scripts/gcp_daily_job.py "
                 "(run_decide, run_score)."
             ),
@@ -137,9 +143,102 @@ def _plan_entrada_reciente(n: int = 5) -> str:
     return f"Últimas {len(filas)} filas del plan de entrada: " + "; ".join(filas)
 
 
+_OUTCOME_SQL = """
+SELECT p.ticker, p.usd, p.enter_on, o.scored_at, o.realized_return, o.hit_stop
+FROM lab.outcome o
+JOIN lab.entry_plan p ON p.id = o.entry_plan_id
+ORDER BY o.scored_at DESC
+LIMIT %s
+"""
+
+
+def _db_configurado() -> bool:
+    return bool(os.environ.get("LAB_DATABASE_URL")
+                or (os.environ.get("LAB_PGHOST") or os.environ.get("LAB_HOST")))
+
+
+def _outcomes_postgres(n: int) -> list[dict] | None:
+    """Últimos outcomes de lab.outcome. None si no hay Postgres configurado
+    o la consulta falla (entonces se usa el jsonl local)."""
+    if not _db_configurado():
+        return None
+    try:
+        from src.db import lab_store
+
+        with lab_store.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(_OUTCOME_SQL, (n,))
+                cols = [c[0] for c in cur.description]
+                filas = [dict(zip(cols, row)) for row in cur.fetchall()]
+    except Exception as exc:
+        logger.warning("no se pudo leer lab.outcome: %s", type(exc).__name__)
+        return None
+    out = []
+    for f in filas:
+        ret = f.get("realized_return")
+        usd = f.get("usd")
+        pnl = float(usd) * float(ret) if usd is not None and ret is not None else None
+        out.append({
+            "ticker": f.get("ticker"),
+            "enter_on": str(f.get("enter_on")),
+            "scored_on": str(f.get("scored_at"))[:10],
+            "return_pct": float(ret) if ret is not None else None,
+            "pnl_usd": pnl,
+            "hit_stop": f.get("hit_stop"),
+        })
+    return out
+
+
+def _outcomes_locales(n: int) -> list[dict]:
+    if not OUTCOMES_PATH.exists():
+        return []
+    filas = []
+    for linea in OUTCOMES_PATH.read_text(encoding="utf-8").splitlines():
+        if not linea.strip():
+            continue
+        try:
+            filas.append(json.loads(linea))
+        except json.JSONDecodeError:
+            continue
+    return filas[-n:]
+
+
+def _resultados_planes(n: int = 10) -> str:
+    """Ganancia o pérdida de los planes reales ya calificados (lab.outcome,
+    o data/lab/outcomes.jsonl sin Postgres)."""
+    filas = _outcomes_postgres(n)
+    fuente = "lab.outcome"
+    if filas is None:
+        filas = _outcomes_locales(n)
+        fuente = "data/lab/outcomes.jsonl"
+    if not filas:
+        return (
+            f"Todavía no hay planes calificados en {fuente}: un plan se "
+            "califica 20 días hábiles después de su entrada."
+        )
+    partes = []
+    total = 0.0
+    for f in filas:
+        ret = f.get("return_pct")
+        pnl = f.get("pnl_usd")
+        if isinstance(pnl, (int, float)):
+            total += pnl
+        ret_txt = f"{ret*100:+.2f}%" if isinstance(ret, (int, float)) else "s/d"
+        pnl_txt = f"{pnl:+.2f} USD" if isinstance(pnl, (int, float)) else "s/d"
+        stop_txt = ", tocó stop" if f.get("hit_stop") else ""
+        partes.append(
+            f"{f.get('ticker')} (entra {f.get('enter_on')}, calificado "
+            f"{f.get('scored_on')}): {ret_txt}, {pnl_txt}{stop_txt}"
+        )
+    return (
+        f"Resultados reales de los últimos {len(filas)} planes calificados ({fuente}): "
+        + "; ".join(partes) + f". P&L total: {total:+.2f} USD."
+    )
+
+
 def _decision_reciente_llm() -> str | None:
-    """Última decisión real del agente LLM, tomada del sim más reciente
-    disponible en data/eval/forecast_demo/llm_sim_*m.json."""
+    """Última decisión del agente LLM en las simulaciones
+    data/eval/forecast_demo/llm_sim_*m.json (no es una decisión de producción)."""
     for path in LLM_SIM_PATHS:
         if not path.exists():
             continue
@@ -153,8 +252,8 @@ def _decision_reciente_llm() -> str | None:
         ultima = decisiones[-1]
         pesos = ", ".join(f"{t}: {w*100:.0f}%" for t, w in ultima.get("weights", {}).items())
         return (
-            f"Decisión real más reciente del agente LLM ({path.name}, "
-            f"asof {ultima.get('asof')}): pesos [{pesos}]. "
+            f"Decisión más reciente del agente LLM en la simulación {path.name} "
+            f"(backtest simulado, no producción; asof {ultima.get('asof')}): pesos [{pesos}]. "
             f"Razonamiento: {ultima.get('motivo', '').strip()}"
         )
     return None
@@ -163,12 +262,14 @@ def _decision_reciente_llm() -> str | None:
 @tool(
     "query_lab",
     "Responde una pregunta en lenguaje natural sobre decisiones/plan/outcome: "
-    "la regla núcleo-satélite vigente, el estado del libro y la decisión "
-    "reciente (de book.json o del sim más reciente del agente LLM).",
+    "la regla núcleo-satélite vigente, el estado del libro, el plan de "
+    "entrada, la ganancia o pérdida de los planes ya calificados y la última "
+    "decisión simulada del agente LLM.",
     {"pregunta": str},
 )
 async def query_lab(args: dict) -> dict:
-    partes = [_regla_vigente(), _estado_libro(), _plan_entrada_reciente()]
+    partes = [_regla_vigente(), _estado_libro(), _plan_entrada_reciente(),
+              _resultados_planes()]
     decision_llm = _decision_reciente_llm()
     if decision_llm:
         partes.append(decision_llm)
