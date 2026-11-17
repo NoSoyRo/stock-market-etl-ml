@@ -366,3 +366,40 @@ def test_trading_sin_capital_bloquea_compras_y_permite_analisis(monkeypatch):
     assert out["ok"] is True
     assert out["asignacion"] is None
     assert "WALMEX" in out["respuesta"]
+
+
+def test_propuesta_detalla_inversion_analisis_y_pide_aprobacion(agente, monkeypatch):
+    _guion(monkeypatch, [
+        [_call("ranking_falso", {}, 1)],
+        [_call("proponer_asignacion", {
+            "allocations": [{"ticker": "WALMEX", "usd": 20, "horizon": "4s"}],
+            "cash_usd": 30,
+            "motivo": "ranking_falso ubica a WALMEX en puesto 1 con score 0.7",
+        }, 2)],
+    ])
+    out = consultar("Reparte el libro", agente)
+    assert out["ok"] is True
+    assert "WALMEX: $20.00 USD" in out["respuesta"]
+    assert "Efectivo restante: $30.00 USD" in out["respuesta"]
+    assert "ranking_falso" in out["respuesta"]
+    assert "¿Apruebas esta propuesta de inversión para aplicarla al libro?" in out["respuesta"]
+
+
+def test_aplicar_requiere_aprobacion_explicita(agente, monkeypatch, tmp_path):
+    monkeypatch.setattr(features_ml, "FEATURES_ML", [RankingFalso, WoeFalso])
+    monkeypatch.setattr(trading, "_prices_for", lambda proposal: {"WALMEX": 2.0})
+    ruta = tmp_path / "book.json"
+    ag = AgenteTrading(Book(ruta), hoy=HOY)
+    ag.dispatch("ranking_falso", {})
+    asignacion = {"allocations": [{"ticker": "WALMEX", "usd": 20}], "cash_usd": 30, "motivo": "top"}
+
+    rechazado = ag.aplicar(asignacion, aprobado=False)
+    assert rechazado["ok"] is False
+    assert "aprobación explícita" in rechazado["error"]
+    assert ag.book.positions == {}
+    assert not ruta.exists()
+
+    aceptado = ag.aplicar(asignacion, aprobado=True)
+    assert aceptado["ok"] is True
+    assert ag.book.positions["WALMEX"]["usd"] == 20
+    assert ruta.exists()

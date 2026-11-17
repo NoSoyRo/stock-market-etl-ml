@@ -29,6 +29,7 @@ def main() -> None:
     parser.add_argument("--ejemplo", action="store_true", help="Imprime la pregunta y dos tool calls, sin llamar a Claude")
     parser.add_argument("--pregunta", default=PREGUNTA_REPARTO, help="Lo que se le pregunta al agente")
     parser.add_argument("--aplicar", action="store_true", help=f"Si hay asignación válida, escribe {BOOK_PATH.relative_to(ROOT)}")
+    parser.add_argument("--aprobar", action="store_true", help="Aprueba explícitamente aplicar la inversión sin pedir confirmación interactiva")
     args = parser.parse_args()
 
     agent = AgenteTrading(Book(BOOK_PATH))
@@ -52,7 +53,14 @@ def main() -> None:
 
     result = consultar(args.pregunta, agent)
     if args.aplicar and result["asignacion"]:
-        result["aplicado"] = agent.aplicar(result["asignacion"])
+        aprobado = args.aprobar
+        if not aprobado:
+            if result.get("respuesta"):
+                print(result["respuesta"])
+            if sys.stdin.isatty():
+                resp = input("\n¿Apruebas aplicar esta inversión al libro? [s/N]: ").strip().lower()
+                aprobado = resp in {"s", "si", "sí", "y", "yes"}
+        result["aplicado"] = agent.aplicar(result["asignacion"], aprobado=aprobado)
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 

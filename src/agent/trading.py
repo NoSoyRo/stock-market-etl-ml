@@ -199,8 +199,9 @@ Cómo decidir:
 1. Consulta a los agentes de Features/ML que necesites.
 2. Si no hay capital disponible ($0.00), entrega el análisis completo en texto.
 3. Si hay capital pero la evidencia es floja, los agentes fallan o la señal es vieja, deja el dinero en efectivo.
-4. Si hay capital y te piden repartir el libro, cierra con proponer_asignacion y explica en motivo
-   qué agente te dio cada razón. Si es otra pregunta, contesta con texto.
+4. Si hay capital y te piden repartir el libro, antes de invertir explica con detalle en qué vas
+   a invertir (tickers y dólares), desglosa en motivo el análisis de cada agente consultado y pide
+   explícitamente la aprobación del usuario; cierra con proponer_asignacion. Si es otra pregunta, contesta con texto.
 """
 
     def user_message(self, book: Book, pregunta: str = PREGUNTA_REPARTO) -> str:
@@ -287,8 +288,13 @@ class AgenteTrading(AgenteInversor):
         self.consultados = []
         return super().act(observation, apply=False)
 
-    def aplicar(self, asignacion: dict) -> dict:
+    def aplicar(self, asignacion: dict, aprobado: bool = True) -> dict:
         """Valida, aplica al libro y, solo si se autoriza, registra en sandbox dummy."""
+        if not aprobado:
+            return {
+                "ok": False,
+                "error": "Se requiere la aprobación explícita del usuario antes de invertir y aplicar la asignación al libro.",
+            }
         try:
             carpeta = _destino_lab_dummy()
         except ValueError as exc:
@@ -313,6 +319,33 @@ class AgenteTrading(AgenteInversor):
         return resultado
 
 
+def _formatear_propuesta_con_aprobacion(
+    asignacion: dict,
+    texto: str | None,
+    agentes_consultados: list[str],
+) -> str:
+    """Construye el resumen detallado de inversión, análisis y solicitud de aprobación."""
+    allocations = asignacion.get("allocations") or []
+    lineas_inv = [
+        f"- {a['ticker']}: ${float(a['usd']):.2f} USD (horizonte {a.get('horizon') or '4s'})"
+        for a in allocations
+    ] or ["- Sin nuevas posiciones (todo en efectivo)."]
+    cash = float(asignacion.get("cash_usd") or 0.0)
+    lineas_inv.append(f"- Efectivo restante: ${cash:.2f} USD")
+
+    agentes = ", ".join(agentes_consultados) or "ninguno"
+    motivo = str(asignacion.get("motivo") or "").strip() or "Sin detalle adicional registrado."
+    bloques = [
+        "Detalle de la inversión propuesta:\n" + "\n".join(lineas_inv),
+        f"Desglose del análisis:\n- Agentes consultados: {agentes}\n- Razonamiento: {motivo}",
+    ]
+    nota = str(texto or "").strip()
+    if nota and nota != motivo:
+        bloques.append(f"Nota adicional:\n{nota}")
+    bloques.append("Aprobación requerida:\n¿Apruebas esta propuesta de inversión para aplicarla al libro?")
+    return "\n\n".join(bloques)
+
+
 def consultar(pregunta: str, agente: AgenteTrading | None = None) -> dict:
     """Entrada del orquestador: una pregunta y un dict serializable a JSON. No escribe."""
     if not str(pregunta or "").strip():
@@ -330,6 +363,8 @@ def consultar(pregunta: str, agente: AgenteTrading | None = None) -> dict:
     asignacion = result.get("asignacion")
     if asignacion is None and (not texto or ultimo.get("finish_reason") == "tool_calls"):
         return _respuesta(agente, texto, error=f"sin respuesta final en {result.get('turnos')} turnos")
+    if asignacion is not None:
+        texto = _formatear_propuesta_con_aprobacion(asignacion, texto, agente.consultados)
     return _respuesta(agente, texto, asignacion)
 
 
@@ -351,7 +386,10 @@ def _respuesta(
 def describir_agentes() -> list[dict]:
     return [{
         "name": AgenteTrading.name,
-        "description": "Reparte el libro de 50 dólares consultando solo a Features/ML. Preguntar no escribe el libro.",
+        "description": (
+            "Propone el reparto del capital disponible consultando solo a Features/ML, "
+            "desglosa el análisis y pide aprobación explícita antes de invertir. Preguntar no escribe el libro."
+        ),
         "input_schema": {
             "type": "object",
             "required": ["pregunta"],
