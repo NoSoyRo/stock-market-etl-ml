@@ -10,13 +10,14 @@ Disciplina anti-look-ahead: cada fila fundamental tiene `available_date`
 available_date sea posterior a la fecha de la pregunta (asof) — ver
 src/agent/bmv_report.py:_fundamentals_asof como referencia de cómo filtrar.
 
-TODO equipo Fundamentales: implementar query_fundamentales de verdad, y
-unificar las 3 fuentes bajo una sola ingestión con su propio available_date
-(hoy EPS se fetchea como side-effect de scan_value_woe.py, no hay script
-dedicado).
+Equipo Rojo: query_fundamentales responde primero con el producto Fundamentales
+PIT (productos/fundamentales_pit, capa golden, regla available_date <= fecha).
+Si la capa golden no existe en este entorno, cae al data/fundamentals.parquet
+de siempre. Dividendos y UPA reportada siguen en sus archivos (pendiente unificar).
 """
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -24,6 +25,7 @@ import pandas as pd
 from claude_agent_sdk import tool
 
 from src.agents_mcp.domain_agent import DomainAgent
+from src.agent.fundamentales import AgenteFundamentales
 
 FUNDAMENTALS_PARQUET = Path(__file__).parent.parent.parent.parent / "data" / "fundamentals.parquet"
 
@@ -43,7 +45,11 @@ async def schema_fundamentales(args: dict) -> dict:
         "content": [{
             "type": "text",
             "text": (
-                "data/fundamentals.parquet — ticker, quarter_end, "
+                "PRODUCTO (preferido): data/fundamentals/golden/fundamentales_pit.parquet "
+                "(Equipo Rojo) — un trimestre por fila, fund_* + montos "
+                "(fund_revenue_abs, fund_net_abs, fund_eps), available_date, "
+                "origen y reexpresado; YoY calculado por fecha. "
+                "data/fundamentals.parquet (respaldo) — ticker, quarter_end, "
                 "fund_gross_margin, fund_oper_margin, fund_net_margin, "
                 "fund_revenue_yoy, fund_earnings_yoy, available_date "
                 "(= quarter_end + 70 días, src/api/fundamentals.py). "
@@ -59,15 +65,23 @@ async def schema_fundamentales(args: dict) -> dict:
 
 @tool(
     "query_fundamentales",
-    "Da los márgenes y crecimiento YoY más recientes (PIT) de un ticker BMV, "
-    "ej. 'WALMEX'. Usa el dato fundamental más reciente disponible y aclara "
-    "su available_date.",
-    {"ticker": str},
+    "Da los últimos trimestres (PIT) de un ticker BMV, ej. 'WALMEX': márgenes, "
+    "YoY, montos y UPA con su available_date. `fecha_consulta` (YYYY-MM-DD, "
+    "vacía = hoy) es la fecha de corte: nunca se devuelve nada publicado después.",
+    {"ticker": str, "fecha_consulta": str},
 )
 async def query_fundamentales(args: dict) -> dict:
     ticker = str(args.get("ticker", "")).strip().upper()
     if not ticker:
         return {"content": [{"type": "text", "text": "Necesito un ticker (ej. 'WALMEX')."}]}
+
+    # 0) Producto Fundamentales PIT (golden). `fecha_consulta` vacía = hoy; solo se
+    # ven los trimestres con available_date <= fecha_consulta.
+    fecha = str(args.get("fecha_consulta") or "").strip() or None
+    r = AgenteFundamentales().observe(ticker=ticker, fecha_consulta=fecha, n_trimestres=4)
+    if r.get("ok") or r.get("error_tipo") != "sin_datos":
+        return {"content": [{"type": "text", "text": json.dumps(r, ensure_ascii=False, default=str)}]}
+    # error_tipo == "sin_datos": no hay golden en este entorno -> respaldo de abajo.
 
     # 1) Intentar primero la caché local (data/fundamentals.parquet) — evita
     # depender de la API externa de DataBursátil y su token.
@@ -117,14 +131,14 @@ async def query_fundamentales(args: dict) -> dict:
                 }]
             }
 
-        token = os.environ.get("DATABURSATIL_TOKEN")
+        token = os.environ.get("DATABURSATIL_API_TOKEN") or os.environ.get("DATABURSATIL_TOKEN")
         if not token:
             return {
                 "content": [{
                     "type": "text",
                     "text": (
                         f"No pude obtener fundamentales en vivo de {ticker}: falta "
-                        "DATABURSATIL_TOKEN y no hay dato cacheado para este ticker. "
+                        "DATABURSATIL_API_TOKEN y no hay dato cacheado para este ticker. "
                         "No tengo ese dato disponible."
                     ),
                 }]

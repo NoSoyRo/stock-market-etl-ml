@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "metrics": [
+    {
+      "field": "news_sent_score",
+      "business_name": "sentimiento_general",
+      "description": "Promedio ponderado del sentimiento de noticias recientes según palabras clave.",
+      "unit": "score",
+      "aggregation": "non_additive",
+      "null_policy": "unknown_when_no_recent_articles",
+      "requires_recent_articles": true,
+      "expected_range": [-1, 1]
+    },
+    {
+      "field": "news_count_7d",
+      "business_name": "volumen_informativo_ponderado",
+      "description": "Logaritmo natural de uno más la suma de pesos recientes; no es un conteo de artículos ni es aditivo.",
+      "unit": "log_weighted_count",
+      "aggregation": "non_additive",
+      "null_policy": "zero_when_no_recent_articles",
+      "requires_recent_articles": false,
+      "expected_range": [0, null]
+    },
+    {
+      "field": "news_sent_delta",
+      "business_name": "cambio_sentimiento",
+      "description": "Sentimiento reciente menos sentimiento de la ventana previa calculados por gold; la cobertura de ambas ventanas requiere verificación.",
+      "unit": "score",
+      "aggregation": "non_additive",
+      "null_policy": "unknown_when_no_recent_articles",
+      "requires_recent_articles": true,
+      "expected_range": [-2, 2]
+    },
+    {
+      "field": "news_sent_vol",
+      "business_name": "dispersion_sentimiento",
+      "description": "Desviación estándar ponderada del sentimiento entre noticias recientes; no es volatilidad del precio.",
+      "unit": "score",
+      "aggregation": "non_additive",
+      "null_policy": "unknown_when_no_recent_articles",
+      "requires_recent_articles": true,
+      "expected_range": [0, 1]
+    },
+    {
+      "field": "news_relevance_avg",
+      "business_name": "relevancia_promedio",
+      "description": "Relevancia ponderada de las noticias recientes respecto a la asociación; no es confianza estadística.",
+      "unit": "score",
+      "aggregation": "non_additive",
+      "null_policy": "unknown_when_no_recent_articles",
+      "requires_recent_articles": true,
+      "expected_range": [0, 1]
+    },
+    {
+      "field": "news_esg_score",
+      "business_name": "sentimiento_esg",
+      "description": "Sentimiento ponderado de titulares ESG recientes; no es una calificación de sostenibilidad.",
+      "unit": "score",
+      "aggregation": "non_additive",
+      "null_policy": "unknown_without_verified_esg_coverage",
+      "requires_recent_articles": true,
+      "expected_range": [-1, 1]
+    },
+    {
+      "field": "n_articles",
+      "business_name": "cantidad_articulos",
+      "description": "Artículos únicos de la ventana reciente después de seleccionar la última observación disponible.",
+      "unit": "articles",
+      "aggregation": "distinct_count",
+      "null_policy": "zero_when_no_recent_articles",
+      "requires_recent_articles": false,
+      "expected_range": [0, null]
+    }
+  ]
+}

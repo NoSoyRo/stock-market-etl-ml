@@ -9,7 +9,6 @@ from pathlib import Path
 from datetime import datetime
 from flask import Flask, render_template, jsonify
 from dotenv import load_dotenv
-import pyodbc
 
 # Directorio base del dashboard
 DASHBOARD_DIR = Path(__file__).parent.absolute()
@@ -24,8 +23,16 @@ load_dotenv(PROJECT_ROOT / '.env')
 # Crear app con path explícito a templates
 app = Flask(__name__, template_folder=str(DASHBOARD_DIR / 'templates'))
 
+# News workspace also runs standalone through scripts/run_news_dashboard.py.
+from src.dashboard.news import news, configure_news
+configure_news(app)
+app.register_blueprint(news, url_prefix='/news')
+
+
 def get_db_connection():
     """Crear conexión a SQL Server"""
+    # News is local and does not need the system ODBC driver to serve its UI.
+    import pyodbc
     server = os.getenv('SQL_SERVER', 'localhost')
     database = os.getenv('SQL_DATABASE', 'MercadoBursatil')
     username = os.getenv('SQL_USER', '')

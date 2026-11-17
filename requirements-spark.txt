@@ -1,0 +1,3 @@
+# Complemento opcional a requirements.txt. Requiere Java 17.
+-r requirements.txt
+pyspark>=3.5,<4

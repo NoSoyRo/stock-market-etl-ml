@@ -7,7 +7,7 @@ domesticospro:us-central1:domesticos-pg, database mercado, esquema lab.
 
 Cadena:
   ingest (lun-vie 18:30, y sáb-dom solo noticias)
-    escribe lab.price_daily y lab.news_daily.
+    escribe lab.price_daily, lab.news_daily y lab.news_feature_daily.
   decide (lun-vie 19:15)
     arma el plan de entrada del siguiente día hábil.
   score (lun-vie 20:00)
@@ -18,6 +18,10 @@ Escritura (src/db/lab_store.py, esquema de sql/03_lab_schema.sql):
       ticker, trade_date, open, high, low, close, volume, moneda, source
   insert_news → lab.news_daily
       ticker, trade_date, title, source, sentiment, url
+  upsert_news_features → lab.news_feature_daily
+      ticker, trade_date, universe, news_sent_score, news_count_7d,
+      news_sent_delta, news_sent_vol, news_relevance_avg, news_esg_score,
+      n_articles, sources
   insert_decision(session_date, model, cash_usd, motivo, raw, plans)
       lab.decision + lab.entry_plan
       (ticker, usd, horizon texto "20d"/"4s", stop_usd, p_sube, enter_on)
@@ -307,6 +311,23 @@ def _write_news(rows: list[dict]) -> int | None:
     fn = getattr(store, "insert_news", None) or getattr(store, "upsert_news", None)
     if not callable(fn):
         raise RuntimeError("lab_store no define insert_news")
+    return int(fn(rows))
+
+
+def _write_news_features(rows: list[dict]) -> int | None:
+    """lab_store.upsert_news_features → lab.news_feature_daily.
+
+    Campos: ticker, trade_date, universe, news_sent_score, news_count_7d,
+            news_sent_delta, news_sent_vol, news_relevance_avg, news_esg_score,
+            n_articles, sources.
+    """
+    store = _import_lab_store()
+    if not _db_ready(store):
+        logger.info("features de noticias sin Postgres (%d filas)", len(rows))
+        return None
+    fn = getattr(store, "upsert_news_features", None)
+    if not callable(fn):
+        raise RuntimeError("lab_store no define upsert_news_features")
     return int(fn(rows))
 
 
@@ -679,50 +700,80 @@ def _rows_from_articles(session: date) -> list[dict]:
     return rows
 
 
-def _rows_from_feature_cache(session: date) -> list[dict]:
-    """Si el scrape no dejó artículos, una fila por ticker desde el cache de features."""
+def _fetch_news_feature_rows(session: date) -> list[dict]:
+    """Obtiene filas de features de noticias por ticker para lab.news_feature_daily.
+
+    Grano: una fila por ticker × trade_date.
+    Prioriza el cache fechado del día, luego latest.json si es la sesión de hoy,
+    o corre fetch_news para calcular las features de la ventana.
+    """
     path = ROOT / "data" / "news" / f"{session.isoformat()}.json"
+    if not path.exists():
+        latest = ROOT / "data" / "news" / "latest.json"
+        if latest.exists() and session == _today_mx():
+            path = latest
     if not path.exists():
         try:
             from scripts.fetch_news import run_fetch_news
 
-            result = run_fetch_news(days_back=2, universe=None, gdelt=False, save_cache=True, verbose=False)
+            result = run_fetch_news(days_back=7, universe=None, gdelt=False, save_cache=True, verbose=False)
             dated = (result.get("paths") or {}).get("dated")
             if dated:
                 path = Path(dated)
+            elif (result.get("paths") or {}).get("latest"):
+                path = Path(result["paths"]["latest"])
         except Exception as exc:
             logger.warning("scripts/fetch_news.py no corrió: %s", _redact(str(exc)))
             return []
     if not path.exists():
         return []
-    payload = json.loads(path.read_text(encoding="utf-8"))
+
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        logger.warning("no se pudo leer cache de features %s: %s", path, _redact(str(exc)))
+        return []
+
     if isinstance(payload, dict):
         payload = payload.get("records") or payload.get("rows") or []
+    if not isinstance(payload, list):
+        return []
+
+    index = _universe_index()
     rows = []
     for rec in payload:
+        if not isinstance(rec, dict):
+            continue
         ticker = rec.get("ticker")
         if not ticker:
             continue
+        meta = index.get(str(ticker).upper(), {})
+        universe = rec.get("universe") or meta.get("slug")
         sources = rec.get("sources")
-        if isinstance(sources, list):
-            sources = ",".join(str(item) for item in sources)
+        if isinstance(sources, (list, tuple, set)):
+            sources = ",".join(str(item) for item in sorted(sources))
+        elif sources is not None:
+            sources = str(sources)
+
         rows.append({
-            "ticker": ticker,
+            "ticker": str(ticker).upper(),
             "trade_date": session,
-            "title": None,
-            "source": sources,
-            "sentiment": _num(rec.get("news_sent_score")),
-            "url": None,
+            "universe": universe,
+            "news_sent_score": _num(rec.get("news_sent_score", 0.0)),
+            "news_count_7d": _num(rec.get("news_count_7d", 0.0)),
+            "news_sent_delta": _num(rec.get("news_sent_delta", 0.0)),
+            "news_sent_vol": _num(rec.get("news_sent_vol", 0.0)),
+            "news_relevance_avg": _num(rec.get("news_relevance_avg", 0.0)),
+            "news_esg_score": _num(rec.get("news_esg_score", 0.0)),
+            "n_articles": int(rec.get("n_articles") or 0),
+            "sources": sources,
         })
     return rows
 
 
 def _fetch_news_rows(session: date) -> list[dict]:
-    rows = _rows_from_articles(session)
-    if rows:
-        return rows
-    logger.info("sin artículos del día; uso el cache de features si existe")
-    return _rows_from_feature_cache(session)
+    """Artículos individuales para lab.news_daily."""
+    return _rows_from_articles(session)
 
 
 def run_ingest(session: date | None = None) -> int:
@@ -740,8 +791,13 @@ def run_ingest(session: date | None = None) -> int:
     news = _fetch_news_rows(session)
     written_news = _write_news(news)
     logger.info("noticias %d (postgres=%s)", len(news), written_news)
-    if weekend and not news:
-        logger.error("fin de semana sin noticias")
+
+    news_features = _fetch_news_feature_rows(session)
+    written_features = _write_news_features(news_features)
+    logger.info("features noticias %d (postgres=%s)", len(news_features), written_features)
+
+    if weekend and not news and not news_features:
+        logger.error("fin de semana sin noticias ni features")
         return 1
     _emit({
         "mode": "ingest",
@@ -749,6 +805,7 @@ def run_ingest(session: date | None = None) -> int:
         "weekend": weekend,
         "prices": len(prices),
         "news": len(news),
+        "news_features": len(news_features),
     })
     return 0
 

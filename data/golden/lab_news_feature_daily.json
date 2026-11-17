@@ -1,0 +1,16 @@
+[
+    {
+        "ticker":"WALMEX",
+        "trade_date":"2026-10-29",
+        "universe":"bmv",
+        "news_sent_score":0.0163,
+        "news_count_7d":3.3103,
+        "news_sent_delta":0.0163,
+        "news_sent_vol":0.3084,
+        "news_relevance_avg":0.9952,
+        "news_esg_score":0.0,
+        "n_articles":57,
+        "sources":"Trump_RSS, google_news, expansion",
+        "loaded_at":"2026-10-30T04:34:48.045414+00:00"
+    }
+]

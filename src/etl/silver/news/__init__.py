@@ -1,0 +1,1 @@
+"""Capa silver de noticias."""

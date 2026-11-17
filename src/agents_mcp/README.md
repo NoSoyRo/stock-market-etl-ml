@@ -69,3 +69,8 @@ manual que ya existe en `src/agent/investor.py` — usa
 maneja el ida-y-vuelta con Claude hasta que no hay más tool calls. El
 orquestador hace exactamente lo mismo, un nivel arriba: sus "tools" son
 agentes de dominio completos, no funciones de datos.
+
+## Noticias conectado al medallion
+
+La adaptación de Noticias, sus tools y sus pruebas se describen en [NOTICIAS.md](NOTICIAS.md).
+Esta rama integra también el orquestador y los otros dominios de `origin/main`.

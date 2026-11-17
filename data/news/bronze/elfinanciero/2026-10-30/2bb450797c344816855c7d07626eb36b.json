@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "batch_id": "2bb450797c344816855c7d07626eb36b",
+  "source": "elfinanciero",
+  "fetched_at": "2026-10-30T04:07:44.177779+00:00",
+  "representation": "normalized_extract",
+  "origin": null,
+  "payload": [
+    {
+      "ticker": "OMAB",
+      "title": "No te disfraces de infractor de la ley: Así queda el Hoy No Circula en CDMX y Edomex este 30 de octubre",
+      "summary": "Este viernes, los vehículos con engomado azul y hologramas 1 y 2 descansan en la capital y el Estado de México.",
+      "url": "https://www.elfinanciero.com.mx/cdmx/2026/10/29/hoy-no-circula-cdmx-y-edomex-viernes-30-de-octubre-de-2026-placas-9-y-0-no-salen-source-ia/",
+      "published_ts": 1793317729,
+      "source": "elfinanciero",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 0.75,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "OMAB",
+      "title": "Clima para el ‘Halloween’ en CDMX y Edomex: Hasta 11°C para el viernes 30 de octubre",
+      "summary": "El Valle de México espera un viernes despejado con temperaturas que variarán entre la Ciudad de México y Toluca. Se recomienda tomar precauciones.",
+      "url": "https://www.elfinanciero.com.mx/cdmx/2026/10/29/clima-en-cdmx-y-edomex-viernes-30-de-octubre-con-mananas-frescas-y-tardes-calidas-source-ia/",
+      "published_ts": 1793295773,
+      "source": "elfinanciero",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 0.75,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "OMAB",
+      "title": "La mesa digital: nuevas formas de conectar con la comida",
+      "summary": "Hoy, la tecnología retoma esta tradición y la lleva a una nueva dimensión, haciendo posible disfrutar de una mayor variedad de alimentos sin importar dónde estemos.",
+      "url": "https://www.elfinanciero.com.mx/opinion/colaborador-invitado/2026/10/29/la-mesa-digital-nuevas-formas-de-conectar-con-la-comida/",
+      "published_ts": 1793291093,
+      "source": "elfinanciero",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 0.75,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "OMAB",
+      "title": "Reimaginar el trabajo: de la inversión tecnológica al valor de negocio",
+      "summary": "Cuando las inversiones en automatización, analítica e inteligencia artificial no se acompañan de cambios en los procesos, los roles, las capacidades y la toma de decisiones, las organizaciones corren el riesgo de modernizar sus herramientas sin transformar su desempeño.",
+      "url": "https://www.elfinanciero.com.mx/opinion/colaborador-invitado/2026/10/29/reimaginar-el-trabajo-de-la-inversion-tecnologica-al-valor-de-negocio/",
+      "published_ts": 1793289055,
+      "source": "elfinanciero",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 0.75,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "OMAB",
+      "title": "Que el descuento no decida por ti",
+      "summary": "El problema aparece cuando utilizas tu presupuesto para acomodar una decisión tomada en función de la oferta. Saber si completas para pagar es parte del análisis, pero también necesitas revisar qué lugar ocupa esa adquisición entre tus planes.",
+      "url": "https://www.elfinanciero.com.mx/opinion/alberto-tovar/2026/10/29/que-el-descuento-no-decida-por-ti/",
+      "published_ts": 1793286920,
+      "source": "elfinanciero",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 0.75,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "OMAB",
+      "title": "No te disfraces de infractor de la ley: Así queda el Hoy No Circula en CDMX y Edomex este 30 de octubre",
+      "summary": "Este viernes, los vehículos con engomado azul y hologramas 1 y 2 descansan en la capital y el Estado de México.",
+      "url": "https://www.elfinanciero.com.mx/cdmx/2026/10/29/hoy-no-circula-cdmx-y-edomex-viernes-30-de-octubre-de-2026-placas-9-y-0-no-salen-source-ia/",
+      "published_ts": 1793317729,
+      "source": "elfinanciero",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 0.75,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "OMAB",
+      "title": "Clima para el ‘Halloween’ en CDMX y Edomex: Hasta 11°C para el viernes 30 de octubre",
+      "summary": "El Valle de México espera un viernes despejado con temperaturas que variarán entre la Ciudad de México y Toluca. Se recomienda tomar precauciones.",
+      "url": "https://www.elfinanciero.com.mx/cdmx/2026/10/29/clima-en-cdmx-y-edomex-viernes-30-de-octubre-con-mananas-frescas-y-tardes-calidas-source-ia/",
+      "published_ts": 1793295773,
+      "source": "elfinanciero",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 0.75,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "OMAB",
+      "title": "La mesa digital: nuevas formas de conectar con la comida",
+      "summary": "Hoy, la tecnología retoma esta tradición y la lleva a una nueva dimensión, haciendo posible disfrutar de una mayor variedad de alimentos sin importar dónde estemos.",
+      "url": "https://www.elfinanciero.com.mx/opinion/colaborador-invitado/2026/10/29/la-mesa-digital-nuevas-formas-de-conectar-con-la-comida/",
+      "published_ts": 1793291093,
+      "source": "elfinanciero",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 0.75,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "OMAB",
+      "title": "Reimaginar el trabajo: de la inversión tecnológica al valor de negocio",
+      "summary": "Cuando las inversiones en automatización, analítica e inteligencia artificial no se acompañan de cambios en los procesos, los roles, las capacidades y la toma de decisiones, las organizaciones corren el riesgo de modernizar sus herramientas sin transformar su desempeño.",
+      "url": "https://www.elfinanciero.com.mx/opinion/colaborador-invitado/2026/10/29/reimaginar-el-trabajo-de-la-inversion-tecnologica-al-valor-de-negocio/",
+      "published_ts": 1793289055,
+      "source": "elfinanciero",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 0.75,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "OMAB",
+      "title": "Que el descuento no decida por ti",
+      "summary": "El problema aparece cuando utilizas tu presupuesto para acomodar una decisión tomada en función de la oferta. Saber si completas para pagar es parte del análisis, pero también necesitas revisar qué lugar ocupa esa adquisición entre tus planes.",
+      "url": "https://www.elfinanciero.com.mx/opinion/alberto-tovar/2026/10/29/que-el-descuento-no-decida-por-ti/",
+      "published_ts": 1793286920,
+      "source": "elfinanciero",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 0.75,
+      "av_sentiment": null
+    }
+  ]
+}

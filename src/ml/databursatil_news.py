@@ -203,6 +203,10 @@ def save_daily_snapshot(date: str | None = None, *, verbose: bool = True) -> Pat
         "noticias": fetch_noticias_raw(),
         "cables": fetch_cables_raw(),
     }
+    from src.data.news_medallion import ingest
+    from src.ml.news_sources import ENTITY_ALIASES
+    ingest("databursatil", payload, fetched_at=payload["fetched_at"],
+           representation="api_payload", tickers=ENTITY_ALIASES)
     path = SNAPSHOT_DIR / f"{day}.json"
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2))
     n_news = len(payload["noticias"])

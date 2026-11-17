@@ -1,0 +1,710 @@
+{
+  "schema_version": 1,
+  "batch_id": "ef8973f19f1340be8f86b5fe13547ab4",
+  "source": "trump",
+  "fetched_at": "2026-10-30T04:05:16.932586+00:00",
+  "representation": "legacy_import",
+  "origin": "noticias_trump.csv",
+  "payload": [
+    {
+      "titulo": "México espera impaciente la reducción de los aranceles de Trump para los automóviles - EL PAÍS",
+      "fecha": "Thu, 29 Oct 2026 20:21:55 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPY0NPX1BnYm5VVzh6aEFfWUszek5UbE50aEkwRXBHX3IyLVdwMUNRS0g2RlFINUV6ZDhRRHZKUkZwZVVVc2h5U1JOTGFxZVdmc0ZKOGsyM1BlaEV6dlNjRFBpZkxMQXFha2dIc09HTXlSd096Zk9tMHExR1FMT0VZMHBqWUJUTkVac1dOQzExOXkxRnZXLXpZbElrb1lUdGRBbnJrR0pxMmhSRlFNdlo2cDh5a3FXZC1UYmxTRF83QkhTRjZtbXhQR1pBWVEyNnN20gHkAUFVX3lxTE50dW1FR25wanFKOGhWTjI4VlBpOF9KWUVHOTFVMmNfSEowZFFGNC1UVWd3Z2dWMmp2elBGZzZHX0RONE9vU2t0YXBld1RYQWVMbFA5aTdGN3pEdWFyS2lfMGJSNGdwWjlxZm13ZzZlaU9lcmNyQlN1LUVqQmRUVEd3SVlESFRwamkxVmg3VEFoMTBHeGtybjY1eXd5cG92TU5LX1hXUXFCSE9LTGU5ZXdUVEkwNFdEdm10OTBCREhQLXBocVdzdkt4YlZ6bnMzVS1SNm9RVWRwTjUxb2pRXzNYR2I4NQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "México espera impaciente la reducción de los aranceles de Trump para los automóviles - EL PAÍS"
+    },
+    {
+      "titulo": "Trump ofrecería reducir aranceles a Audi a cambio de planta en Georgia - Autocosmos",
+      "fecha": "Fri, 30 Oct 2026 00:16:07 GMT",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQdTg2Mm42OW5QcjVpVTExdHQ4b0g5ZkJPamgxZC1KWW5GMlUyNUh0WHJCcXkxeE5ocDdCQ2VIUF83SGRWTkRta1htc3dBUkNkd1RPYTZXZ1MzUldOWGU3MVRLWnpnZWtqeU9sSHA3YVF5LVgzaHJUNkhVNGNRTWQwc0FPVHFydEhUV2dtd0xfd0VqSGtSMnZUVTFEbXIxcGhYOUFPM1ZLbVhDZmxCdi1yQUtZRl9qZjA?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump ofrecería reducir aranceles a Audi a cambio de planta en Georgia - Autocosmos"
+    },
+    {
+      "titulo": "Trump se ‘llena los bolsillos’ con nosotros: México aporta 8.3% de recaudación de aranceles de EU - El Financiero",
+      "fecha": "Tue, 27 Oct 2026 09:51:36 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxORUUybWxzSE9renU5MTU4RmE1ajFLZlN2dUdSQXc5Sk04WFZZRlNhUjFPcGloSGNFNGVQMkRwc2NTaW5WV2tiY3JKQWw4OFVWVExvR0gtZHMyaEF3aTlMeHVnMGVmT2Rzckx4MWlUZVZqU2h6N2F6QVY5Tmg5MFlKRVVMT0RLOFlDMVJhVU5Kc0E0Y2pYbUg2M2FUMDY1Rko1a2JIeG5jZTlDeHk4R0NwXzRQaDNvT3hQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump se ‘llena los bolsillos’ con nosotros: México aporta 8.3% de recaudación de aranceles de EU - El Financiero"
+    },
+    {
+      "titulo": "Bloomberg y dos firmas más pagarán a Trump por un acceso más rápido a Truth Social - La Jornada",
+      "fecha": "Fri, 30 Oct 2026 02:20:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOR2FMR2NRSDNQQWljaGRCQWY2dk9qeVAtWVRETU1hWmY2RU9fV05OZklSMXJDYTU4bjVrT3EyR1piOERkVUZlbFhhTXBXOVdKbjZkMVp2WFB1Z2g5SkF2MnBpREZxVGxuellaQUtDTTZPcHNZbEJQYWhOdU4tamlHa195R3pOTDZhV2VweHJ4SkplYkRBaHJvOUc5NTA2NzBxWGs5S2R6cTFUYkk4eXBYSEgzQ2dlVFlMdUpSdkhmbXZHRnhvTThtZ1RQYW9CMTE2U1B3?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Bloomberg y dos firmas más pagarán a Trump por un acceso más rápido a Truth Social - La Jornada"
+    },
+    {
+      "titulo": "Aranceles impuestos por el presidente Trump afectan a exportadores mexicanos: Canacintra - El Sol de México",
+      "fecha": "Fri, 30 Oct 2026 00:27:10 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOWlZJUFlHZ1hYZGZGY2ZQX2RORnU1X0RPLWdHZ3h2QkE4bDRtUXgxU1NvbHVNd3c5Vk81ZzI1WngxLUJwdnJQWWU0YUwwNTVFdUlrTmJWWV9MQjhpbHRzaEJLYnF1REdYU3BXMHdkeksyamUxQ2tJYkpNc1d1d2hsNHFyaWtpLWJxaWVjZy01ZW5MMHF6Xy1lcEEtczVMQjUwMU9fMmFiOS1ySEIyeWU4VmpaZ0J2cTZUZHE4NnZNVTRkbjlHeDd5eVJWRFZJek1oRy1xWFRB?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Aranceles impuestos por el presidente Trump afectan a exportadores mexicanos: Canacintra - El Sol de México"
+    },
+    {
+      "titulo": "Alardea Trump de aranceles a México - Reforma",
+      "fecha": "Wed, 28 Oct 2026 11:05:58 GMT",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBYYld1VjNqanYyVWpHM081bm1UMjRRZ1p1WHE0RWZLTWhiWFFldl9zWllmWkROQjY3TWRRR2JSdU9KVWd4dFlncU1iTjZxWFc3dTdKX3VxMzF5QWlkZXlpb3g5aEFlVXZsMlU1NWRNY0tQcEMzTDBJYg?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Alardea Trump de aranceles a México - Reforma"
+    },
+    {
+      "titulo": "Donald Trump vuelve a presumir aranceles a la industria automotriz proveniente de México - Infobae",
+      "fecha": "Wed, 28 Oct 2026 03:37:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPT0RydkpSaTZVS2puX2NzaWxfU0RacEhvUHJfLXZiN0lqTk0ycjVXS1oyOWVPam1ZaDA4SzNPMENKU3Z6dTJsOVFYZjV6Wk51WEljOU40b2VFWkRyby04SjhINmdfbVMxMDRhbE1vM1RtaFQ2Ni03V2JqZkVDLTl4Mk5xUzVHYXh1RW03b1RFSWhtelMtNER4QmhIQ25vcENsMllMZkZLRTV1eUtheExiSDRyb0pPOWlNY0NBVGNURFBNYmhROWZQMXJ1SdIB5gFBVV95cUxPdG1rM0lndnctLURMRThrRThEWmNGbDRMdm53NkdXUzd0VmtwVWpCWG5vWlNlTUpIeDIzNS1qb3ZYc0REY1dRMkNQNjZqRW5LaXQ1LUxkT0dBOFBpS2hZWlR3RVZXcGQxcWhxMHpyNDd4QkRHZ085MEJJNUNNOC1HWHdIX3YtZHRJc1JqODdKRjZwZXQzWWhCdnM0cGM0cW51YmFzVl9QcXkyS1V1M19oQWFXUTFiV2JXYVdZeFJfaFdfVU1hYWJFeE9uM0pzRWhwQTZkSDQ1ZUpHUG1hX050d0U3bnVtZw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Donald Trump vuelve a presumir aranceles a la industria automotriz proveniente de México - Infobae"
+    },
+    {
+      "titulo": "Economía - Las quiebras de pequeñas empresas se disparan en medio de los aranceles de Trump - France 24",
+      "fecha": "Wed, 28 Oct 2026 17:02:11 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxNVmVVTl9hX1ZzbjlhY0tTN2VKenFLeVFEbGRRRXpfMmpMTjBGcktuUlh1V19NM0lVY0Y5UFJrTkZ4b1FNNlBCdlZrMlctNnkxRUFKZUJFX1FLWVEtZ1Baa2xZWGFBS1FDRjJ6Xy1FcElfMVp2eTVVYU1UZGNoY0ZxcVhQSzlXWDk4WmowRzFjUjlwUHg0NE5UWjFNbDZrM3hCVDdWMmloT3N2bVgtbUxiTnFjLWcxaDFtTEhOZnYxVjJES3U5RkZIMEJwN0NxdGJOMGFzU2x1U0FCUHRFZFhv?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Economía - Las quiebras de pequeñas empresas se disparan en medio de los aranceles de Trump - France 24"
+    },
+    {
+      "titulo": "Trump considera los robots importados una amenaza y abre la puerta a nuevos aranceles - DiarioBitcoin",
+      "fecha": "Fri, 30 Oct 2026 01:52:30 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNZkNJbWoySjNSX2J6bTJaajJTTEdoSG41SkFDc3k2TEk2ZEEyYTRVdmM0eXZ2V1JFZHJxZTlvanRCVDh1cUhLcjlEU3k1MXhPanFpcTdJT1hVc2E0cXMxWXdYNkFSOGw0Q3dRMVVYcjltZ0FIS0FEbkpmemxyNnNsYWdnX3JiSE5aVWYzTVYtTDRTdFdNVlZxdldIWHBOdXJncktUWVp3NVQyMThGR3J2MUx0djM2elBwV0x0cllBbHBlNkxWNG9Ha0xIQQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump considera los robots importados una amenaza y abre la puerta a nuevos aranceles - DiarioBitcoin"
+    },
+    {
+      "titulo": "Trump y el costo electoral de los aranceles que asfixian a las pequeñas y medianas empresas - RFI",
+      "fecha": "Mon, 26 Oct 2026 14:23:56 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQclpqTmtQYzlmZW8yOFRJbHN0UXliWEJjUDRKMzhpR29TRnM0WHpQbWRoQ2V1RWVHMWVlV3pndG5SR1BhZFE4elMtWS1XSmpxemstWk0yOGNyN1ViZV94VGYzbDFQdzFqemd1YVhnOG5UbVpaS2k3QlFac1B1bEFPMmMya1JrZWhYaHF0T3BVOGtodWhnUXJlWGQ2Z1FNMk53b3dHNGJYY1FJUlNCdjdWRm1RYXNIeHMwWUs0MTcyNVVCd01vUm9kdWtQTWxMZzdYamxSWEdza2dVSGR6UnRTSWNB?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump y el costo electoral de los aranceles que asfixian a las pequeñas y medianas empresas - RFI"
+    },
+    {
+      "titulo": "Donald Trump amenaza a México con nuevos aranceles a los autos fabricados en el país - sdpnoticias",
+      "fecha": "Wed, 28 Oct 2026 22:28:54 GMT",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOQzNoZV9QTWlYNzJFenhMRklEeUtlSm5CUzZLVUlFakJIcWNQT18xSXdwbU10SDVta2VQQmRVT0ZxbHdyVHV5czUtR0pSWk9kS24xNy11d3JWUlYwdmZsWUV2Q3B4S1RKblh1eEpPM005dUZBUklkTU5VeDlyMFZRWDhmU29pS0UzMEdscWFQcUJzb0o2ODdfUFZFbnhIS25GUW9Ea1RXRFZfMGJYTktMcjhCS1YwT3RrZGszZ0JOSGlTYkMzUlE?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Donald Trump amenaza a México con nuevos aranceles a los autos fabricados en el país - sdpnoticias"
+    },
+    {
+      "titulo": "Trump se regodea por aranceles a autos hechos en México. \"Nos hicieron ricos\", afirma - Sin Embargo",
+      "fecha": "Wed, 28 Oct 2026 05:26:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQOVBOSFlwVExMa3oydG9MMkduZlMyakQtWXk1OFpjY3FpQWJpY2loOVNLZDlEZXhRWk9PTW9Sa3BmbVhzQWRwVlJzTDhEWGtkSkZEWlV4amRLUFZaaE12azVDS3B4bGxpVHpQUHUzRDdsWkFCd1J1OVUxWld0TGFaRkxLODFjTXhqNHZHSTV6N2g5bGhIQmJmaUhiUEtkODh0aGZOMVJVQWdBdmxVQXVrLW9IQVhGeW8?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump se regodea por aranceles a autos hechos en México. \"Nos hicieron ricos\", afirma - Sin Embargo"
+    },
+    {
+      "titulo": "¿Beneficio o polémica? Alemania reacciona al acuerdo millonario entre Audi y Trump - DW.com",
+      "fecha": "Wed, 28 Oct 2026 10:19:41 GMT",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNQmZ6RC1YRjY2a3U3eWVVWUtvRkJhQVRlc05rZE0xZUwwTG1qc2hPeHpOWEkxWFVfcnJsOExmS1N0ZkdVd0NobWdreHliOV9PSzB6Y3JfaklrZmE4WkNMVW1zUG9BWTA5QWV1SHFDMlk3OUQ5akU3Yl80em5oQXdRdnZ4RDRpRDc3YWZ5cG5UWENrUjNyQ1dpUFdLN2dzTlc5NElKdNIBpAFBVV95cUxPZm9NY1NCdnFjSWxsSWd2UTBpQ3piSWJYTXVxUDNwNzlKVjNmMFA5THRkc084RTlzWGloSHk0VTZPemNUMzZsTndCeXpuSGJtWmN4dzdfay1SbHNwWGFOdkRWNnBsVERUMUJmTkRYYVNIX2ZNMy1FMDIyME0wYTFidGZOMmRfbGpVeUpOTmJmLVF6ODBPaW56LTdVTk5GcUZhd1VlUg?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "¿Beneficio o polémica? Alemania reacciona al acuerdo millonario entre Audi y Trump - DW.com"
+    },
+    {
+      "titulo": "Presume Trump aranceles a vehículos mexicanos - El Porvenir - Portada",
+      "fecha": "Wed, 28 Oct 2026 08:53:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOdWtjMFI1YUVQZjdDZl9WTF9PZWRsbjdQRnMwVWwxeGJSdmdpYU04ZC13eGlRSjJORGpLWm1RSXQzWXpNMXFwOXRMR1dRZjEtYjNKQUR2WnJjX25SNE16WTJoT045WGFwMUQxQjdOb1F0NTNpSEJLQm1CMk1scVJ5Q0tOamk2cmFUUUtHa3FLNUIwb0U?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Presume Trump aranceles a vehículos mexicanos - El Porvenir - Portada"
+    },
+    {
+      "titulo": "México tiene prisa, Trump no - El Economista",
+      "fecha": "Thu, 29 Oct 2026 07:23:27 GMT",
+      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQNVRmRkh0a0ZHaUxmX1R1a0liZGs3WVl1cVl1UGdETE02azhMTk9IRmFIQjUyeVJrYzhfcHlHaUw3T0Y0S0ZwU0RMZXlQWlg4REl2MjdVb2pWdnFRRGc0cEh0YW0xaklYNzNlZkVZVlppWTdNUEU3Mm9rZlVMdzVfVGRUa2dEUdIBiwFBVV95cUxNSGpGUzJ6Ym9BWXUyd3BOQXg2aUs3SDc3Q0Z4Ny01OVdHc1R4TkREYjI5YjVZY3VJeXVxSjBORDNKUm5lT09YSU5xYW9EeHktOHRvclNhekJlMGN5T3cyRTF3NEVtQTdNV0tlcnBsSVQtYmNvYlAwc2I1TlF2eDROVnhwZTRBQlZfTnhR?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "México tiene prisa, Trump no - El Economista"
+    },
+    {
+      "titulo": "Donald Trump presume aranceles a México y traslado de producción automotriz - MVS Noticias",
+      "fecha": "Wed, 28 Oct 2026 03:59:38 GMT",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNOHUtTmRhTGJuYjRlU2JEY1d1OE5STUtOSzdQNFN0YmxNVXpUVlEyMXNBblFnRGJRZjhhdERCYlJJNTRLNXZTNjloS2k3OHdzTGhRUDZEVFkzMTNDQlRHUnZjdGVVTUxpNTdrb3pKTDBIVjJuR2s4ZTBWalRucl9HOVBERzNRcVVuZWN1Uk5TTTF4ejdmci0tMVFlZmtELWFQZjEwMVFmLXVyaDhqbzFwajB1VVNaOTR1cXFtdURyTHRPOUJaSUQ4?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Donald Trump presume aranceles a México y traslado de producción automotriz - MVS Noticias"
+    },
+    {
+      "titulo": "Alardea Trump aranceles de hasta 25% a autos mexicanos - vanguardia.com.mx",
+      "fecha": "Wed, 28 Oct 2026 16:55:33 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdVVjX255TjczVDZaTnNCZm1kTUhTazcwNVJiSTlXbEZFQjhFR0tHa1RGNWxlWGlDVjlhTEU0ZVhseUFNclBNTWMydGU4VXliUFJGQlNELWJqQkFRemNrektCaERkbEtDTmxyV3JKOTE1THYwdnNzOFNBMVJ0NE9PNVBmNTRpYV9ULUR5M28zZVRnQldSRl80a2Rqa05NWkIzMTJVZVk2TVpRdw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Alardea Trump aranceles de hasta 25% a autos mexicanos - vanguardia.com.mx"
+    },
+    {
+      "titulo": "Trump promete alivio arancelario a los fabricantes de automóviles si se comprometen con fábricas en EE. UU. - Quartz",
+      "fecha": "Thu, 29 Oct 2026 15:34:04 GMT",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOOU91QUduNUxPa1pvSUJHREx6b184ZHZKck5FMVFMb004Nm5fQ2tkWElPdERQV3RYazhyUDcxUVU2OEdZSEpSUDVYcXJMUTRQdlRRaV9ULVl4cmI4dEo0b0ZmNmp4c3ZiZW9UZzMtRFYtTklJV0NsanJFU0RPajZ2VDJaNjRVYTEwVTMzUEYxUWYzQk5nOGc?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump promete alivio arancelario a los fabricantes de automóviles si se comprometen con fábricas en EE. UU. - Quartz"
+    },
+    {
+      "titulo": "Inflación en EU se aceleró a 3.6% en septiembre por alza en gasolinas; PIB avanza en tercer trimestre - La Jornada",
+      "fecha": "Thu, 29 Oct 2026 17:12:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxPbGxBbFZuSm1QaVZnS1RCTXA5MkduWGRVazkzbndEc3R0ZUE2aDRnS1BBbEY5THJobVNqZ1NRaHJqQmMwVXdxVFJYeTFST1VyZVIwYjIyQ2lBRDE1S1FiOXRyRkZ0Q2d6M1F1YmhQaXJETl9rdnhpbklaREdyamdxRUFlZ1E2MFdFMlJnNXdINmtIaFUwSVZ3ZlZ2SHR3UFpkZkd1WGNJSktkU3F5aHZEblQ4ZjlDdmlLM3o2dDRaZTVjZVdFZzRhWU9DeGlub2ItZHNubVltbzNNbWtyNEpCWEdOWkROWXhC?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Inflación en EU se aceleró a 3.6% en septiembre por alza en gasolinas; PIB avanza en tercer trimestre - La Jornada"
+    },
+    {
+      "titulo": "Trump insiste en que moverá la producción Toyota a Texas y advierte aranceles a quien fabrique fuera de EEUU - Infobae",
+      "fecha": "Wed, 28 Oct 2026 18:59:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQbWFMNjV0UUI0M0N1STNnSkQ5OG9IRl9NRTJpdEd3UE10bFdIQUFYWU0tR3NlUnlPMUZ1dDlXUUxTY3lLcV9JX3Uwd2VYbnVBaUJMZzdqYkF3V01Fb2x3bzRON3FYQXBIRFBNV1QyOVVURWRwV3hxSE0yWGRrREZjRERNUUFWa193a0kybjg0MVgtZ0J4V0dZN1ZFbTR0czJnSmRZM190eDl6bzBPN01EWXREcUlmNlp1SDRJVnZoTWZCQVRoWW5VNnR5R1RYTFRUYTdVbVFBT1Z0REl5bXdN0gH6AUFVX3lxTE54dktmcWhmVnBDSnV2aGdUUHpuOHl4bk93M2JiMDJjT1I3dU42b2lIeGpERV9FaG1zVVoyVWxUbVl3QWRsejB0aVhoLWR6czFhTkRadjhiMU9EUHhOeXcyVnhYSHpjRmVLUnYyMFE0dzAwcm5jQ1E3UHBHVTJNTk1XaVdpNHd5MVhEenRrQXQ4bG1CRHZzd2tkS2otVlQza1p4Q1dKRlJKeFlWUmRLd1FoVmZCR0FiLUxsbTc4QUlUQ0hFOUlrelpjVU9fS3M5MjJ5ODNmREtpQ2szRWdzYWRzWFdyZFk4WEZ4TW5EODNTSGc5NFZFN2c4RlE?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump insiste en que moverá la producción Toyota a Texas y advierte aranceles a quien fabrique fuera de EEUU - Infobae"
+    },
+    {
+      "titulo": "Canadá y EU con dificultades en negociaciones comerciales previo a las elecciones estadunidenses - La Jornada",
+      "fecha": "Thu, 29 Oct 2026 00:49:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxOZzJES0dDSlA0QUxwODIwcUZqekVqZzF2b01nME9obDhJQWV5NDhOaHJTNmlvVTc3S1ctdmhhcEVzMHptTWRDZUNhSFVhNTdvQm02ZlY1SDVkYUNIWDRydkFTUjZlUGZjN00zeWppOC1WcVFYeDk5aGNHU2lLRElOblZpMDBvU05LdkZZS3pySGdFUGZMYVVZLUpjV20yZXJlelQyX3RvTEd3anVXWlowYXdNSlhmMmZ1bURIVU9MN0tJd2Zta2M3RnNOUTNJWHdjQkNqN1lPYXZPd1BsTDJHWmdTNUEwaGt0TUE?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Canadá y EU con dificultades en negociaciones comerciales previo a las elecciones estadunidenses - La Jornada"
+    },
+    {
+      "titulo": "San Antonio Texas: ¿sobrevivirán los tacos a los aranceles de Trump? - RFI",
+      "fecha": "Tue, 27 Oct 2026 10:31:26 GMT",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNYzNUYUl4OG81VEFFTFNDM1k5YXpoQXlFT3VDazh5YjZBem82OXhnTVVJc0tSQUJZenJ0M0R6MlgtZFl6ZkM2U0p5NE9ZX1RRZm5BTHFrcGFacGViMTU2VHFCMzVKQ3JLdFZPWlVFVkFtNTZkdEVPaDFDTHF2UWNfN014cmY4c0FiZEhCblo0Y0lheVdONF83S0s1Mmg1dk8ybFo0TjZEYUZiejJyMllnNHpEY0Ridw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "San Antonio Texas: ¿sobrevivirán los tacos a los aranceles de Trump? - RFI"
+    },
+    {
+      "titulo": "México negocia con EE. UU. reducir aranceles a autos y acero - Acento 21",
+      "fecha": "Thu, 29 Oct 2026 20:57:12 GMT",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQTWhrcVZBcF84ZkNMVnkxZUtzdTkxY0xlU0xjaEtTaDRjZGUyMVZzU1RLZHRMZWtRVDlmMEtHQkd3ZnNyZlVxeWtZS3Nub3NtT0dhdWdsQUVkZmN1YXJUNHdlV1ZobkU1NFBZZWlXUnBNSEI1ZTZvM0ROY0VYMmRuRHowZ2FqRDFtQ0lxSWUxRUlLT085UGtHNFBmQlR6UQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "México negocia con EE. UU. reducir aranceles a autos y acero - Acento 21"
+    },
+    {
+      "titulo": "EE. UU.: los pequeños empresarios enfrentan una ola de quiebras tras los aranceles de Trump - France 24",
+      "fecha": "Wed, 28 Oct 2026 22:55:28 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNdGNCdEduMTJfR1RreVQ3dl9EUGFNN3l5NF83QzVCU0RndEc5WGtfNEZjZzZWaW1uV09UMHFUeXVtNTJMWXMtT0hhSHRYNXJlZnhTWkZXeDFnczFibWdXcWMxOEVqQVhLTnlUZ1JvUkNaWFRxdFNWSXl0OFhROHhMRXRjU2V0LVROeVNma3NYVVhicS15TmFFX1V4ZndHLS1uY2RLYnJLWXVCNVJPMGVRTXdabFpyaExVOW82ZlctWkFPcExoelQtdDZUV0FTVzUyOVE?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "EE. UU.: los pequeños empresarios enfrentan una ola de quiebras tras los aranceles de Trump - France 24"
+    },
+    {
+      "titulo": "Estados Unidos ya recaudó 14 mil 439 millones de dólares por aranceles a productos mexicanos en 2026, mientras Trump mantiene impuestos de hasta 50% al acero y aluminio y se complican las negociaciones del T-MEC - El Imparcial",
+      "fecha": "Tue, 27 Oct 2026 17:58:54 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi8wZBVV95cUxQNElTclM5RG96VDF3T1pKNkpxZWJuVUVBbm12TE9PLVlXcTY3Qml1TkdCSGU0dTl4SFJKejNVZXVNdW02SE5sT3Z2c2RJLW1MXzcwOUx2eUNhNHVaek4xUDBZekFhQ195bmktdk5TM0ZUOTRMQ3dkblZIUDJpNlJ4ek5qR0JMTkhxNFl1d3ViN1hhTVdpMEhTRDBjbkFYdXN0emxFT0tSaDg0TS1wVzBaZndRQ2sxMVJKQjRudF8telZhNUdLM1VjaTF4M0VtbzhJWm1jbjdpbzAzYVpmMkRZb0dtTEp1ankzZFZiQUcxN1F6OERxaHhhMk5PVS0zeGRjN3k0UDgwVlBESHUta19WRGJqamVfdllJdGp4cDFvUjY2R1BHZmZYanJkYWliZ1lTY3E4eWtsWWhFT2xZTERHdTZESUoyNjVtR0lYbFR5X21ndXY2NkZTSFJVTWJSRTNuZzNaYXZWcGdCM0NiSmtwYkhEaUphQ3ZBc3JEcXZ1cjZKVVRpMzJmVDMzOWszcU85NlBtYXhaTGZEZ1dBQTk3Q1BwMFVHQl9JbUpsNzdnNUFuYXhaMk1VY2QwOEcwVzJLMkxYeEJyakFuaklqVWV2dWdPRjNhbHluQUkwcjE2OEtvZXFXb2twV2cyWWFTdTRJbEZVYXNkc0Vkd1BFdlNhaDh4MkNXWHlvM1hrejFuWFBwQTNCdmxNOEl6SzZXNms4YWRkRmdXOE4zekM2MVFTY1NwUE1ISGRSbWFmclhWRVpGN0FRTndYMGo5eFp3N29NUE9nMm4xcG1nQXkyOWNNUmVhdkhFMnl3SWVxNVkzVnU0ZERwaEFnTXlGdmJLSi1UVGZONjdHUWZaNXAzQVYwcDUyREdUc2YyWXJhNmdfdFk5eDYxQWVPZDVZQmdPWnNkR20tY0haSnlBM2RpalpxMXZycFZGXzJXX0M4NmdxaXlURFZMYzF1OHgybmVPMjQ0bFZBOUh0LVh2SFJ4VEFWSDB6SGpIRGFvUXlra0tzbGlJSFpwa0NqeWVBclZyQWlvOVM3OVd2WDBpSU9QYVlDcFY2dHBDY2ozdGxST2hQMGt5MDd6WVN0LUdwRC1tWjVLdEpfN04xY3k3bWtucWo4eUU1RVF3M2NqRnQ4amVZTTBodHd1UWFBVFR1SEdVYkhDeXFj0gGOB0FVX3lxTE12cG5ZWmxGeW5IdVFmUEVIV0lHVUlKMmZLU3NNUjF4NVk1UkpfbWJkTEhOTzNTRExPd0gxWFZHcTJIX0czanlXaW9aTkxpRERobnpkZk1EQ0gtQ0JVV1BUZnlTUlRhbWF1b29mV2V3LUdSX19fcEIxbHhnc3RoclBGWVVleWwzRXlqRXM0d0RJTXUtMFMtclRXeHpqaDlYQTNKM1ozbU9tMkt2cmN6d0x6SDNaenRqZjlpVmcyVmlvTWNhWVBra015WDFjM0ZtT1hNU1FhWUVxQ3U0YmduazNhaDZ1SGQ0RHZ6anJ2R0JtQ1BJcUFoVUlkd2x4ODYtNnR1dUhibWhWY1pSaERZbkU1Wkd1UXpCcU9Cdi0wZE1pVXFqSkpPM1hoVXpvN3kzNGxFVm5GYWlIQ2kxRDI3YUY3RFdKTk9oUzZ2T25vVVBBWWJTNUdSaXRYSXdKMzBEbDBmTGxyVXV1QmNNNFRkSW9lRFlYdjQtREExWl8xQ3dLRm9HT2NKX2VMbVFSOXdYVHdib29QV2xDVDFXSEVZdmlZVFhHd0hQSmtUWG1pVVBBT0g4clhuTHNRSVpVR2o2LUp2VURPNjh5ZXF2MXZpZTZ1TjVIb1EtU01JbWVWSW9OeGJicWotTG5nQTVMd093TFBfckFZTjZEY0FmWEZfRnhUbzR1Q2JxTG9sUUdDQy1qd3BHaEQ3SjlscDk4R21iNVpBTWppajRsenRqS282Z1MtbXVqZVVsbUZDM3BUZDFHY2tQS0JqWkVyRzEwNGZ0VF9iQm9SaDdwNGw3STVQZGJRVmhnZUg0VWREUy1KekRfdW5aUTh1bGdrQUpTSDV3QUVsSFdMSm1RS3BoaFQtdDQ2WDJ1NkM5a0ZucXdHSVdDQkJyY3dVVUN6X0RVaUo2bjhwUXAtQUR0TU1ENzN4ODBJdFk4NlpPdWNRamRSeHhtSjNJSnNzdF9EZkI5ZUlVeFJpLTRTcGFWRFZ4bTRxRzNyVFFlMTRNeDVRWkQzaE93Vm9SNERPNGlVbHdCSGpOUmtOeFBNZGd5NmtiQmpEUTBBS09QeE9QUHJNVXVxX212TnUyMERNU2dwZm1fMU5DTW13MjFiU0VNWHhib1NCTFdHQkNNd1VtSE9PbFU5ZjFzQzFyWHZoNnd6SDU5SmdTWjdtazJnWFVTXzV1Q0lQVmRtSGZvdUhqVGN0MGhXSlE?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Estados Unidos ya recaudó 14 mil 439 millones de dólares por aranceles a productos mexicanos en 2026, mientras Trump mantiene impuestos de hasta 50% al acero y aluminio y se complican las negociaciones del T-MEC - El Imparcial"
+    },
+    {
+      "titulo": "Director de Audi se enfrenta a críticas por acompañar a Trump en un mitin de campaña - La Jornada",
+      "fecha": "Tue, 27 Oct 2026 02:32:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOS1ZGTWJoSE5lZGNGNENNa1JUMzBsR2tYbHA0c2NOTFRyZEdCQTNLT3BlRnVoMmdXX25IT1pCMnhFVTVBXy1GcjU2QXpudkUxU1IwaTVGcmNKUFVpdTRpNnpjZ3V6SUVXczQyQi1QRW82R1F6TWdUMW9vaVJLYm1IZDJ0VW1CTVR4U3hOaW1Bb3pxSkg0dU5UdVVPN1FwYWdzWUwtY0ZRdndvNVl4eUo0SVk4NWlqcEl4M0tDR1NIb0I1RmotcDZhNkZ0Wm9rbWNaaDlvQmp3?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Director de Audi se enfrenta a críticas por acompañar a Trump en un mitin de campaña - La Jornada"
+    },
+    {
+      "titulo": "🚨 #ÚLTIMAHORA | El presidente de Estados Unidos, Donald Trump, aseguró que su gobierno y México están “muy cerca” de alcanzar un acuerdo comercial para reducir los aranceles, en medio de las negociaciones entre ambos países. La declaración la hi - Facebook",
+      "fecha": "Fri, 23 Oct 2026 17:02:21 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxPVG91MmQ4WGpsRkFVLVhYM19XbjRaaUtUd21LWERxb1RRU09PQTExWDFOT0hOQlNnOTN1YWRVaHV0RUxTdXJjQ085UjVYQ1QzN2M3UzRid09ab210U1Vqc3AxTFlkTTE0M0ljSzNLSHdhV0VaSTVaSl83YWwyNDZOYk1PYmNmMGtQS0YtM2xURi1DWm5wamlCZmdQVzdfeFpnNWszTC1WRjZPcVBzYkM2U1luT2NwZUJ3SVZ3bktScUJfME5OS1B1MXNfRFE3bGlKdWdYYTJpeG9SX05LME1fQ0ZYQl9QWG8?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "🚨 #ÚLTIMAHORA | El presidente de Estados Unidos, Donald Trump, aseguró que su gobierno y México están “muy cerca” de alcanzar un acuerdo comercial para reducir los aranceles, en medio de las negociaciones entre ambos países. La declaración la hi - Facebook"
+    },
+    {
+      "titulo": "Cómo el sorpresivo triunfo de Lula en Brasil es un golpe para las ambiciones de Trump en América Latina - BBC",
+      "fecha": "Tue, 27 Oct 2026 14:06:29 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5nQ3hxYTYyRzVhNVF2UHkwOTlWUDVDRkk1S3VfcnFMbzFMTDhhemFic0prcmRYaEtoU2l4d1Q3YzJIR2doOVBia2lwdmt1Qjh2RUpsejNrWTZvVXA1?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Cómo el sorpresivo triunfo de Lula en Brasil es un golpe para las ambiciones de Trump en América Latina - BBC"
+    },
+    {
+      "titulo": "México busca cerrar acuerdo con EU este fin de semana; Trump defiende aranceles - TV4 Noticias Guanajuato",
+      "fecha": "Thu, 29 Oct 2026 01:49:16 GMT",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOM25jWU9fTmtsLVdvX1NnUzg1Sl8yMlgyN1hKRnZNUldmWjBQZUhlQnJ0VHdpX2R6dktDdjdlZGVwd3dqeEQ2Nk1pTW1SMi1xUTB4QVBVYUJIak1qRjJlRkJPZ2oyWThHbU55TGNFeVVqS3lDVWpYRW5EMTN0MFYzSldYeUl6YTZOcU1jUURINnQ4UF9JZFExTmlLS1NSelhublRlcDh3?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "México busca cerrar acuerdo con EU este fin de semana; Trump defiende aranceles - TV4 Noticias Guanajuato"
+    },
+    {
+      "titulo": "Sheinbaum busca acuerdo con EU para reducir aranceles a autos y acero - Sociedad Noticias",
+      "fecha": "Wed, 28 Oct 2026 17:26:28 GMT",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQQ2FrdVhGZUJ4Vm05bERvaDR6bFNMeVFieHBaSGRXOGM5QlIyRXRweXl6cWhodjdrbmY2ajViN1I0MDNueE4xVnNibWZKUDB0S2JGTXZOQkIxN1FCdGpzY3lNOFhLX01ha2pJUVZmRkhVdkZwNS1rUTVPOTlVMDlHaU9KaEFISjBjZ3lBdE5BVnlGX3F6T2RwMDlBSGlSRVNQcm1PNGFfNUlFa0pDVE5GOQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Sheinbaum busca acuerdo con EU para reducir aranceles a autos y acero - Sociedad Noticias"
+    },
+    {
+      "titulo": "Obama critica con humor los aranceles de Trump a Canadá - CNN en Español",
+      "fecha": "Sun, 25 Oct 2026 22:13:57 GMT",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPN2l5b3cyWDFCMmdyX2R4VFRPYVdTYnpxRUxtVmxVbU9XUTJ0QkxjbkdWRllUNVZJOW1weVI4aXlJYlBYVXczUzVFWmR4Y0Q4R2RwZzFVTVVWdUh0eFZseUxFUGJ3R1lZdVM1RjRia0w0WlVDRE9NTGRLR2pyLVdrVjhpa3JuZzR6cXpmbGRLS1kydjg?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Obama critica con humor los aranceles de Trump a Canadá - CNN en Español"
+    },
+    {
+      "titulo": "¿Qué significa la prohibición de \"trabajo esclavo\" de Trump para América Latina? - DW.com",
+      "fecha": "Tue, 13 Oct 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxNVjM1VkFwYkZldnB3b3pHVEVTUTNWR2U2TG9KQlBvVzlGVXI1WEpSRGo3LWpNTm1xVThzWTBNdUp2c1E5QV9OUUtzaVdRWnMxMzZsYURuTGllWE1RT3ZWOVRUSml0Q2llVXNGOG1IOUdUZENZd1BpRm9SVWcyUlhtNFhDY25fejdlWGUyblN2WFFxaEhQYkd4eDZVWXlsV3VsRGFfUUE4aXpZRTd4ZTRKUzRTS1VWU09YNGlrbnR6MXJHRzdhR3Q5OUhCM0JIaHpWMnFqSDFDeWRNVzNXWVhNOGUwZnXSAeQBQVVfeXFMTUdWMlBDV0d6NTUtQVlPbFJrRldBYXVDdWRuX3NkZHBlTGZGc1ZSU2lnM3dURE9ITkF2cndhTFJrR2ZDZGN4S19NZHhLSE81eUxoNFdtVHhkRGRaNC10ZEhiZ2NGVXFGcUxFQmFJaUdSdzgwV2ExYk83dHc2Tmw4Z1pjOHZ2YnUxSzRnbXlJMW1taWsxdFdZSk1jbDJhMjd2VXZwbzZ3RHpuUTF1RGtxTjE5QjdlLXVvdnE4NGQwMUFETzRMSEFVY2dEaE9ad2x2V3BfNjhVblNnU09RcUl3Wkw5Xy1f?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "¿Qué significa la prohibición de \"trabajo esclavo\" de Trump para América Latina? - DW.com"
+    },
+    {
+      "titulo": "Trump elimina aranceles a determinados productos importados de Canadá - سانا",
+      "fecha": "Sat, 24 Oct 2026 09:15:14 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTFBXYjZXeVBLLVVyMExQdzZhZVdLMGppMF84VzFkV2lsdldkZTYtMFAta2hBcnpvTGV1UWw4ZGJMeTBHMU8yaFVxYQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump elimina aranceles a determinados productos importados de Canadá - سانا"
+    },
+    {
+      "titulo": "Ebrard cree que Trump no quiere anunciar un acuerdo con México para no tensionar con la base republicana - La Política Online",
+      "fecha": "Wed, 28 Oct 2026 11:10:30 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxNTjJxMjNPR0ZfZXJkaFlNaHN6ODlXV3Y5NTNtSzBPMTlqcy1lTnZRMmNhZzNyeGdlUExZWjdSY01kVzJhQjZEcHM4RXZ5X3d2dEczZFdCbGRLbDJuMWJFZGtQc2tCX2ZmX19MZkFnRDc1Vk1LM3VENjRRbGVsRkFwOFZGMm01bEl6VWxnejhSZml5VVJfSFhnWENsRElaVWEtQTViM1d0YVlreU00dnQzQUlPOUxPMDk5LXdXUV81TmpvUnFERTVia0VrNkVHWUp4Mmoyb1NxcFB5V3ZzRHZ4Z2NyMzVFMHNIaEVOQVByMNIB4wFBVV95cUxOZTJId1NFUmtsSDR5cnFWdWp2RGpoU3IzX28yaHQzUWdMeG12MmRvVVZTN3RkWGRuZTRoU0JfclJEazlZck5aNGp3NWpXN3pYZ0lsdGpBM24wY3hDRUxzUWJjUV9TSXZ4c0txc1MyalZ6U1FqOXRvRklTN0JfZFVhVXBQeThZUWdfZnpIZmNqdFhwN3VyR3ZBM2RXb2JrS1JHRVhJVGlNSVhrdG9mXzhyMjd5cGo5bHkzUG1ybFlzMXJ1RFIySFh3R2ZHY25IRGk5UGxYSGVKUFlFbVNlWTc0aV9MVQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Ebrard cree que Trump no quiere anunciar un acuerdo con México para no tensionar con la base republicana - La Política Online"
+    },
+    {
+      "titulo": "Trump y Carney aseguran que pronto habrá un acuerdo comercial a días de los comicios de medio mandato - La Jornada",
+      "fecha": "Tue, 27 Oct 2026 02:10:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxQSjZmeC1TLXhSYklnelNDdGw5WFAzTEhadEpnUkRZd1dScWhxcHBKcmE5VnN2VHJCNWxWcHJ4S3JyV1dTS2ZrdDN1Q3VwVWxwUkVMa19vX21iVjJnRGY2anJGcUpJUnFMX2F6X2JzekxuMXVWQWhTOWpINHJqcG5fbVVJTW9xelJmSTRGNXBMS1M3RHBleXpsalpwT2tHVVA5aTJiaDZzTVVoYzkwcG9lTWZaTkxTb3lVUDZmWExQeWNLVFhiSUl5c3hfRkV5ZlN1Zkh6R1VrVXVUa2tCZG81T3M1V3RWcVhm?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump y Carney aseguran que pronto habrá un acuerdo comercial a días de los comicios de medio mandato - La Jornada"
+    },
+    {
+      "titulo": "México no debe apostar a una derrota de Trump para mejorar la relación comercial con EU: Guajardo - El Financiero",
+      "fecha": "Thu, 29 Oct 2026 00:54:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxPZlVRa2MwSjJ1MlJCQXQxOW9kU3B1aFFmZTR3N19xY3JDRkRwa25GR1dyOEFGWTM5VFo5U2FiekZ5eFB2SUhUb194M2pGWjFzOG9LNWhJa2tGYml4eVhlV3EySkFpWEJaeWQ0RHhjU3pYRnZ4QkRyWEpGSGRJb2FETjVLZXJWZ3EwbDFlRW16dTFhQ1lJOTNMNzR3a04xTlNGYnY2d2N5eW1Vd1JEcDdwX1I0TEIyYnFFb21pNEhfenNtd0xSbkJ3QVBqMC1QNUxTQ2J5Z19fZTdUWWthYk16VzlrOA?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "México no debe apostar a una derrota de Trump para mejorar la relación comercial con EU: Guajardo - El Financiero"
+    },
+    {
+      "titulo": "\"El hombre de los aranceles\" finalmente encontró aranceles que no le gustan - Yahoo Finanzas",
+      "fecha": "Tue, 20 Oct 2026 13:21:34 GMT",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNOVF2NlZSX1hFZGE5NEhMRGhqUWVta1M5c1N0MjdORktPa2taS0VnelpiZVVaUmtYemJtbXloYTlia1NpMVBqMTY4aFlKQUptcG9BZHVRYXlhY28tblhhYlpnQ0FORVFZYUE5eFNyS29oc2J5SnY0WXlpLXBUalMzVEpvM1pYUTBOY3RmRFY1bjJpcDQ4OUh1S1RhNG0tdTE0SzVDOGw5NFhqbDNo?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "\"El hombre de los aranceles\" finalmente encontró aranceles que no le gustan - Yahoo Finanzas"
+    },
+    {
+      "titulo": "Hackeem Jeffries, el demócrata que intenta frenar aranceles a México - La Silla Rota",
+      "fecha": "Tue, 27 Oct 2026 15:14:09 GMT",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPOUdnUkcyblVacEk4aGw5SE9qVVp0c0NlNXVDTXZoZnRFdl9tTXB1NU95bFotejJFa0pwQVlDYWlzQjRiTmg1Q0V1R1BrOFRIVkF4T2VMTVlGWDlFVHJKWmxSM1lUV1NNcXVyeXFTSzdFYUlSa3paV0lxSVJTWWJkZ3NFTnpFaDdkQ3pRNmZGc3NIb0RibUlrNHZFZGNzdlpsNmZSZWpNYXBaWWplWUdqZmR2c25zbGdSaHlILQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Hackeem Jeffries, el demócrata que intenta frenar aranceles a México - La Silla Rota"
+    },
+    {
+      "titulo": "¿Logrará México un acuerdo con Donald Trump para retirar los aranceles al sector automotriz antes del 3 de noviembre? - Cadena Politica",
+      "fecha": "Thu, 29 Oct 2026 21:23:34 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxOa0FnZ2Fza2VYdUpUc1VoME1zak5FczZWVHJMb2x2bUxuMTBqVU9XLXlLRjNlVFFUQ1RRcXg4TUQzY3FnZmhidURJZkZ4TWJrN3V4dnRuTXdza1pKRy1KNHV6dTJaSmNNVWlNYkpPV0RmRnJ6U2RnSDhSRmJmXzNPc2N5eUR1a0tJVUFyaExBSURuWUtodnREcTNJUlZvUnBZQ3lLbTE3OHptX1psYnVKVXVxdWYtY0RCeWpLZGhsTWNDVWcyaEkxQ0EwaWl6dXg5aWtMbjJGX19VLXBIREJsRkMtZ3NiUk9LMnc?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "¿Logrará México un acuerdo con Donald Trump para retirar los aranceles al sector automotriz antes del 3 de noviembre? - Cadena Politica"
+    },
+    {
+      "titulo": "Trump firma orden ejecutiva para eximir a Rusia de sanciones y aranceles tras acuerdo sobre diésel - El Economista",
+      "fecha": "Fri, 16 Oct 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxOQ2hhMGZURk9Ea3pHRklBRnJQT3VXTUNxZGNrdVlkcy1NSVV1QmNTU1ZnM3c0OW9OOUpDV2xVR3Bsb3ZHN3J5N3RSZVBsNDI0NEVfcWtPbUR0Tktsc05hYnpwRjFNckJITU9ocGxvd0dhdkZIb1hHSDc5bmJTMDNyYjl2dFVGeWN2c3RCM2ZnSmpZUDNqdU16dEw0a2ctMHZwUXhkV3ZSbnd6VEpVMTc2NEo1UHdUUDRjbHJtSUtYSUd5TThKXzFKTXAtQ0dPT2wtRXF2RS1SYWJ5SVNxWFJiYkxnRk7SAeoBQVVfeXFMT2JsTE1nN3VEQ1dPUFNJd0J2azlxZGhSMXYyN054RW5fX2VUX3JsT0dEbHJNb1Zvb0F1U250eVJKX1RicmF3SDFZakJaU1M3RWZNdWx2OVJnOVB6OHVyeDlDNC1RcUN0TkhDSEx2b20wNm0wQ2EyRl9wWmNhaVhXa3F2SkJTS3RPcjI0NEpGWmxLc1VGYlozSFY4TjFneGQ3NFJFSFp1dWsxbGhXUzlRQUZnWEZmOWMyZmdkazFqeEg3LUN4clNSbFFKaExsbGFHMy1WRnpKQm93NTZnYnpyZHNZRzRIQms4MllR?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump firma orden ejecutiva para eximir a Rusia de sanciones y aranceles tras acuerdo sobre diésel - El Economista"
+    },
+    {
+      "titulo": "Castigan los mercados triunfo de Lula; “tiene pinta terrible”: Trump - MILENIO",
+      "fecha": "Tue, 27 Oct 2026 09:27:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPUHRMWWt3blNlaGxTYU9CTUpWTjZvRVNjMWIwckhQSm9IaFFRMW1xVnFlcnk4TDZIYWtnbjdQUTZ4c2k5emc3V2NMQ3FqSVBJYU9mQ1E2RHl3ak82MGlFWEZLTENsdTVoM2RBeVFySHoxUGZBaUROTjF0WnlqSnlpSlYzYlhWMm1SeGItUEl6bzBFX2vSAZMBQVVfeXFMTlk4VmJOcWpyc3dHQVhXbGU2X1dKWE8wTGozZzAyVUQ1WS1GNTVZWHU1Vkk5ZHlaNHVXMjJ5R3M0NVpEc095bnJOc2tRY2VNemZRWE45eG00b1NkTWRtZEpaR0NtRDBycEVxbG9jbDh3eHRPUlJxQklla0w1R3JIZ19RNjd0SXdZWlptQzJGQnU2YXRR?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Castigan los mercados triunfo de Lula; “tiene pinta terrible”: Trump - MILENIO"
+    },
+    {
+      "titulo": "Donald Trump eliminó aranceles del 50% a nueve categorías de productos canadienses - Infobae",
+      "fecha": "Fri, 23 Oct 2026 21:26:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQdU1YejhNaEt3WW13X1BHeHEtck9nUGNDMUh1Nkt5T1BHVjhoSHAybGNWMW5STTMyd1ZLSnZvSGxZdkVGZlFQbXFOMU1UV1JrY0lYQU9wMnJRb3N2OXV3OUhaaDFWMFBMSUFlZGdDSUR2eFRTNlZTLVpScVdjUXFBOEhnZm4yUU9yblFCYjRCb2huWldxZDhBUFFvUzRkUWFHMTJqSVpzOThYVlp6M2diTWJ4cDhsZkpFNHd4RlVvNDViWUViZ09DdkdxLVnSAecBQVVfeXFMUFVPQkExc21BN0pPSnNpSjhvOGRrSGd0VXhsaWZTdTREUXc3MmhoSWs4cFlHU1F2cnFvRy1nQUZFRnRsM3pUWVBPdXh1Uk9FYVF1Vi00Ty1VOFRIWnJuRmFWMHFOYTFTYjN5XzNYcVNjWWRCOEpwdVNjOFhWR0pIeGVmLWtYbDBEYjV1OHZSSWdiTC1ueXdGOGNMRWhreWh0YWluMzFPQUsycXVEUzM2OERrcDJiMXRDcUxFUzI2MGRHaWNSOWRvMG5rME81b19vQUIxYnV0SVAtd3pkQ0lod2htdXpfSWVr?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Donald Trump eliminó aranceles del 50% a nueve categorías de productos canadienses - Infobae"
+    },
+    {
+      "titulo": "Honda advierte impacto catastrófico para industria si Trump duplica aranceles a Canadá - Periódico AM",
+      "fecha": "Wed, 28 Oct 2026 01:57:25 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxOeXFKVkV3UnZtWHNLbU5wbF9fU2pYQklMZnBra1RqcVhOT3BxbG43bUVHeVBYR0JTOWl5bnJWcklENjZwRnM0VUoxeDlBSlpYbUZKWFBadGVWNzB3Yk9vRV9nR3NlVFpDOUo4M3F0Yy1xcnRVc0tmZS16SlQ2Qm0xbFhKSjRoUUgwTUViMDRFTzQybXgyNXV5b1ZIc2p2QWpCMkZUZEZrQi1PbGZVN0l1SzB1T3Y5UVY1dFEwR3JNc0w4cktrVlFFNEFSU0w4QmxpdW5aRXRqbE8?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Honda advierte impacto catastrófico para industria si Trump duplica aranceles a Canadá - Periódico AM"
+    },
+    {
+      "titulo": "Donald Trump afirma que \"México pagó el muro con aranceles\" durante un mitin en Kentucky - Univision",
+      "fecha": "Sat, 17 Oct 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQNk5ZLWF2VHNLcmdHNER1V0haQm5rSFNSRy1NTHRUaFJtb3I0U210cUtMNE0xeE1FZVVDQ3pyckVWZVlFY0dDa2s5UVVaaGxRaE9OTmMxdWdnZmRKNUZaMWd1RDhzdEsxN1lDS25mbVBheGVTeDhISGx4Zk5aelViZTR0aDVNR1ljeklQM0V2YVlZVy16cDh1QkNkS2xfREFWdll2TmdBOXZaUQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Donald Trump afirma que \"México pagó el muro con aranceles\" durante un mitin en Kentucky - Univision"
+    },
+    {
+      "titulo": "Presume Trump aranceles del 25% a autos mexicanos - Nuestras Noticias Chihuahua",
+      "fecha": "Wed, 28 Oct 2026 13:57:57 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNRjA5RHNQbnhPMFY3VWE3SUNQQTlVc2hQc1Z0U2VSOE1rZjZIa0owbTh0NzdrcXhOdHc0RGJWT0xXOGU3cEw3LWZoUlN0SlZSNFF2QkN1dzNxYzgzdXptY2VRU1Q5WnQ0d3RyMWFyTGVyS1I4ckxOT3hTRTNEOEdxR2M2Zi1ReXlESnlySk5Vd0x5ZXVPVVE5OG5KU2JCVC1zZ0E?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Presume Trump aranceles del 25% a autos mexicanos - Nuestras Noticias Chihuahua"
+    },
+    {
+      "titulo": "Sheinbaum ve avances en negociación del T-MEC - El Universal",
+      "fecha": "Wed, 28 Oct 2026 16:52:53 GMT",
+      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxOVkFHazJLMWwteUNYUncweG5aU05sMThpWDNoVjhvY0VCUlZkaWs0eTdLaGliay1TckxnTTFiUExjb1d4VnZucFRPYThHYzh4enhmMjMtdGotaU5QV3ZseDdzZDhUSXZ0Mi1yMXNiV05uQjFqTFZzWUFSX2hXQXdHTFhqUmhVdXZTRllsZUw2WlpaS29RcUpIc0xqZFdfSkJHdk0zWDZOQlZuQ0hnMjlPdEJjSEVFUkJTVEhHS1dGT011SS1KdnBvV2FQdzBpcXfSAeMBQVVfeXFMTXRTRDcwSFFYbFVXM3dWQzV1YmdhelNpUmphWHlGTHk3ZllSQm4yQmR5WHBrTjZxMTJoei04dmJlRS13VzlGeS1sY0ZQOUdlNXZ6dHNqT3V1WVRkTTdfZlJvNjRESUE3N1U2d2llVnpZaWd3elphVGszRE93TWJSbC1RX1U3SzZKLWdENVVlelV3NGxxTGxqUUdvY2RWTGtfbVViV1g3RTJSczBkMzBkbGVKdDR5bk9HbnpqVFVXNUppaGpKMlVlR3JCVDY4WGlLM2lCMGxHa1h2QVB0RDQta3N6SVE?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Sheinbaum ve avances en negociación del T-MEC - El Universal"
+    },
+    {
+      "titulo": "¿Habrá descalabro de la Bolsa si los demócratas barren a Trump? - Expansión",
+      "fecha": "Thu, 29 Oct 2026 00:27:52 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNVkJBNzFYazM2b2FQT2FoY2o2dXYzQUdxOThMcmFCZVJRWVJfOE5jc3RXMVJPTC1mN1laRi1EU1MxekIta25mUmJPd1JfUmNjajRWbUFlY21KYTNteldIZDJQUXB5anhnYl9lYWtTdGFSc3RiTGV6V1pCMWxSZlpKWndPdEVCbXdlbWc4WHpzb2k0MDAwWGktTzE0UG9uUEp6aENJUmEzelR1Si1aOHprZjJWQdIBswFBVV95cUxOTnlVd2lNX1RXRFpBV0pOajA4UDlrbXNrbGNfTXdQTGRZM1p3MVZZWnV5dE9wOGJGd2tmQW1KR01DXzVJckhBTUI2SXk2RGJDWVVKWkV3eEFhSy0zQmVQc09Gb1hOWTJ4NTBFU1JzUnJPX2NHTlF2SGd4M3NGc0VNUzdscVhYN2hsenZyVjhsMThBODdJZjVKSjlvc1VDQXdGUWpvVXluNmM4UFl2TDZGbkdNUQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "¿Habrá descalabro de la Bolsa si los demócratas barren a Trump? - Expansión"
+    },
+    {
+      "titulo": "Aranceles a autos canadienses serían catastróficos - vanguardia.com.mx",
+      "fecha": "Tue, 27 Oct 2026 20:51:14 GMT",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOMDQtZ2k2NmdaY3Y3cEU4VDgxdGVLRFRhM3RYeDVTclpiM29xbHpQQmpHc0VtRG1TdlpmVk1qOGRWb0xTZG1acXZhLUN0d29qNGRDUlRYRXFpRlNEOHdHLXN0LWo5RUtHMlUwdnRBYVlybjBnN3hLNXV2ZXVGS29hdkhjS2U4aU1tUXJCaTVSY3BFakc1VnNIWXBR?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Aranceles a autos canadienses serían catastróficos - vanguardia.com.mx"
+    },
+    {
+      "titulo": "Trump firma la proclamación del Section 232 sobre aranceles a la maquinaria industrial importada - MONCLOA.COM",
+      "fecha": "Thu, 29 Oct 2026 09:24:51 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxONTVrWm9fY3dXWVVvODZjWC1OV1o4SjdWQ0NoaXlHTXNQRkZIQlNiX2Z0aDBfOHFaSHlweGJCdFMtRC1taGtocm02OHlOVUlSQWpFeHBGc0VsblJaUnVtTUxTc0tZTG9BZUdfUkZaSnBhNEZDU1RjNDNDbzdtcmtXOXRGN2xkaW9JM3c?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump firma la proclamación del Section 232 sobre aranceles a la maquinaria industrial importada - MONCLOA.COM"
+    },
+    {
+      "titulo": "Yellen critica el trato de Trump a aliados y apoya represalias por aranceles - Yahoo Finanzas",
+      "fecha": "Tue, 06 Oct 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQNC1UVEFqQ3UwVngtY25PZG01bkN5c2dUR0VvY3UtWDhCX2dJRVQxWUpKM1lWak9hYlEtWTZTa000VzBmc1pLYlJrWDFfQ1h3eHVFcEtjcmNlUEpPQzQ5cG1oMmZuUGpFaWpOTXpacGhfRU5NVWo5Z0FncmhmVURobXVoSV9aYk13UWdVZHM3SkdkU0lSQ0E?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Yellen critica el trato de Trump a aliados y apoya represalias por aranceles - Yahoo Finanzas"
+    },
+    {
+      "titulo": "Presión de Washington y petróleo mexicano: el embajador caribeño habla de retomar el suministro - Infobae",
+      "fecha": "Wed, 28 Oct 2026 14:45:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPYlhLR0E4dGxVYnRtZWZXYjhqdnllcjVYR3lqVllBUXJNY0d5Wk1hX1NLNjF4TDE4TVZoT2FjSFRjZnBvcTMtLUNHRzVqVmxzaTdoejBJN2lqcmRIUnNwbXRmVFA2RzNhZ01jWUUzM2RMZ1k2VTQ5YmxXVDlyUzJRNjIzQVQ0dXdKdXRtRTljSnpQc2Z0TkZoNGJQd3RDMVNncW5sN0VpNVhldlFGcmlDTzFhM0Z0NFVadzE3a2NMN0M1NVdldWdWMWNhYmRvdjRKQjM40gHuAUFVX3lxTE5NRXg1RzA1TVJ0VXR6N1NJb2VQaFhVUFFzam92Q0toMkJtZmhiaTlDekRfTTJORWE3WFZuTFZyTk5MVnpTejh6cTdDZHQxMENGbnFrS0Fkb3pZZW5aaVY4UVI1ck5xSVNiVzVSQ3M4N19UYS14cUZWTXFDSV9MM1NkOWhaaVRLVUozbk1HdU9iT196ZzkwRUtKLTJGY3F0SXUxMXdDbk9HQlQ5Q3FYR0dNY2FiMFRWS0dLQVJnUElIUllPU05CNzAzYmF0T0pLa2RuRjd3REpCcGxyMEZ3WG0wSGJ1dERtcUdUSXFjV1E?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Presión de Washington y petróleo mexicano: el embajador caribeño habla de retomar el suministro - Infobae"
+    },
+    {
+      "titulo": "Los planes demócratas contra los aranceles y las deportaciones de Trump - La Nación",
+      "fecha": "Tue, 27 Oct 2026 03:15:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxORjc4WG5ac3Z3QXVpSDJKaU5wMjJ4dHoxMkp1cDRaS19XWURBSkZjVTl4R29SbGxLbElqem1ObnlvVHd0Vkg2azhQbG5UbE11dm1fSmxGY2JSNkd3cGFzTVJxVWxTUlc3NzJzUU90RTN4YTdYRjQ0Q1UteGlUdktwRi1iQWNxclFxcXotNmZrc19VeGQ2aFp4M2l1OUFMV29ZUzFmSHFxNXRpcVlvVXFhX0NOUFZheHNWc1dyVQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Los planes demócratas contra los aranceles y las deportaciones de Trump - La Nación"
+    },
+    {
+      "titulo": "\"El hombre de los aranceles\" finalmente encontró aranceles que no le gustan - CNN en Español",
+      "fecha": "Tue, 20 Oct 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBRanU4dzgwVjQ0Y2twdEtfN0tzM1h1LUdKNVA3NkZ1TG1TR3lDSVRUY25SRXBsSFdlcF9RZzQtUXEwZGlZV1dxZndHMEJBYXRTUlppNDFZc1FLTkx1aVRFQ1NMWnNWRHBJUGcwclk2akxyVHZqbnJJQm5Yamdsdw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "\"El hombre de los aranceles\" finalmente encontró aranceles que no le gustan - CNN en Español"
+    },
+    {
+      "titulo": "Trump presume arancel de 25% que impuso a autos importados de México; celebra que empresas se muden a EU - El Universal",
+      "fecha": "Wed, 28 Oct 2026 03:09:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQTWM4R1ZIeUN0YzFDRm0xU2s1aTBTcDhNX0JWUnJiNHNuVkVjcEl0Y2MwSE9WWHFxRV9iUF9LeDRlVjB1RlFLUnhINHA2azFkTDllSlA5MXlTRGFuWW5GTnBqWVM4dTk3RVJSMHRsRnNsZjRacDZRYTNLTlhFb19taVlXTjR1OVlaTm45QnFkYnozOW5mSFJnTGNFMHZIQ1lfcjRYNjJLVlZvMjE4RWRraWNEemdabDZQWDQwVmFpY1BiY3d5S1YtWHMwdnlSeXVDNkVyT0x0VQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump presume arancel de 25% que impuso a autos importados de México; celebra que empresas se muden a EU - El Universal"
+    },
+    {
+      "titulo": "¿Bloqueo a la vista en EEUU? El pronóstico de las gestoras para la Bolsa si Trump pierde las elecciones - Finect",
+      "fecha": "Tue, 27 Oct 2026 15:39:14 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNcHc4RXZQR1dLRERIZDAtLVpLbkJnd0RoWFZncWdxbjAwVDJSQTMtYy1Gb1JsMlRDYm05czBtdVNhclkySm5UQzNsSmNzanM0WUtxQm9Nb245R0VYQlYxOTdHUDJNWFFiU3lSZ3kxYlF4Q05Oc3liMDRLMFVsV1JySFczZ25jeXVqSkFfVmxMd1BPMzlpVFVrM1BMV012T0JWRFNvQ1l0ekdNd1ZZaW1oRDZsbTQxc0pNQWc?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "¿Bloqueo a la vista en EEUU? El pronóstico de las gestoras para la Bolsa si Trump pierde las elecciones - Finect"
+    },
+    {
+      "titulo": "Trump anuncia aranceles del 50% para vehículos y acero de Canadá desde el 1 de enero de 2027 - EL PAÍS",
+      "fecha": "Mon, 24 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPbklURmVIeV9MUl8tRWJDeTFrSy1zeEQwRlBtZUlTTTJ3TmpzaGN1Nk95aW02VkdDRWlvUGVZeUwweXlOSUI5SkFXakRPQ25yMTJ0SWRQYUUyendUS0d4U04tY2RwZ2JJaTdoWlo3UE9QdTNxczBPV0NXeWRXRWJQdUZDLTB3LTRHRWhEcFlfQVFtRXJUMTJCYURGYkpGaURyVXNGT21TNVNxV0hTZ25mOFEwY28yUTNuaXktdFpGR3VpMkxHS1cydmxVYzZFZWlE0gHkAUFVX3lxTE1sTnVXNU02QlZsMldSNk1PQU1kUFUwTHZ5TGxMVWtOeHlpQ3NBVFAwREN0bVhra1pIUktNUkhFVDBEbEJ6VE9wc3pvMDY3cjBDdmswQTdNYTFjYzgxX3d2eTBiQ1NpeC0wb0VQSDVGRzI1ODF0QU9kQ2ttQzlRUXByOEtXcFA0V3NPWThpNFVlOTRya1poOHZXQnB0Vkx5WVkxMFJLZDBuNnFQVTZiZGVPc0l2Qmk5RlhmZXRMWVdUZThHQ0xhT2F5WVk1VVQwZXlHSFd0LUw3MFJ6WVJEa0RTdTlWWg?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump anuncia aranceles del 50% para vehículos y acero de Canadá desde el 1 de enero de 2027 - EL PAÍS"
+    },
+    {
+      "titulo": "Trump da a conocer sus próximos pasos tras la entrada en vigor de los aranceles de represalia de Canadá - CNN en Español",
+      "fecha": "Tue, 08 Sep 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPaHJ5NHdUSXBKOXA5Wm5wd1JXeE9EcTZneEZYcVRsaV9VVG96OWw4UUU2SnJUbkJ6VXRua0prTVFhd0ZoTnpYM09jbE5wSmJUdDhlUGdqcjVkc1lJV2p5Vlo5Qmx0OGlUb2hLak1Yc3ZRTzFQU25zS29rZTRsMzdfTzVGU0g5XzFZWXBTUUxR?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump da a conocer sus próximos pasos tras la entrada en vigor de los aranceles de represalia de Canadá - CNN en Español"
+    },
+    {
+      "titulo": "Trump anuncia aranceles del 50 % a autos y acero canadienses - DW.com",
+      "fecha": "Mon, 24 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNcm1WdDhzeXFReXBDOHpPall6YVlYcjdVWVBuYnhHV3VZWE15LTVJUlhKYzlsWWNtUU1BVkhWVnNOdEVWUU1ZczM2RWJmWk8zUFRMQ3FZLVlwZmNCdzVkWnBwaFhNLXNXV0dYM3ZkQ2JrdWxaSFE1dm5MbVVaRXE3RDNyM0xpbE9rSEY3b0NfUEdBSWdRYmfSAZYBQVVfeXFMTXNzdDFkUFdGNjk0WmJxeGNaRXFlMkhmUlpfdURfTXhOVHc4bTNReDVCM1Q0QzBqRWN2ZTNDM2ViSTExRmxZaHJ1SGlCb3Zsa1R2WkUzUE53eW04cWstNTZ2QkZHVFFUQzRLbkhKOFVQTlpwNHRySUNNa0h1STFzN0t0SnBUem90M1NLSFVrUEYzNG1iakVn?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump anuncia aranceles del 50 % a autos y acero canadienses - DW.com"
+    },
+    {
+      "titulo": "Dos años de políticas de Trump que pueden costar el Congreso a su partido: \"Es un lastre para los republicanos\" - RTVE.es",
+      "fecha": "Tue, 27 Oct 2026 13:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPRXU4VGl4UlVCYUlJQUQzaEZlX2JzeWtxcXR4bWVHbWZkRHZsQW1hRVdiQ1dPNllOeWs3STFseF9rTldMMFMyby0zUUFrazRnRlM0UXgwd2otU1R6TG1kdE9hUFJiRThtOHkwMkV6SzYwUnNXQWJfVHBnSTFfYVhFZ3JIRWE4OUVJLWc5WVFnZ3g1SGpEWW83dFdsdDVkU3QwVmRRdmNuREcycDZtZmVzYW1oNA?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Dos años de políticas de Trump que pueden costar el Congreso a su partido: \"Es un lastre para los republicanos\" - RTVE.es"
+    },
+    {
+      "titulo": "El gobierno de Trump impone nuevos aranceles a 60 países, entre ellos una quincena de América Latina - BBC",
+      "fecha": "Thu, 23 Jul 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBZaDZTblpBRkNvdnJfNHktODJUZWdFbDdsOEJOcVZva3lKSXdTQkl5d3h0YTFpRlM2cVA3ZWZwdFlnTWpRUEtJY2NhVUNPbFh2LUNRazl3dGVhcXPSAWBBVV95cUxQNUpLQVdPRDRaTGdzbnBIWUVWekdVbVN1WlZ4aUxyMlp4VnVIYTlEalNpY2VhMFU4S0pXcUJhMXNRMzBJS20wUFN3UzFrRjdiZnc3TWtzLTNoWkdsSXBqWjI?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "El gobierno de Trump impone nuevos aranceles a 60 países, entre ellos una quincena de América Latina - BBC"
+    },
+    {
+      "titulo": "Los aranceles de Trump vuelven a los tribunales… otra vez - CNN en Español",
+      "fecha": "Wed, 30 Sep 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5iTFM2ZF9RSDlwRTdyeXBQaXRnSkZLVnAtUlRVSGdFZ2pjM2g2X0Z1LTRiZWtFM1U1MWpDVklFRUJlWWY3aHBuUkNVUDByTGJ1dWpMSUs2eWFjdWlCUkFpTDg1NThvZV83c2ZfMnZWSnhKNER0SlNqeUplUG1sLUE?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Los aranceles de Trump vuelven a los tribunales… otra vez - CNN en Español"
+    },
+    {
+      "titulo": "Trump pausa los aranceles del 50 % a Canadá - DW.com",
+      "fecha": "Wed, 19 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNTmRhcGFjeTJKMG5BOEhPMVhpY0tPVlN1bFVzMkVCdzdxZGVCODZBcXdVMTAzdjFieUdHRWxxVnIwejdkSTduMk94WmowSkNzemJmV3pveFNvWTlsWkZILVduaVAwRzBrbVNZTmNKUXU1by16MEMyMEYzV1ZuRTlvZEFlOTBUd9IBhgFBVV95cUxOcm9JTGR6WGU4eXN0UUhsa3FtdmxqU1lFM3U4cHU5NzFLNzBWRXh1RDFqY05nUEU3cThHSkdIWnJnQjBjOG9RcG43bjdpTlRCQXlmTVgxSG0wQmFCY3RabnYtQlVKaTNuRHRIWUdWdVZSX2VnVTNiQnF1OTdkTjdETVJXMmJwdw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump pausa los aranceles del 50 % a Canadá - DW.com"
+    },
+    {
+      "titulo": "Donald Trump, el presidente que convirtió los aranceles en su arma favorita - Grupo Animal",
+      "fecha": "Sat, 29 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9UNERRQWFjT29OZHRzZUthbWdBanFLWVBDOXplWGZlWjFsZnN0dmcwRU1lTFlKQzluWFFIVDJISFRhWXlNS1hKbGVwVUNua0drWUJqV0xHaWVUaHhkeUNVdFpKZ3Njam1kYnIyUFR4OEpPcXpWOFgtYnFYUUljdw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Donald Trump, el presidente que convirtió los aranceles en su arma favorita - Grupo Animal"
+    },
+    {
+      "titulo": "Trump impondrá un arancel del 50% a muchos productos canadienses - The New York Times",
+      "fecha": "Tue, 21 Jul 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOLVpJeUFLTVcxX3hVRVBZdlZ3cklYNzA4aEY4c3R0Q28tZFhlWE5Lc2NucVp5TlktZHZqV3RZTkYzWVpPVzZ2T3ZPQjVENlFJeE11UVJOejVmMnFobndvRGpMaTRpUDJQbXNJaEdtWXdQaUFETm95clJZblgxeEk4M3g4Ni1zNFFva0I1blNlclI0dw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump impondrá un arancel del 50% a muchos productos canadienses - The New York Times"
+    },
+    {
+      "titulo": "Estados Unidos prepara nuevos aranceles para 60 países - DW.com",
+      "fecha": "Tue, 21 Jul 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQOGZodXN5THh0RVcyMnJOTXRlcTNJa2xHWGx4U3p4VDdMLTQ5bnZiQzg2T1o4aXl4WjhZVjNXb21QdGpnM2FCMUhGZ3VIZW4yR3JaUWhNcW5aZUg4WlBCVU9MTVo1ZlZXY2dSZW9SSFBhTWZHRWFqT3l4ekZJRjF0YkFsTVh4OE9xcTE5aS14TzNhaDhKclFj0gGXAUFVX3lxTE5MVmNZblNXMFlkOEVvaGJzTjZzT3h1STRkOHJhSDlkYUM3UjRyanZEZUFjREl0dkppaHYyZ0xRbkJQU1VNQzh3RE53MXpXaEhyNWthVjhlbl9lR0lLMEUta083YVZHT0ZLRzZfYWNlQjRBN0czN2xjRHd3NF94NWdORUlyT1U4QWlLczg1eFlFNnIycm10SHM?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Estados Unidos prepara nuevos aranceles para 60 países - DW.com"
+    },
+    {
+      "titulo": "Las claves de los nuevos aranceles de Trump: ¿qué suponen? ¿A qué países afectan? ¿Y cuándo entran en vigor? - EL PAÍS",
+      "fecha": "Fri, 24 Jul 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxOUnNudDh1a180Ry04QzhxbkdFYWUtbm1jQlVzSHRERm9TM3dpOC02ZDNyY0FDWV90cTVwalEwWF9XakQtUzY2NTQ3QVBQV29PN0NKNDlvSGY5a0RlRjJMdWdiQjMtVlJ0RnkwTXd6WVlJemZkQlBwYjEybWFSOE9qcXlWMGcyMXRIU3BKNHhEY2V1aXdmT1htdzA1b0tKMGNWMHNpZnY0YnhhVW1rWDRJb3pWNmJ1dXBldzhGWnNSR0I2Zl9aV3FZbkptdXhVUVpvNy11aERoYWNMYXhjdVJHajFERU3SAfgBQVVfeXFMUGctUzBxRWVHZzFKTjFHY3M1T04wUERfZ3F5N0t0c3A5Sm1aQ05hVjVtQXlBQjBYQ1AtRU5kbjJRblRidXYzYjJON1VrT1J3ZkJsRnc1b3M4X0xONTR0OEpXMzVnS2NnZEp3ay1OanJTNjVqRlhEZmRrMTRha3hRNTVodGVaa202cy1ralFLNkVsaXI5WGxfTUh1ckdDb1BrYjBGeC1FdlhJcXhvOG9kUjg5NTYyMmd1YVI0aUdaeDBhTGdjR1FmQ2UzS3R2akM5Tlgxd3lnQWp1NEg1QlpxS245MlhRbFl2Zk9Qb0JFM2dScGtCbTVncE0?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Las claves de los nuevos aranceles de Trump: ¿qué suponen? ¿A qué países afectan? ¿Y cuándo entran en vigor? - EL PAÍS"
+    },
+    {
+      "titulo": "EE. UU. impondrá aranceles a más de 80 naciones - The New York Times",
+      "fecha": "Thu, 23 Jul 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNV1gzektGR0NXdFh4N3ZyZWExclZaRHE0aC11Y2FpdVpZT29wcGpKbDJSYUZ6Rk4yT2NzUkRMeUtBWU9OaUZ2RVNFTjQyQ2w4SjhfMEQzY0hQRXdHU1Q5WDc5TG50anNuSTdRbDFiSFB0bnFHT0NCQVlUN0t3aGdXcEhSTXNaNlkzclhUYkJpbW8zSXpM?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "EE. UU. impondrá aranceles a más de 80 naciones - The New York Times"
+    },
+    {
+      "titulo": "Economía - EE. UU.: 25 estados demandan al Gobierno por los nuevos aranceles de Trump - France 24",
+      "fecha": "Tue, 04 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPUDFPQ1FwWDFCQlpaY2hYb2Y5OG9HVDZTS0prdE0wMmE5UzNOWjkzQkVnYTZfaTRTUmRqUWxiZXNHS2FBRHhJdFVfckVLbkxhX1RiNTdIRUx1NUV3RHhYRXpMbGV6RHJ3dUpPUXFEV1M1WFQtcGZqQzRoVmZaaklpY1ZnZm5jOHRKZGRPaHlOMW9DcmhDcDctam5ybm93TUs1cHktclI0NEZwVzNxeHBIY3J4V0xEUHc1Tm9RbkJlUHhMRHVsb1JqUFhKLUw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Economía - EE. UU.: 25 estados demandan al Gobierno por los nuevos aranceles de Trump - France 24"
+    },
+    {
+      "titulo": "Canadá anunciará nuevas medidas en respuesta a los aranceles de Trump - France 24",
+      "fecha": "Mon, 24 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNVmFqcjVWUEwzci1kdlRDdnl0c3l0VV9PaENxRkZQRzlmbjFvSkFXcEM0Y0hfdFQ0blJPRGJMV3VrcVNtZnhLSzlPMENKVGJBUmtvbFlpWEFHc1NKbkpHM1JOZWJhN3IyOXhSX3pSUDVPcEtxaHNNd2ZOSmF6YjYxVGtkN2tvRHpNVXVFc0VTenNUWmtfLWNzTGxjRTdDME9GTE1ZT0hyMEZQbTJud1RrRS1BRW9jOGlBeG00UXBoU1JwdVVxQXhGZDhvMEVXQWZUaFE?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Canadá anunciará nuevas medidas en respuesta a los aranceles de Trump - France 24"
+    },
+    {
+      "titulo": "Lo que hay que saber sobre los aranceles de Trump a Canadá y qué viene después - The New York Times",
+      "fecha": "Wed, 22 Jul 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPUWFqTlhwTUR0X1dOZElQVjVpdllKajdGV010TkxSZjduemVNbWs3SlhmM0h1aXAxQ3huSGpBVUlpLWJHdHQ0WjF0VjBLZUplc3dZdUtHaDh3aElpLWtyZlJVTWgxMTR0WUR1MDVTYzRoc2VpaGtNV1dweXYzbTVuOFVDUlZtZHBneHFuOHUyaDQ2aUpuRVBvbUxIaU5qRGdGMGt6T1pnSEZSUQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Lo que hay que saber sobre los aranceles de Trump a Canadá y qué viene después - The New York Times"
+    },
+    {
+      "titulo": "Trump abre la puerta a la posible retirada de aranceles a Colombia - EFE - Agencia de noticias",
+      "fecha": "Mon, 12 Oct 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQd2ZYMlBPcWR4Y3pBMG1zRkF5VGZOaWd6S1h4eHh4cEZBMlpwVnQyTDB1RVFmdjlmcEM1bE11RHREV1V6c015eGJRYl95TExDaGk2YlJDelZyT3o3RExyYXpVZTZIUTI4aE5XSkFZRUVCT1I3N2Nva1J2MFl6d0NiSnZR?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump abre la puerta a la posible retirada de aranceles a Colombia - EFE - Agencia de noticias"
+    },
+    {
+      "titulo": "La estrategia arancelaria de Trump cambió, pero su objetivo sigue siendo el mismo - CNN en Español",
+      "fecha": "Thu, 20 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOQ1Zmakw4YThZeW8xck5ZUF95YmJscVN0WFVaNVBHRHRnTVNldDZsMHo3ODd1TFhPSTViTThUa2k3M0EycHVhNmRDUXo0ZTIxSFRkVW1RTnItU29ZcnRySWxGaG1hbXljLUdfUXhpYVhhVkFDVXRqTEpaLVY2TnRCNWVn?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "La estrategia arancelaria de Trump cambió, pero su objetivo sigue siendo el mismo - CNN en Español"
+    },
+    {
+      "titulo": "Fed Nueva York: Aranceles de Trump, principal causa del aumento de precios de bienes en Estados Unidos - IDNFinancials",
+      "fecha": "Fri, 09 Oct 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOYnYyXzRJQlJFNHdwWjhQMThZVUtVQS1zWG9ETDBKX3JUWGdtcUdHMkM5YklXdTRVTHZVSzBOV1VDUFJlRTJ5MlhfeDBNMUNfS2VYVERORnlUaWdoSGN6cGlFdTFNREJzbnUzYXZjVEtCWnVIQTJGR0N3Wmk4NmROcjlLUnhUdWtwa19YWTVDS2NSZUt1aXZrbHI1UFIyU18tXzJ5Y0QzV3ZZdjdQQUdFSWxPSmJGT1dJSUV5NnYwOFZ2cmo0cXVZalYxSkZSOXBES3RnTTBHLWI5TThz?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Fed Nueva York: Aranceles de Trump, principal causa del aumento de precios de bienes en Estados Unidos - IDNFinancials"
+    },
+    {
+      "titulo": "Sheinbaum responde al último golpe comercial de Trump: “Buscamos que ya no haya sorpresas de nuevos aranceles” - EL PAÍS",
+      "fecha": "Fri, 24 Jul 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxPd2lXU2lJTnRIU2MxeE95NkY3anFtNEVBYWVNQ2tqYzBzdHVmbktnYnYtWG00ZFdkaVY4UVl5Umd5T2p4YlJDLUdHWTZJQno5clh1cTYxTkRPNjFuWVNCRklxVG5KaVVKMDlqSFp1ZHR2bjN2MkhyQkRWOWNGSzFSc2xsekl0NzcyTjVqN08tOVdYN1F3WXNmUU9TbHNNYzMxaTdXQU1FNERPdGJnRUZZTTUwRnVzNjhTb2hVdU1MVlZBRHJEUS12YTM5bWZOb19QMEg5MjBNX0lzU09EZXVOYTVxc256cXF4SjduN3dCa9IBgwJBVV95cUxPbGViMi1SbVl3YUlwanpieV9GSUlMMHFJTzRFOUd4ZDhuMWxINmhHODBlZ3UwU3h3V2lpbk9ZWEdQWXJGRERaNjN2Y0xLbld3VWdwQjRha0E3TENqSEt5Qzh6bW44b2gtSUxGV1ZNUWJ1VWhpYXJvR3lzVzYxN2tsbUJMRHJCaDBWSTRSZDg0cFVvdmZIQWNKeFlFUklUeHZKdk9Jb1lidHQ0Q1VrQmJPbzBuM3hJSGVUZUhqaGZDMVdyWXU1enp1c0k0a2QzbXdEb05RVFRFaF9nRDFyTHNEa2RtWXdqVG9yaXZvQ2Q2XzJzSU1vdWRvZXplQ3NjaTI5SjNr?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Sheinbaum responde al último golpe comercial de Trump: “Buscamos que ya no haya sorpresas de nuevos aranceles” - EL PAÍS"
+    },
+    {
+      "titulo": "Trump reactiva su guerra comercial con batería de aranceles - DW.com",
+      "fecha": "Fri, 24 Jul 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNQlpJR2pGV3pfWnNTdlpuY0swaEQxdnV6czFnUmJCYlByS2NzT1BYMFJkYUVycXhKV2FIc1FITjFBQzJWaXlfNUZ4OTRvTzBRRDJEMjdyMkl4TW1WWTN5S0tCcmpDaVlON1FkeWN3MG94TVQxbWlLa19COWlNU25qZVR4bEw2WHFPSG53dllwUnNVR0FqVl9uMHVHNUxNZ9IBngFBVV95cUxPZkNHZ0Y3VWc3UXhzd0RyQW5MeXdIWU1KaDdKWDJFMVlEamprcU9DV0s5elp2aWZqcGhHZEFWU2lQVmx3TFB2SHZmSlNvaVZJZmZkRHJLVUNCaWtkeERZT1RVaktWTG1qbjdGRjhSNGVONU04V3F2ZDkwUDhlQklzVjJRaWJPVFE2Y2F6UGFvSlp6Ti04eEdiMExld2NrQQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump reactiva su guerra comercial con batería de aranceles - DW.com"
+    },
+    {
+      "titulo": "Trump bromea con poner aranceles a México por la lechuga y el caso de la diarrea y a Canadá por los incendios - EL PAÍS",
+      "fecha": "Fri, 24 Jul 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxOMGUzb2d4bEgySHFmNDRqUkNMdVBYbnN0N3pIcGUtLTRXZExBeUExMEtxN3RhdWFtUk5lTHVmWS0xdVNYbXVnWHhsV053X3pLWHYzSnpEdjdGQnBNa1lVYXhMTU5ROEVocmxaQlVNN18xQ3JlZnlyTGlIY2Frazk0Q3VJekYyekIySWNnV2RLdTVYSDR6d09GZVhDNVRIc1dwSmJjcFNFRnJCZWpBVlNETDZOZ2RwRGU1aWJjZVhDT1duZ1BmbFh1bFNMa3Q5S2F2NzZ5d2Raby0wdjdFUUVjNGdzU0JTUdIB-gFBVV95cUxONllkN0NaRWlyZHZhODhZaTctd0NBUVc5Q1YxeUlUa3hDVjRBRF9YeHl1VC16cW96U2dxNUhWeDBZdm5oYlJtbVJ5d2FncUFfdko4b1dOYWFOd21yM1VaZkJFakdHZVBZd2FocERNR0I3dk5ZR1dTc2szVnYxMmRYUFlIT2dxU3RJWFNlZjlaWl9JSjRhZDlaZklURTlCb0Q5X0tRdjd5MUlkdmdsWDJkMWJmeUFIYVhtQ1pWRGdCZWNxZ253a1RkY2trRnQ3WmZLTXpXelFWdDIxZXh6eEUxNkRHZkFkcU9KdkxOcmczaUJmRGdnSzdYVmpR?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump bromea con poner aranceles a México por la lechuga y el caso de la diarrea y a Canadá por los incendios - EL PAÍS"
+    },
+    {
+      "titulo": "Trump escala su guerra comercial contra Canadá: prohíbe importar productos lácteos y bebidas alcohólicas - Telemundo",
+      "fecha": "Tue, 08 Sep 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPR3Z3MzI4TXRBMGpKbmdXbHVqdGxZUDhnQW42T1RyVktOUDY4U1NYWjRQVm9iQ2JERVhEMVF2TFp6eGZLY2xBeWRNaU9BemN6Q214QmdhNFQxTl9OUkNrbVBUMC1fM3ZyZkRpV1JQdkJ2V2xoaHJIdVBkLVF6SG56REMwMjRERmh0MkZzcF8xM0s2S2ktTzVQVDViakk?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump escala su guerra comercial contra Canadá: prohíbe importar productos lácteos y bebidas alcohólicas - Telemundo"
+    },
+    {
+      "titulo": "Gobierno espera que EE.UU. elimine los aranceles del 12,5 % en diciembre - El Nuevo Siglo",
+      "fecha": "Thu, 29 Oct 2026 06:41:51 GMT",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPMGxubWt0Y0VaMzN2NGJyczBIODJuOUU4dnp6N3hOeXEzRjlhV1NJUktfdFl0SEpmZGVDSHNaYl9WNmd2Z2N5dUpUekJsbVBUQ1NMbE5KdDBUeXVsYXM1YWNHd29Tb3hpQy1iV0V1LVRXRkpMczc2MlNsTzFkQllXcUUydVNwZFhlQk5fa0x0NzhHTXZsNnR5WjJRc05jdERINFhqSDN0QXRlUS1B?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Gobierno espera que EE.UU. elimine los aranceles del 12,5 % en diciembre - El Nuevo Siglo"
+    },
+    {
+      "titulo": "Donald Trump anuncia que subirá a 50% el arancel para los autos y el acero de Canadá a partir de 2027 - Univision",
+      "fecha": "Mon, 24 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNRHBIWGZFLU4yb0lKOGhRNFE1Zm1id0xDMDRCMzM2V0dXd2NRRVVybjN1bWw0T1drSmhFMTVOc3ZmWThGeVkxQTlyeEtzZUhsQUxLZm5SdEVrdzB3Z2NWNW0tS1JPVjBsc0FTOWNRX2Z4VWZiOUpuTHZrMzhLS09xc2lqR1dTWFBCc0s1Q2g1UXN3MVhoaDctTUNrUjQzSDdzd3g4aHNwblRDUTRkNTJwa1lYTGxzcHhMRzJNc0d5UllYdElHakhxdTQ1WlZHdzB6WFNjZzBnaWs?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Donald Trump anuncia que subirá a 50% el arancel para los autos y el acero de Canadá a partir de 2027 - Univision"
+    },
+    {
+      "titulo": "Economía - Trump quiere “un acuerdo justo con Canadá” para terminar la guerra comercial - France 24",
+      "fecha": "Tue, 29 Sep 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOa29UMUFlb0Zwdm1UUTVqb3FaOEs4dnVvcnUydmsxZE40Q2ZBQUg3YmpsU25yMkFKN0huZFlobTNkeW5xSW9SXzJXM29zWXE3bnRwNXdRb2NqN2FOTzMxWS1lcm0yYy1iTWhyTDRrZkp5VENGNHI3Vm1heUhhMGQya3pZMElyYXh6d0JRME1nTnVBNXUzbm5TYkVsbmc3NEJBdHc?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Economía - Trump quiere “un acuerdo justo con Canadá” para terminar la guerra comercial - France 24"
+    },
+    {
+      "titulo": "Trump anuncia aranceles de hasta el 100% a drones importados - DW.com",
+      "fecha": "Fri, 14 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNalV4dE5DQ05vZUg2M2w2elg4U2FDM0JMWXFZTDZqVjRnQnlOa1d4M0RtaWlZemZvTHZTTDZZN3lJZXpZd2kydjZMYXZ6RGktc0dFRHFEcVpRUUpfUWhOcGQ3RUdYY1BmdURYNm9VazJXVDBYOFVhMi1zdTREbEFlXzRXRllmejNjSFRTUzQ1dXlORGQyTTlB0gGXAUFVX3lxTFAxZ2NQZnJ5MzVGV1dNYzJ4TzE2aDJfVDB3dE8zYzdqbVQ3ZV9xNXlndWVFSTU3ZXdlRWRWdHJxMzRqamRHU0NzQXBMYmNXUlhFb3piWk5IcUI2ZkV1NkM2TGw2dGs4cWZLU0xCNXNvVXpvanJ6bW4tV3BTZFVyS0xMQWJVV3UyZDNXOWt4ZnVzUEJWNlVHeG8?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump anuncia aranceles de hasta el 100% a drones importados - DW.com"
+    },
+    {
+      "titulo": "China ha salido bien parada de la guerra comercial de Trump - The New York Times",
+      "fecha": "Sat, 25 Jul 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQMzdSbmlDRkZnRnUzNnhRWWNuakpISlhWMWtodm53eWcyMEFYNC0xNlN2M0RwOXU4TEFCN2o2UkhORjkwZWdLT0J0VFZ4QnF0bTJPaDhoWkRFT1dSNm52bW11cUFhd0FKakFQNkRKTElRNS1oWXd6TmpGOUtFLWptTFdkeVRZd01S?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "China ha salido bien parada de la guerra comercial de Trump - The New York Times"
+    },
+    {
+      "titulo": "El nuevo escenario de aranceles en EE. UU. (edición vuelta al cole 2026) - CaixaBank Research",
+      "fecha": "Fri, 04 Sep 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNSTlHTEJXLTlxWGVHWkxHazY3bDJUaFFfSER5blMtZ1NjZ1FiNVlEV29HUHFabHlDNm9QRFpGODIwOTFCX2pIcklRZUU0bnhtVzduS1Q0VjJJcWp0Y2YxN19UN2ttOWJRZ0FtR0dMT1k2ZGRvOVdoeXBYTVJtVkxramk0cmdPNlAxbnZUSlk1aGFVWEswb0tKQUhpamExVFI5dGNfYlFnYTNBOEwxRVotZnd0YXlOQ08yQVZnRjNabXVHdkJrWXVIQVNQQTBDWFFW?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "El nuevo escenario de aranceles en EE. UU. (edición vuelta al cole 2026) - CaixaBank Research"
+    },
+    {
+      "titulo": "Bolsonaro agradeció a Trump y Milei y se autoproclamó “líder” de Brasil; reacción negativa del mercado - Comercio y Justicia",
+      "fecha": "Thu, 29 Oct 2026 01:24:50 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPSHIzN3RLWlNZN3VYNk5DNEVtTVFVak1GYTR0NzBnUmV0VFVCZWFRMVZzS3hRSGJoal9DWElpTTB6NGVKSk45dC14Mi1yWDREamVFUWxDNDZlUzFxWmFjaUg0Skk0OGNrVHJLSDA0ZTlaNHZyRm9DMTQ1SnBIZGlrVVpzN0xUcXpPQ1ZCMkVBRFJoNENmUF8td00tM2F3THNqSVNPNGVwOHhSVVN3TmJiVjd3dXBMTVc1Zm9lNTFyT3FGcTBRRGRkWENrTHlkVmtjZEROTTg3bw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Bolsonaro agradeció a Trump y Milei y se autoproclamó “líder” de Brasil; reacción negativa del mercado - Comercio y Justicia"
+    },
+    {
+      "titulo": "EEUU y Canadá se enzarzan en una guerra comercial con nuevos aranceles - Los Angeles Times",
+      "fecha": "Fri, 21 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxOUXJDc3pDMVAxcF9mZnVtOVdFeFkzcHdMcGo4ckthbVdma3dzRURBZGxaUW5lZDhXeWhyc01PUWtDMzF0c1lvTXFHMWFJeTk2MEhSZjJXWnNRQ0VjUlhWWmFDN3pwVHVlXzVOM08yeHVLWkpJR1U0ZENGU0dyeXNTbjJsNGxJZG1BX1VxcU5mY1FkUE1UcGI2TzA1NlpabktENzMzVWJ3Ym9ucWZ2TnVYb0dnaU5yX2V1TkVEc01SWVA3ekc5UUN3RlVhemt0N09xcHFISEFOYjZHYVpEN2ozRw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "EEUU y Canadá se enzarzan en una guerra comercial con nuevos aranceles - Los Angeles Times"
+    },
+    {
+      "titulo": "Trump amenaza con imponer aranceles del 50 % a automóviles de Canadá. ¿Qué más está en la mira? - CNN en Español",
+      "fecha": "Mon, 24 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPN3BtYkNEdVpicFo4UzQ0dmlsRmNsWU1mbGRzZG1TTVlHUFA3M0N5Q0I4UVVxeGFHUy10d1ZRazN1RFVxV1RjUkJyYzJwcDdWMUU5bDJIeG4zTEpsMFgydklJblo2OHcwUHFlR3BsMV8xeHlEQndPbENCV3JnRVZQSWUwOEM2NjBR?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump amenaza con imponer aranceles del 50 % a automóviles de Canadá. ¿Qué más está en la mira? - CNN en Español"
+    },
+    {
+      "titulo": "Trump aplicará a Canadá aranceles de 50% a autos - La Jornada",
+      "fecha": "Mon, 24 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOTmZiWDE3Y2s4akdOdkxMOHIyYkthMmJvQkJDaGdBZGZvUl9DQVpSTUhib3p5VGR5T1ktQ2tlZE5aQU50QTZhQmdhNlpBeGc4ZGJxZ2p5QTExcUgwNXM3cVp2TzRETUU5SFQ2Qy1GcEpyczFFcUNBVE9XWll5Ti1rLVZ2SUVoVVVYcERQYjd0SjJ1eURpM3huY25TLW5ONXV6RGwzV2xHM1oxaXljTzV2REdZNkZvbllZa2pzbzBsQng5OUVJX09nMlRSQk13SzVhMmlzZmlB?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump aplicará a Canadá aranceles de 50% a autos - La Jornada"
+    },
+    {
+      "titulo": "La derrota de Bolsonaro en Brasil limita la ascendencia de Trump en Latinoamérica - Expansión",
+      "fecha": "Tue, 27 Oct 2026 00:41:35 GMT",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOV1Buc3Vtd2lfNF9OQlFibzdIRWZnMTdZRjZlaHZTQm4weHRRNndDYjBKQ0J2THZkNW9QdTNOZ3UzdEo2S05MUDBqT2l4QzlHUTFrRmlMZktITEpzMzU0NUJ6Zm9nWV9WV3ZZNWdDSTc5Vy1hbWp2WUlnVkwwX2JkN2JCZjBVMXdBN29kdHR5dFhKWHlRdUN1YzAzSUFuMmQwdVhyVUVyd0pfQ1JnMjVZVzV3eW3SAbQBQVVfeXFMTVpBR0dFLWhPQ1hCZ3lkNWxHRlBOQTcxUFhNb1VuRjNjNHRTemt2elpPSzJBWTBOS3QxZWY2a2lZX1VzX093Uk5JMWszakFCYzlrZEs2YlFBV0dOb3J1YVBUd0VqbDNyT2NJWHlNVjZmSDQ4akpXWjdjalJWaE1xdWFxaU9Kcm1WRnU4X3Rjb2FMaElXT1h3RE9FY05xaWlTcVBPM3ZIY2tQbDI3MVg1M1dfNEJN?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "La derrota de Bolsonaro en Brasil limita la ascendencia de Trump en Latinoamérica - Expansión"
+    },
+    {
+      "titulo": "Trump suspende los aranceles del 50 % a Canadá: \"Logramos un acuerdo\" - CNN en Español",
+      "fecha": "Wed, 19 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNeFdCaDNWeHdFcTNHQTlaOXcxRlBJWm9LY09TU2NaUm5BNUJIQmU3N2c2YVd2TzBIM1JWb2FlZlN5NHkxS0JscHQyQjM5eUpQcWVGQ25oLVEyZHZsVlAya29mNU9JOGtkd0NCZ18wWGdlUHgxdTA0Ujg0NXhTeTZQMmRoZWhzVGtyaWl2LThoU0Q?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump suspende los aranceles del 50 % a Canadá: \"Logramos un acuerdo\" - CNN en Español"
+    },
+    {
+      "titulo": "25 estados de EU promueven demanda colectiva por nuevos aranceles de Trump - La Jornada",
+      "fecha": "Mon, 03 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPazNjclBLd3BLRzN2cTJhcTk3RjNMdjg2NkN6SzVsVGo5NzdLS2ZhRy0xUmo0Ym9pZXZjVXNPTHNlWjRXelZnUjZLbFhHbGduN3d5azFmdGxVdWZJckZZVVI1bm93WnF4ZzJveFY2eW55N28ycE9xYndnQVRCa2ZicXZWMXBpNTM5YlloSEJ6cHQwV0p0NU02Z3ZQaWY4bGhBcGc3MWFrZVQwVmJqVmhheTExTGZaNzRlYTlpZ1hRc1VTNzI1bURUU2ZhRFNudDNfSDY2WGF5MA?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "25 estados de EU promueven demanda colectiva por nuevos aranceles de Trump - La Jornada"
+    },
+    {
+      "titulo": "Trump anuncia suspensión de tres días de aranceles de 50% a Canadá tras llegar a un acuerdo - La Jornada",
+      "fecha": "Tue, 18 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPN2Zma1FqMVV6VURDaURiclYxNFhNOUlHVHBMOFRBWk9POGxKeGxIRVgtNFBCQWl0MkdTTHQ0NlRoZGV6Zi1LQmF6WVEtN1d3WHhUSEdKOVJvazBOZ1JGVWlYYWgwUkZaWktfMGRIdUlsY2JvLWsybTZ0eWdMSHUwSXdxdkxJakpFaWp0YTNSX3ZjaEJxMC1sNHJDZ3VXbDEtNEZzV3RDd256aGxYMkhJZXB2bHJWZE5URC1sVjh2Q2tvQTlxYTlTanB4ZDRqMUs3NkNOVHQ5ZS1rODBPTkE?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump anuncia suspensión de tres días de aranceles de 50% a Canadá tras llegar a un acuerdo - La Jornada"
+    },
+    {
+      "titulo": "Invitad@ del día - Aranceles, guerra y economía: el panorama del encuentro entre Xi Jinping y Donald Trump - France 24",
+      "fecha": "Thu, 24 Sep 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxPam5CakE3aGVlelBQNE5uWDZjZFpvUkdNWE52N0E0bWNHMzZQNkMteVV5aEtZakZFeGZmdFo1SlpLS1lPa2FNQW1TUzhyeWk2OHd3cmRaTFNrQ2l4YVg2VXRRcy1TN2g3RDBSTko3UkFsSDdHZWRORVBWYm5FQ3QxTWxTQ3hiUWJDcUlQTkVuNldJMkZpLTE2TldhRmRLS2YxTEpPZGVDT3dYcS1zZnk2Nzdwd055Tk5PeVk4RFZWUC1fSWVxX1pwYjJHd3hvSkp5QWlZQXZnbkJGdExQdHBhdndHWUlxWklsRll0S0tYVQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Invitad@ del día - Aranceles, guerra y economía: el panorama del encuentro entre Xi Jinping y Donald Trump - France 24"
+    },
+    {
+      "titulo": "Trump prohibirá usar el término inteligencia artificial en EE.UU. y propone cambiarlo por «superinteligencia» - El Debate",
+      "fecha": "Tue, 27 Oct 2026 17:27:43 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQbGVXTUxjdFpteGhLSjJGZjJoc0Z2QUNUNDQ0bjBudzRoUUhabUY3Sy1zT2REODZsWi1pemxPVzV4R3B5ejlsMUxQME1rMzR0T3RDUDNjcEZVdUlMeGVyRUVKSUQ5ZEJxSHhQb29weC1heXZyWFpPcldPOWVzUFp6TWZLX1BlMXdTLWc0eFg2OVpkX3RzV0Q5Y1pzY2pUX19sbW1TZnRrbmtyOEdqUXB3M0JCd1BIYy1uc1BLUHF0cDY4N0w2VDBBR2k3YXpVcTd4NjVReGFYaE8tQzE1TllXQXpn0gHnAUFVX3lxTE1UV1cwcGhaQkItdElKU1M0aTJyWjhPRTU5TGdLc09oRzRYLWNxYXg3OXdKVkRrcElySmZrQWJvbE5rRWZVc1EwNHFSV3JhU2NVajlrNGRxeC1uWDVrSGdIN0dlNkx2eEk5ZmhHWUY2ZVA1aGs1dmlMcUJNM2thT3I2ZXdDa0xibkZkYXBGemxnTjE1Y21uZ0dnTDBabXJlc0JtTWczYWJYX2NQQzROYTVoV3NuTFVRTE5PUHVpUkdaek43MHlMbThDNHUwb25yMmdnc0xCVDFPSGhuSWNSUnQ2bWVpekVrbw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump prohibirá usar el término inteligencia artificial en EE.UU. y propone cambiarlo por «superinteligencia» - El Debate"
+    },
+    {
+      "titulo": "Trump impone nuevos aranceles de entre el 10% y el 12,5% a más de 60 países para mantener su muro comercial - EL PAÍS",
+      "fecha": "Thu, 23 Jul 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQR1UtdlU0ZGpwdU90VzJLNC1RZWVKSzVCbmhXUmZuTUhMYXpCMm9xTldpN1lNMkw0UHdXOG91OEFNbUJrWXduSjN2dHZRSzV5R1FFbDhxNUYtQjVaVE5ObGNuTDhzMGFVdk4zY3NWcTJIVTBuaGs2ZUlYN2w4V2sxMXp2X2hfQkV5bGhOd3MxMzdqMXNLYmktQTEyQzZqZEQ1VVNUdFhlWGg1WWk5MlhJLTVZaW1wTVdGbUx5cjd2T1VWU2oyT19sNEVpT1h5b1Fxb2I3TEhnUEh4bjg4Y1Yw0gHzAUFVX3lxTFBzQU1kcUpXWmR5TFlYX2tLemh1UlBOY0JrSjFkR0pZRlJXWXJ0ZmVrSjJvSzNjT3FtVFZ5aHkwX1k4WWVwcE9VTzJLNXdkS1NqNmxQeDBhZ1pCT3l1UjRDUnowS0VPWkpPSmF4dWFpdWpsSVEtc25RaEEyUl9nVVJ5eXNpc2lXZkEwZkhaTUNWSnZYczF4TlVEUmRiaE4zb1Y2dE1zMUNETGFGcjRwcXE1bUtjVk1kZ3NHMkZNdkszMW1rQlMtSnkzbGhfajlMUml6MU9ibUNLZ20wV0lPdHVMWTljVmFRRVhNb1pRLWtQTkpNVQ?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump impone nuevos aranceles de entre el 10% y el 12,5% a más de 60 países para mantener su muro comercial - EL PAÍS"
+    },
+    {
+      "titulo": "El Gobierno Trump impone nuevos aranceles a 60 economías por supuesta negligencia ante el trabajo forzado - France 24",
+      "fecha": "Thu, 23 Jul 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxPaWl2RXN3MU5EaWk5aTRJcnI1cG1xU3hPeHQ5LURMY1VoMTUwX1c4QkJ1UkNkQ256MHN4SGFnd3kyS3BuanZndkVRSkwzOTRKbWRtdWxWSGRaUHNKU2Z5UVljelM0UC1sNEMyUEhLODV2SmdPZ192ZHctdDFZS21XRmlQa09yWDlPTjhaN2lfWS1OTWxQY255cGgwV1BHMEFPUmdnUGYxNl9Wei1XUHFRTU10R0FaMFJyWk04UXlDTEN2VXpYYjlLRXd6V2Zmc2hVNlVVNkJfYldER0VKQ0xULUNGaHZYRnRwNVc1UVFRWUlHNHd2R0RHY2RxOA?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "El Gobierno Trump impone nuevos aranceles a 60 economías por supuesta negligencia ante el trabajo forzado - France 24"
+    },
+    {
+      "titulo": "Donald Trump anuncia acuerdo comercial con Canadá y pausa aranceles del 50% - Univision",
+      "fecha": "Wed, 19 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOamxDZzdMZmNMRG1ZMlp0RjRMTzdwbWtTeGZLckxDc0ozMEpYbnJHXzBPQTZPa0lIMnhCVjFZdF9ZMkJ2dFI4RXYyNnE5UmFsNVIxYjd1NVRVWU5Ea2hQRFpNSFQ4VnZuMDNUSWZNQUJ0VGhJWjJOelVuVU5zV2dtUkFyX3h3bTZUMjE0dGluM3BBU2FGbVktdlBvNTZsejMtWWNQMHV3NHpIUjNodVgxT25aYlh5bFRYQnoyV2NXbHdtSl9EaWktTGhlOFR1MXZm?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Donald Trump anuncia acuerdo comercial con Canadá y pausa aranceles del 50% - Univision"
+    },
+    {
+      "titulo": "Donald Trump suspende por tres días los aranceles de 50% a Canadá tras anunciar un acuerdo - Univision",
+      "fecha": "Tue, 18 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNcnN0UzJmbVVnLWZaWmRXSWRQV25iM1p4Z2lPZ18yR0VGcGxFdXU5RV9hLWg4UDRSOFk5cE1fT292RXZRT00xSVB2dUk2MFY5dFd0bVNNUVBHUXBEZUdiUHRvcWZUMkpOQTRMSnRIQlc5eEF5dG5HYjZOdkd5LTgzd0pINFo3bnhBN01Galp2LXlQTDY0NFRiV0tCWjJidWd3RkZSQ0gzVG9vMk5kVHVYUUE3NURtSzJoVGpvS0syN3R1SjUzMkpuTkp4SFJtdw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Donald Trump suspende por tres días los aranceles de 50% a Canadá tras anunciar un acuerdo - Univision"
+    },
+    {
+      "titulo": "Estados demócratas demandan al gobierno Trump por aranceles - DW.com",
+      "fecha": "Tue, 04 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNYWMyeGYtbEdQNnEtUjhpTFJHb3FaQm05MzRid3VaRXY3Q3JhdmpOYzZUd2JZc1BLWW9HV1FJMDM0Q0h2T2xoSWd3Y3RFU01MZWZjc1ZqSGxMT3hybkRiOElhR0lmWE4yRnBSS3daNDBGZm9TM3cwSWd4bGhRcGFnSGx6WVRhNEpPS3FSR1NuUndqS0psazY2eW1BX0FPZ9IBngFBVV95cUxQcE1WYnBtVWdrVVpVSFRwRkdKbVRIX1N1R3FGOEFVM1puVEhKRi1qcUg5NWYwTld4YXpZaTJJZ0w4WXpPYjU3YVlHallPX0NGUUFCbGtDUmZxUlIwQXJ5cTdxTHd1MGVDa2xzTGlGRkE4MXBQX0pmVTBuS0xVVENmLTF0bkdsR3pVRmFXM3k5cVREdUpJM1F1cE95TlUzZw?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Estados demócratas demandan al gobierno Trump por aranceles - DW.com"
+    },
+    {
+      "titulo": "‘Tenemos acuerdo’: Trump suspende aplicación de aranceles de 50 por ciento a Canadá - El Financiero",
+      "fecha": "Tue, 18 Aug 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPdERnU3RKbW1TbHhwa0txWUhHYW16cm5ZM0czX2lQVkFsZXNXOEQzQnFrb3hZMGN3ejVLZWVqaXVwN2lMdDBLNFpLQ3JlUDQ1QldyRTJXUnlWVW1WZzgySGJGd1QtajNULVRpUHJLcmtVZ1lKTWlWd0x3YTd4X1dUVGZsUGdkZVJtQnRBc1pkbUFkUml1c3I4SENoM2RxaldYMjRZS0xldmJ0cXZmYUZOakR3cC1tUGtITFEtU1FoazdKQlgtblVLaXVn?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "‘Tenemos acuerdo’: Trump suspende aplicación de aranceles de 50 por ciento a Canadá - El Financiero"
+    },
+    {
+      "titulo": "Trump prohíbe importar bebidas alcohólicas de Canadá y otros productos; impone nuevos aranceles - El Economista",
+      "fecha": "Tue, 08 Sep 2026 07:00:00 GMT",
+      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxQeUpvR3hKSDduS1J2QWg0OHNPcm5OVjJLNldFY0ZEQmIxSVczV1ZxQUhPeXN3ZFUxd3Z1SDN1NE1pMVc1eDBRTG1TeDlNYnM0V2NQVkNfUGs2bjhNVWI5b01mNlhyT3owdHpHNU9Oa3RGdmJ5cWtjamswQl9LZlJUZkY4emtJX2w1bWFGLVQyN2h0RUt4TVR5ZHFMdURqYUhQQUIxUDAyeEdZYnRaSG9rRTgyazl1c01PeElLc3dJYk9NejNKcElVV25DQUVRWmlMMzRjVnA0LUxFUUZZN2dQanhFV0Jfd9IB6wFBVV95cUxQc1JWQUhMRklkOHhEZVBaaVpSaGZvUnYzWTB2WVBnT0Q5bHN2bjdPMzg3RW5hZ0VoVE95dDQwYjg3S1NodDdfZEM0X1RvY3d0azZjaVo3Z0pXaUlBUWtvbUNxWnROSVBJa3JEVGVGUXNpZkJpMnIyTHNtRlc0S2FmUC1OZkdRQlpXOXY0TVltb0ROMEVOaDBYRXlsYlcwaVZfSFZVYUxoYUxBYW1IR1lfWmtfdVdwOFF4MllRY2M0RW1SNDM4SGQxRk00RHQwWnc2X0dXT0h0cnI3UHJvYndBN2VONGdTa2hWRkNR?oc=5",
+      "fuente": "Google News (Trump)",
+      "texto": "Trump prohíbe importar bebidas alcohólicas de Canadá y otros productos; impone nuevos aranceles - El Economista"
+    }
+  ]
+}

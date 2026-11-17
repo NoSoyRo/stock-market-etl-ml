@@ -46,6 +46,29 @@ INSERT INTO lab.news_daily (ticker, trade_date, title, source, sentiment, url)
 VALUES (%(ticker)s, %(trade_date)s, %(title)s, %(source)s, %(sentiment)s, %(url)s)
 """
 
+_NEWS_FEATURE_SQL = """
+INSERT INTO lab.news_feature_daily (
+    ticker, trade_date, universe, news_sent_score, news_count_7d,
+    news_sent_delta, news_sent_vol, news_relevance_avg, news_esg_score,
+    n_articles, sources, loaded_at
+) VALUES (
+    %(ticker)s, %(trade_date)s, %(universe)s, %(news_sent_score)s, %(news_count_7d)s,
+    %(news_sent_delta)s, %(news_sent_vol)s, %(news_relevance_avg)s, %(news_esg_score)s,
+    %(n_articles)s, %(sources)s, COALESCE(%(loaded_at)s, now())
+)
+ON CONFLICT (ticker, trade_date) DO UPDATE SET
+    universe = EXCLUDED.universe,
+    news_sent_score = EXCLUDED.news_sent_score,
+    news_count_7d = EXCLUDED.news_count_7d,
+    news_sent_delta = EXCLUDED.news_sent_delta,
+    news_sent_vol = EXCLUDED.news_sent_vol,
+    news_relevance_avg = EXCLUDED.news_relevance_avg,
+    news_esg_score = EXCLUDED.news_esg_score,
+    n_articles = EXCLUDED.n_articles,
+    sources = EXCLUDED.sources,
+    loaded_at = EXCLUDED.loaded_at
+"""
+
 _DECISION_SQL = """
 INSERT INTO lab.decision (decided_at, session_date, model, cash_usd, motivo, raw)
 VALUES (
@@ -82,6 +105,21 @@ _PRICE_FIELDS = (
 )
 
 _NEWS_FIELDS = ("ticker", "trade_date", "title", "source", "sentiment", "url")
+
+_NEWS_FEATURE_FIELDS = (
+    "ticker",
+    "trade_date",
+    "universe",
+    "news_sent_score",
+    "news_count_7d",
+    "news_sent_delta",
+    "news_sent_vol",
+    "news_relevance_avg",
+    "news_esg_score",
+    "n_articles",
+    "sources",
+    "loaded_at",
+)
 
 _PLAN_FIELDS = ("ticker", "usd", "horizon", "stop_usd", "p_sube", "enter_on")
 
@@ -231,6 +269,54 @@ def insert_news(
     def _write(active: Any) -> int:
         with active.cursor() as cur:
             cur.executemany(_NEWS_SQL, payload)
+        return len(payload)
+
+    return _run(conn, _write)
+
+
+def upsert_news_features(
+    rows: Iterable[Mapping[str, Any]],
+    *,
+    conn: Any | None = None,
+) -> int:
+    """Inserta o actualiza features de noticias en lab.news_feature_daily.
+
+    Cada fila usa las columnas de la tabla. ticker y trade_date son obligatorios.
+    La operación es idempotente sobre la clave primaria (ticker, trade_date).
+    Devuelve cuántas filas se enviaron.
+    """
+    payload = []
+    for row in _rows(rows):
+        item = {key: row.get(key) for key in _NEWS_FEATURE_FIELDS}
+        _require(item, "ticker", "trade_date", what="upsert_news_features")
+        item["ticker"] = str(item["ticker"])
+        item["trade_date"] = _as_date(item["trade_date"])
+        if item.get("universe") is not None:
+            item["universe"] = str(item["universe"])
+        if item.get("sources") is not None:
+            if isinstance(item["sources"], (list, tuple, set)):
+                item["sources"] = ",".join(str(s) for s in sorted(item["sources"]))
+            else:
+                item["sources"] = str(item["sources"])
+        if item.get("n_articles") is not None:
+            item["n_articles"] = int(item["n_articles"])
+        for float_col in (
+            "news_sent_score",
+            "news_count_7d",
+            "news_sent_delta",
+            "news_sent_vol",
+            "news_relevance_avg",
+            "news_esg_score",
+        ):
+            if item.get(float_col) is not None:
+                item[float_col] = float(item[float_col])
+        payload.append(item)
+    if not payload:
+        return 0
+
+    def _write(active: Any) -> int:
+        with active.cursor() as cur:
+            cur.executemany(_NEWS_FEATURE_SQL, payload)
         return len(payload)
 
     return _run(conn, _write)

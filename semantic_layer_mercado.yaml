@@ -1,0 +1,92 @@
+# =====================================================================
+# CAPA SEMÁNTICA - EQUIPO MERCADO (Precios & FX)
+# La lee la herramienta consultar_mercado_sql (src/agent/tools.py) y se la
+# pasa al modelo como contexto. Describe las tablas GOLD de
+# data/market/gold/mercado.db, que genera src/etl/gold/mercado/etl_gold.py (PySpark).
+# Las consultas de ejemplo se probaron con una base de prueba, sin llamar a Claude.
+# =====================================================================
+
+version: "2.1"
+dominio: "Mercado"
+equipo_responsable: "Equipo Mercado (Precios & FX)"
+fuente_datos: "Yahoo Finance (diario) y DataBursátil (intradía 5 min)"
+base: "SQLite data/market/gold/mercado.db (solo lectura)"
+actualizacion: "Cada vez que se corre el ETL de src/etl (bronze → silver → gold) después de refrescar data/market"
+
+tablas:
+  precios_historicos:
+    descripcion: "Precios diarios OHLCV de BMV, FIBRAs, ETFs, acciones USA, cripto y macro. Una fila por (ticker, fecha)."
+    clave_primaria: [ ticker, fecha ]
+    columnas:
+      ticker: { tipo: "string", descripcion: "Símbolo Yahoo. BMV y FIBRAs terminan en '.MX' (pesos). USA, ETFs y cripto sin sufijo (dólares). MXN=X es el tipo de cambio." }
+      fecha: { tipo: "date", descripcion: "Texto 'YYYY-MM-DD'." }
+      open: { tipo: "float", descripcion: "Precio de apertura, en la moneda del ticker." }
+      high: { tipo: "float", descripcion: "Precio máximo del día." }
+      low: { tipo: "float", descripcion: "Precio mínimo del día." }
+      close: { tipo: "float", descripcion: "Precio de cierre. Usar para calcular rendimientos." }
+      volume: { tipo: "integer", descripcion: "Títulos negociados. Siempre 0 en MXN=X." }
+      moneda: { tipo: "string", descripcion: "'MXN' o 'USD'." }
+      usdmxn_close: { tipo: "float", descripcion: "Pesos por dólar al cierre de ese día." }
+      close_usd: { tipo: "float", descripcion: "Cierre en dólares, ya convertido. Usar para comparar tickers de distinta moneda. NULL en MXN=X." }
+      ret_1d: { tipo: "float", descripcion: "Rendimiento del día contra el cierre anterior, en PORCENTAJE: 1.2 = +1.2 %." }
+      target_next_day: { tipo: "float", descripcion: "Rendimiento en porcentaje del día siguiente (el ret_1d de mañana). NULL en la última fecha. Es una etiqueta para entrenar modelos, no un dato que se supiera ese día." }
+      es_valido: { tipo: "integer", descripcion: "1 si la fila no tiene precios <= 0, OHLC incoherente ni volumen 0." }
+
+  tipo_cambio:
+    descripcion: "Tipo de cambio USD/MXN (MXN=X). Una fila por fecha."
+    clave_primaria: [ fecha ]
+    columnas:
+      fecha: { tipo: "date" }
+      close: { tipo: "float", descripcion: "Pesos mexicanos por 1 dólar." }
+
+  intradia_diario:
+    descripcion: "Resumen diario de las barras de 5 minutos de 36 emisoras BMV, desde nov-2024. Sin días festivos ni días en que falló la fuente."
+    clave_primaria: [ ticker, fecha ]
+    columnas:
+      ticker: { tipo: "string", descripcion: "Emisora SIN '.MX' ni serie: WALMEX, AMXL, FEMSAUBD." }
+      fecha: { tipo: "date" }
+      n_barras: { tipo: "integer", descripcion: "Barras de 5 minutos del día. 79 = día completo." }
+      precio_primero: { tipo: "float" }
+      precio_ultimo: { tipo: "float" }
+      precio_max: { tipo: "float", descripcion: "Máximo entre las barras; puede quedar abajo del high diario." }
+      precio_min: { tipo: "float" }
+      ret_intradia: { tipo: "float", descripcion: "Rendimiento de la primera a la última barra, en porcentaje." }
+      volatilidad_5m: { tipo: "float", descripcion: "Desviación estándar de los rendimientos de 5 minutos del día, en porcentaje." }
+      dia_completo: { tipo: "integer", descripcion: "1 si n_barras = 79." }
+      dia_plano: { tipo: "integer", descripcion: "1 si todo el día hubo un solo precio (emisora sin operaciones)." }
+
+relaciones:
+  - descripcion: "Precio diario con su tipo de cambio: ya viene unido en precios_historicos.usdmxn_close y close_usd; no hace falta JOIN."
+  - descripcion: "Intradía con diario: intradia_diario.ticker = 'WALMEX' corresponde a precios_historicos.ticker = 'WALMEX.MX'."
+    join: "intradia_diario i JOIN precios_historicos p ON p.ticker = i.ticker || '.MX' AND p.fecha = i.fecha"
+
+reglas_de_negocio:
+  - "La bolsa solo opera de lunes a viernes; 'últimos N días' significa últimas N sesiones, no días calendario."
+  - "Fechas relativas se calculan con (SELECT MAX(fecha) FROM precios_historicos WHERE ticker = '...'), NUNCA con la fecha actual: los datos pueden estar atrasados."
+  - "Para análisis de precios filtra es_valido = 1, salvo que pregunten justo por datos con problemas."
+  - "Rendimiento entre dos fechas: (close_final / close_inicial - 1) * 100. ret_1d, target_next_day y ret_intradia ya vienen en porcentaje: no los multipliques por 100."
+  - "Para comparar tickers de distinta moneda usa close_usd."
+  - "target_next_day mira al futuro: nunca lo uses para explicar o predecir el mismo día."
+  - "Si la pregunta no se puede responder con estas tablas (por ejemplo P/E o noticias), di que no tienes datos; no inventes columnas."
+
+consultas_de_ejemplo:
+  - pregunta: "Precio de cierre de Walmex en la última fecha disponible"
+    sql: "SELECT fecha, close FROM precios_historicos WHERE ticker = 'WALMEX.MX' ORDER BY fecha DESC LIMIT 1;"
+
+  - pregunta: "Precio promedio de Apple en el último mes de datos"
+    sql: "SELECT AVG(close) AS promedio FROM precios_historicos WHERE ticker = 'AAPL' AND es_valido = 1 AND fecha >= (SELECT date(MAX(fecha), '-1 month') FROM precios_historicos WHERE ticker = 'AAPL');"
+
+  - pregunta: "Rendimiento porcentual de Walmex en las últimas 5 sesiones"
+    sql: "WITH ultimos AS (SELECT fecha, close FROM precios_historicos WHERE ticker = 'WALMEX.MX' ORDER BY fecha DESC LIMIT 5) SELECT (MAX(CASE WHEN fecha = (SELECT MAX(fecha) FROM ultimos) THEN close END) / MAX(CASE WHEN fecha = (SELECT MIN(fecha) FROM ultimos) THEN close END) - 1) * 100 AS rendimiento_pct FROM ultimos;"
+
+  - pregunta: "Cierre de Walmex en dólares en la última fecha"
+    sql: "SELECT fecha, close AS close_mxn, usdmxn_close, close_usd FROM precios_historicos WHERE ticker = 'WALMEX.MX' ORDER BY fecha DESC LIMIT 1;"
+
+  - pregunta: "Días en que Walmex subió más de 3 %"
+    sql: "SELECT fecha, ROUND(ret_1d, 2) AS ret_pct FROM precios_historicos WHERE ticker = 'WALMEX.MX' AND ret_1d > 3 AND es_valido = 1 ORDER BY fecha DESC;"
+
+  - pregunta: "Tipo de cambio más reciente"
+    sql: "SELECT fecha, close AS pesos_por_dolar FROM tipo_cambio ORDER BY fecha DESC LIMIT 1;"
+
+  - pregunta: "Cómo se movió Walmex dentro del día en sus últimas 5 sesiones intradía"
+    sql: "SELECT fecha, n_barras, precio_primero, precio_ultimo, ROUND(ret_intradia, 2) AS ret_pct FROM intradia_diario WHERE ticker = 'WALMEX' ORDER BY fecha DESC LIMIT 5;"

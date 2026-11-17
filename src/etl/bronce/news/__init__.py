@@ -1,0 +1,1 @@
+"""Capa bronce de noticias."""

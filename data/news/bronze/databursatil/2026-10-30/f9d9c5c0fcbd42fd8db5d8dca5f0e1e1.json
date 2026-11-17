@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "batch_id": "f9d9c5c0fcbd42fd8db5d8dca5f0e1e1",
+  "source": "databursatil",
+  "fetched_at": "2026-10-30T04:07:54.525885+00:00",
+  "representation": "normalized_extract",
+  "origin": null,
+  "payload": [
+    {
+      "ticker": "TLEVISA",
+      "title": "(TLEVISA) BOLETIN DE PRENSA",
+      "summary": "",
+      "url": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=712150",
+      "published_ts": 1793333270,
+      "source": "databursatil",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "TLEVISA",
+      "title": "Encuesta Infosel: estimados del tercer trimestre Televisa",
+      "summary": "",
+      "url": "https://finanzasenlinea.infosel.com/multiva1/MultNotaAbierta.asp?id=711616",
+      "published_ts": 1793333270,
+      "source": "databursatil",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    },
+    {
+      "ticker": "TLEVISA",
+      "title": "Televisa reporta menores ingresos tras caída de suscriptores que cancelaron tras el Mundial",
+      "summary": "Grupo Televisa, una empresa mexicana de telecomunicaciones, enfrentó durante el tercer trimestre la resaca tras el impulso provocado por su...",
+      "url": "https://www.axisnegocios.com/breves.phtml?id=153375",
+      "published_ts": 1793333270,
+      "source": "databursatil",
+      "sentiment": 0.0,
+      "weight": 1.0,
+      "relevance_score": 1.0,
+      "av_sentiment": null
+    }
+  ]
+}

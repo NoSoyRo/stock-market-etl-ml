@@ -115,6 +115,10 @@ def run_fetch_news(
         paths["latest"] = str(latest_path)
         paths["dated"] = str(dated_path)
 
+    if save_cache and all_results:
+        from src.data.news_medallion import build_gold
+        build_gold(days_back=days_back)
+
     return {
         "days_back": days_back,
         "universe": universe or "all",

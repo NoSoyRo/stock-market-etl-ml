@@ -6,6 +6,7 @@ Ejecuta en secuencia todas las fuentes que alimentan SuperModel:
   2. Noticias          (todos los universos → data/news/)
   3. Intradía 5m        (DataBursátil → data/intraday/)
   4. Fundamentales      (DataBursátil → data/fundamentals.parquet)
+     + Fundamentales PIT (Equipo Rojo: bronze → silver → golden en data/fundamentals/)
   5. SQL ETL incremental (opcional → MercadoBursatil)
   6. Auditoría          (scripts/audit_data.py → data/ingest/last_run.json)
 
@@ -136,6 +137,39 @@ def ingest_fundamentals(max_age_days: int = 7, force: bool = False) -> dict[str,
     return {"rows": rows, "path": str(FUNDAMENTALS_PATH)}
 
 
+def ingest_fundamentales_pit(force: bool = False) -> dict[str, Any]:
+    """Producto Fundamentales PIT (Equipo Rojo): bronze incremental -> silver -> golden.
+
+    Cada corrida solo le pide a la API lo que falta (trimestres nuevos o que aún no
+    estaban publicados), así que correrlo a diario es barato. Necesita el bronze
+    local (data/fundamentals/bronze): sin él haría un backfill completo (~1,400
+    llamadas), por eso en un entorno nuevo se omite salvo --force-fundamentals.
+    """
+    import os
+
+    if not os.environ.get("DATABURSATIL_API_TOKEN"):
+        return {"skipped": True, "reason": "sin DATABURSATIL_API_TOKEN"}
+    from productos.fundamentales_pit import capas
+    from productos.fundamentales_pit.pit import GOLDEN
+
+    if not force and not any(capas.BRONZE.glob("*/*/*.json")):
+        return {"skipped": True, "reason": "sin bronze local; corre una vez "
+                "`python -m productos.fundamentales_pit.capas todo --bronze` o usa --force-fundamentals"}
+    try:
+        capas.main(["todo", "--bronze"])
+    except SystemExit as exc:   # capas.main termina con SystemExit si falta el token
+        raise RuntimeError(f"fundamentales_pit: {exc}") from exc
+
+    import pandas as pd
+
+    golden = pd.read_parquet(GOLDEN)
+    return {
+        "rows": len(golden),
+        "ultimo_quarter_end": str(pd.to_datetime(golden["quarter_end"]).max().date()),
+        "path": str(GOLDEN),
+    }
+
+
 def ingest_sql_etl() -> dict[str, Any]:
     from src.utils.config import Config
 
@@ -259,6 +293,10 @@ def run_ingests(
                 max_age_days=fundamentals_max_age,
                 force=force_fundamentals,
             ),
+        ))
+        steps.append((
+            "fundamentales_pit",
+            lambda: ingest_fundamentales_pit(force=force_fundamentals),
         ))
     if sql:
         steps.append(("sql_etl", ingest_sql_etl))
