@@ -16,6 +16,14 @@ class PoliticaInversor:
     name = "inversor_50"
     respeta_stop = True
 
+    def presupuesto(self, book: Book) -> float:
+        """Presupuesto máximo que gobierna esta política."""
+        return BUDGET_USD
+
+    def limites_ticket(self, presupuesto: float) -> tuple[float, float]:
+        """Rango (mínimo, máximo) por posición para un presupuesto dado."""
+        return MIN_TICKET, MAX_TICKET
+
     def system_prompt(self) -> str:
         return f"""Eres el agente inversor de un libro de paper trading.
 El presupuesto es uno solo: {BUDGET_USD:.0f} dólares. Tú repartes esa cantidad.
@@ -75,21 +83,37 @@ La salida es el precio del stop, no una opinión. Si la probabilidad es floja, p
                 "stop_usd": row.get("stop_usd"),
             })
 
+        presupuesto = self.presupuesto(book)
+        min_ticket, max_ticket = self.limites_ticket(presupuesto)
+
         if len(cleaned) > MAX_NAMES:
             return {"ok": False, "error": f"máximo {MAX_NAMES} nombres, llegaron {len(cleaned)}"}
 
-        for row in cleaned:
-            if row["usd"] < MIN_TICKET - TOL or row["usd"] > MAX_TICKET + TOL:
+        invested = round(sum(r["usd"] for r in cleaned), 2)
+        if presupuesto <= TOL:
+            if invested > TOL:
                 return {
                     "ok": False,
-                    "error": f"{row['ticker']} lleva ${row['usd']}. El mínimo es {MIN_TICKET:.0f} y el máximo {MAX_TICKET:.0f}. Si no alcanza, pon 0.",
+                    "error": "no hay capital disponible en el libro ($0.00); responde con el análisis sin proponer compras",
+                }
+            return {
+                "ok": True,
+                "allocations": [],
+                "cash_usd": 0.0,
+                "motivo": proposal.get("motivo") or proposal.get("reason") or "",
+            }
+
+        for row in cleaned:
+            if row["usd"] < min_ticket - TOL or row["usd"] > max_ticket + TOL:
+                return {
+                    "ok": False,
+                    "error": f"{row['ticker']} lleva ${row['usd']}. El mínimo es {min_ticket:.2f} y el máximo {max_ticket:.2f}. Si no alcanza, pon 0.",
                 }
 
-        invested = round(sum(r["usd"] for r in cleaned), 2)
-        if invested > BUDGET_USD + TOL:
-            return {"ok": False, "error": f"la suma {invested} pasa de {BUDGET_USD:.0f}"}
+        if invested > presupuesto + TOL:
+            return {"ok": False, "error": f"la suma {invested} pasa de {presupuesto:.2f}"}
 
-        cash = round(BUDGET_USD - invested, 2)
+        cash = round(presupuesto - invested, 2)
         if "cash_usd" in proposal and proposal["cash_usd"] is not None:
             stated = round(float(proposal["cash_usd"]), 2)
             if abs(stated - cash) > 0.05:

@@ -152,31 +152,54 @@ class PoliticaTrading(PoliticaInversor):
         self.vistos = {}
         self.evitados = set()
 
-    def system_prompt(self) -> str:
-        agentes = ", ".join(self.agentes) or "ninguno"
-        return f"""Eres el agente de trading de un libro de paper trading.
-El presupuesto es uno solo: {BUDGET_USD:.0f} dólares. Tú repartes esa cantidad.
+    def presupuesto(self, book: Book) -> float:
+        return book.capital_usd
 
-Solo puedes consultar a los agentes del equipo Features/ML: {agentes}.
-No tienes otra fuente. Si un dato no viene de ellos, no lo tienes.
+    def limites_ticket(self, presupuesto: float) -> tuple[float, float]:
+        if presupuesto <= TOL:
+            return 0.0, 0.0
+        min_ticket = min(MIN_TICKET, presupuesto)
+        max_ticket = max(MAX_TICKET, round(presupuesto * 0.5, 2))
+        return min_ticket, max_ticket
+
+    def system_prompt(self, book: Book | None = None) -> str:
+        agentes = ", ".join(self.agentes) or "ninguno"
+        capital = self.presupuesto(book) if book is not None else BUDGET_USD
+        min_ticket, max_ticket = self.limites_ticket(capital)
+        if capital <= TOL:
+            regla_capital = (
+                "No hay capital disponible en el libro ($0.00). No compres ni uses "
+                "proponer_asignacion para asignar dólares: consulta a los agentes de "
+                "Features/ML y responde en texto con el análisis de cómo va el mercado, "
+                "las señales vigentes y el estado actual del libro."
+            )
+        else:
+            regla_capital = f"""El capital disponible en el libro es de {capital:.2f} dólares. Tú repartes esa cantidad.
 
 Reglas que el sistema va a rechazar si las rompes:
 - Long only. El efectivo es una posición válida.
 - Máximo {MAX_NAMES} nombres con dólares > 0.
-- Cada nombre lleva 0, o entre {MIN_TICKET:.0f} y {MAX_TICKET:.0f} dólares.
-- La suma de los dólares de los nombres más el efectivo es exactamente {BUDGET_USD:.0f}.
+- Cada nombre lleva 0, o entre {min_ticket:.2f} y {max_ticket:.2f} dólares.
+- La suma de los dólares de los nombres más el efectivo es exactamente {capital:.2f}.
 - No cambies el tamaño de una posición con menos de {MIN_HOLD_DAYS} días.
 - Solo compras nombres declarados en comprables de un ranking de esta conversación.
   Un ticker que solo esté en el top informativo, que solo pasó por otro agente o que
   esté en la lista evitar no se puede comprar.
 - La señal no puede tener más de {MAX_DIAS_SENAL} días hábiles. Compara fecha_senal con
   la fecha de hoy: si es más vieja, no compres.
-- Lo que ya está en el libro se puede mantener o reducir.
+- Lo que ya está en el libro se puede mantener o reducir."""
+
+        return f"""Eres el agente de trading de un libro de paper trading.
+{regla_capital}
+
+Solo puedes consultar a los agentes del equipo Features/ML: {agentes}.
+No tienes otra fuente. Si un dato no viene de ellos, no lo tienes.
 
 Cómo decidir:
 1. Consulta a los agentes de Features/ML que necesites.
-2. Si la evidencia es floja, los agentes fallan o la señal es vieja, deja el dinero en efectivo.
-3. Si te piden repartir el libro, cierra con proponer_asignacion y explica en motivo
+2. Si no hay capital disponible ($0.00), entrega el análisis completo en texto.
+3. Si hay capital pero la evidencia es floja, los agentes fallan o la señal es vieja, deja el dinero en efectivo.
+4. Si hay capital y te piden repartir el libro, cierra con proponer_asignacion y explica en motivo
    qué agente te dio cada razón. Si es otra pregunta, contesta con texto.
 """
 
@@ -236,6 +259,7 @@ class AgenteTrading(AgenteInversor):
         out = super().observe(**params)
         schemas = [a.tool_schema() for a in self.tools.values()]
         schemas.append(_asignacion_sin_stop())
+        out["system"] = self.policy.system_prompt(self.book)
         out["tools"] = [function_tool(schema) for schema in schemas]
         out["user"] = self.policy.user_message(self.book, pregunta)
         return out

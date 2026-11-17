@@ -36,10 +36,16 @@ class Book:
     def positions(self) -> dict:
         return self.data["positions"]
 
+    @property
+    def capital_usd(self) -> float:
+        """Capital real actual del libro (efectivo + posiciones abiertas)."""
+        invertido = sum(float(p.get("usd", 0) or 0) for p in self.positions.values())
+        return round(max(0.0, self.cash + invertido), 2)
+
     def snapshot(self) -> dict:
         return {
             "cash_usd": round(self.cash, 2),
-            "budget_usd": BUDGET_USD,
+            "budget_usd": self.capital_usd,
             "posiciones": {
                 t: {
                     "usd": round(float(p["usd"]), 2),

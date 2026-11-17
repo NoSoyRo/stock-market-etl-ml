@@ -333,3 +333,36 @@ def test_cada_corrida_reinicia_lo_visto(agente, monkeypatch):
     out = consultar("Hola", agente)
     assert agente.policy.vistos == {}
     assert out["agentes_consultados"] == []
+
+
+@pytest.mark.parametrize("cash_inicial, monto_valido", [(120.0, 60.0), (7.0, 7.0)])
+def test_trading_usa_capital_real_distinto_de_50(monkeypatch, cash_inicial, monto_valido):
+    monkeypatch.setattr(features_ml, "FEATURES_ML", [RankingFalso, WoeFalso])
+    book = Book(payload={"cash_usd": cash_inicial, "budget_usd": cash_inicial, "positions": {}, "fills": []})
+    agente = AgenteTrading(book, hoy=HOY)
+    agente.dispatch("ranking_falso", {})
+    assert f"{cash_inicial:.2f} dólares" in agente.observe()["system"]
+    out = agente.policy.guard(
+        {"allocations": [{"ticker": "WALMEX", "usd": monto_valido}], "cash_usd": cash_inicial - monto_valido},
+        book,
+    )
+    assert out["ok"] is True
+    assert out["cash_usd"] == pytest.approx(cash_inicial - monto_valido)
+
+
+def test_trading_sin_capital_bloquea_compras_y_permite_analisis(monkeypatch):
+    monkeypatch.setattr(features_ml, "FEATURES_ML", [RankingFalso, WoeFalso])
+    book = Book(payload={"cash_usd": 0.0, "budget_usd": 0.0, "positions": {}, "fills": []})
+    agente = AgenteTrading(book, hoy=HOY)
+    assert "$0.00" in agente.observe()["system"]
+
+    agente.dispatch("ranking_falso", {})
+    rechazo = agente.policy.guard({"allocations": [{"ticker": "WALMEX", "usd": 10}]}, book)
+    assert rechazo["ok"] is False
+    assert "capital" in rechazo["error"]
+
+    _guion(monkeypatch, [[_call("ranking_falso", {}, 1)]], texto="Sin capital disponible; WALMEX lidera el ranking.")
+    out = consultar("¿Cómo va el mercado?", agente)
+    assert out["ok"] is True
+    assert out["asignacion"] is None
+    assert "WALMEX" in out["respuesta"]
