@@ -18,7 +18,7 @@ class Book:
         if payload is not None:
             self.data = payload
         elif path is not None and path.exists():
-            self.data = json.loads(path.read_text())
+            self.data = json.loads(path.read_text(encoding="utf-8"))
         else:
             self.data = {
                 "cash_usd": BUDGET_USD,
@@ -36,10 +36,16 @@ class Book:
     def positions(self) -> dict:
         return self.data["positions"]
 
+    @property
+    def capital_usd(self) -> float:
+        """Capital real actual del libro (efectivo + posiciones abiertas)."""
+        invertido = sum(float(p.get("usd", 0) or 0) for p in self.positions.values())
+        return round(max(0.0, self.cash + invertido), 2)
+
     def snapshot(self) -> dict:
         return {
             "cash_usd": round(self.cash, 2),
-            "budget_usd": BUDGET_USD,
+            "budget_usd": self.capital_usd,
             "posiciones": {
                 t: {
                     "usd": round(float(p["usd"]), 2),
@@ -119,4 +125,4 @@ class Book:
         if self.path is None:
             return
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        self.path.write_text(json.dumps(self.data, ensure_ascii=False, indent=2))
+        self.path.write_text(json.dumps(self.data, ensure_ascii=False, indent=2), encoding="utf-8")
