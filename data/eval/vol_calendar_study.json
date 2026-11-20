@@ -1,0 +1,801 @@
+{
+  "generated_at": "2026-11-06T01:21:37.894686+00:00",
+  "config": {
+    "splits": 3,
+    "seed": 0,
+    "boot": 2000,
+    "criterio": "conserva si \u0394skill \u2265 0.01 (promedio de folds); robusto si IC95% > 0",
+    "ensayos": 8,
+    "comparaciones": 16,
+    "objetivo": "Parkinson (targets.log_rv_fwd_*)",
+    "ensayos_totales": 9,
+    "comparaciones_totales": 18
+  },
+  "baseline_check": {
+    "log_rv_fwd_5": {
+      "skill_har": 0.3011,
+      "n_obs": 147549,
+      "skill_target_study": 0.3011,
+      "ok": true
+    },
+    "log_rv_fwd_21": {
+      "skill_har": 0.1865,
+      "n_obs": 147847,
+      "skill_target_study": 0.1865,
+      "ok": true
+    }
+  },
+  "results": [
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "earn_in5",
+        "earn_in21",
+        "earn_days"
+      ],
+      "n_obs": 140389,
+      "n_blocks": 321,
+      "block_dates": 10,
+      "skill_base": 0.29875666877152557,
+      "skill_reg": 0.2988138232808442,
+      "delta_skill_fold_mean": 5.715450931864652e-05,
+      "delta_skill_fold_std": 0.0009839888757770118,
+      "delta_skill_pooled": 5.1982739152274263e-05,
+      "delta_ci_lo": -0.0007211154232046368,
+      "delta_ci_hi": 0.0007680188586645967,
+      "dm_t": 0.22244500102539527,
+      "dm_p": 0.8241093912567815,
+      "qlike_base": 0.27880534981928023,
+      "qlike_reg": 0.27898986348639354,
+      "delta_qlike": -0.0001845136671133063,
+      "fold_deltas": [
+        0.0006001011925678146,
+        -0.0013239394142351424,
+        0.0008953017496232674
+      ],
+      "name": "earnings_cal",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "exdiv_in5",
+        "exdiv_in21",
+        "exdiv_days"
+      ],
+      "n_obs": 132555,
+      "n_blocks": 332,
+      "block_dates": 10,
+      "skill_base": 0.3001764618188037,
+      "skill_reg": 0.2997016466748718,
+      "delta_skill_fold_mean": -0.00047481514393188373,
+      "delta_skill_fold_std": 0.0005586529393105643,
+      "delta_skill_pooled": -0.0004548069865147615,
+      "delta_ci_lo": -0.0006959167259431411,
+      "delta_ci_hi": -0.00021300518903221395,
+      "dm_t": -3.7265770935945146,
+      "dm_p": 0.00022818416272819418,
+      "qlike_base": 0.2722109760003683,
+      "qlike_reg": 0.27232875224207037,
+      "delta_qlike": -0.00011777624170206114,
+      "fold_deltas": [
+        -0.0002049441326849033,
+        3.330213822094752e-05,
+        -0.0012528034373316954
+      ],
+      "name": "exdiv_declared",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "exdivx_in5",
+        "exdivx_in21",
+        "exdivx_days"
+      ],
+      "n_obs": 127367,
+      "n_blocks": 320,
+      "block_dates": 10,
+      "skill_base": 0.3010502903907219,
+      "skill_reg": 0.300581849028533,
+      "delta_skill_fold_mean": -0.0004684413621888946,
+      "delta_skill_fold_std": 0.000493835696479796,
+      "delta_skill_pooled": -0.0004469343695719816,
+      "delta_ci_lo": -0.0007346532554219032,
+      "delta_ci_hi": -0.00016680512479113095,
+      "dm_t": -3.03875200416717,
+      "dm_p": 0.002571981173044764,
+      "qlike_base": 0.2716330375855878,
+      "qlike_reg": 0.27197739373840574,
+      "delta_qlike": -0.0003443561528179151,
+      "fold_deltas": [
+        -0.00017915480367813874,
+        -6.258894847721574e-05,
+        -0.0011635803344113294
+      ],
+      "name": "exdiv_expected",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "banxico_in5",
+        "banxico_in21",
+        "banxico_days"
+      ],
+      "n_obs": 147549,
+      "n_blocks": 335,
+      "block_dates": 10,
+      "skill_base": 0.30109063186743384,
+      "skill_reg": 0.30156278610269927,
+      "delta_skill_fold_mean": 0.0004721542352654022,
+      "delta_skill_fold_std": 0.0014797637647509076,
+      "delta_skill_pooled": 0.0005109946015567973,
+      "delta_ci_lo": -0.000539106756061631,
+      "delta_ci_hi": 0.0015396981914645436,
+      "dm_t": 0.8879332851871304,
+      "dm_p": 0.3752156118718995,
+      "qlike_base": 0.2800489365469122,
+      "qlike_reg": 0.2800336618727853,
+      "delta_qlike": 1.527467412693051e-05,
+      "fold_deltas": [
+        0.0023521906770883616,
+        0.00032815638612082587,
+        -0.001263884357412981
+      ],
+      "name": "banxico",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "fomc_in5",
+        "fomc_in21",
+        "fomc_days"
+      ],
+      "n_obs": 147549,
+      "n_blocks": 335,
+      "block_dates": 10,
+      "skill_base": 0.30109063186743384,
+      "skill_reg": 0.30439476589488346,
+      "delta_skill_fold_mean": 0.0033041340274495936,
+      "delta_skill_fold_std": 0.001931935404835554,
+      "delta_skill_pooled": 0.003321365908807622,
+      "delta_ci_lo": 0.000725433947067416,
+      "delta_ci_hi": 0.0056762140300776805,
+      "dm_t": 2.5883747409034257,
+      "dm_p": 0.010064364599155228,
+      "qlike_base": 0.2800489365469122,
+      "qlike_reg": 0.2797790536919189,
+      "delta_qlike": 0.00026988285499329745,
+      "fold_deltas": [
+        0.00526737228952967,
+        0.000676965365883575,
+        0.003968064426935536
+      ],
+      "name": "fomc",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "vix_log",
+        "vix_d5"
+      ],
+      "n_obs": 147549,
+      "n_blocks": 335,
+      "block_dates": 10,
+      "skill_base": 0.30109063186743384,
+      "skill_reg": 0.30343895429647544,
+      "delta_skill_fold_mean": 0.002348322429041557,
+      "delta_skill_fold_std": 0.01154938803033941,
+      "delta_skill_pooled": 0.0025567480004510096,
+      "delta_ci_lo": -0.0058830451855368445,
+      "delta_ci_hi": 0.01401233431825322,
+      "dm_t": 0.3605980558852421,
+      "dm_p": 0.7186278880896955,
+      "qlike_base": 0.2800489365469122,
+      "qlike_reg": 0.27655948170629024,
+      "delta_qlike": 0.003489454840621964,
+      "fold_deltas": [
+        0.007223384402274213,
+        0.013411083064493123,
+        -0.013589500179642666
+      ],
+      "name": "vix",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "dxy_d5",
+        "dxy_d22"
+      ],
+      "n_obs": 147535,
+      "n_blocks": 335,
+      "block_dates": 10,
+      "skill_base": 0.3010705759289129,
+      "skill_reg": 0.30013253937220413,
+      "delta_skill_fold_mean": -0.0009380365567087656,
+      "delta_skill_fold_std": 0.0013043366286596705,
+      "delta_skill_pooled": -0.0009044204580804565,
+      "delta_ci_lo": -0.0021970385685693467,
+      "delta_ci_hi": 0.0002983700902578545,
+      "dm_t": -1.416858486528947,
+      "dm_p": 0.15745635150008744,
+      "qlike_base": 0.28007918218096717,
+      "qlike_reg": 0.2805005753901349,
+      "delta_qlike": -0.0004213932091677308,
+      "fold_deltas": [
+        0.0005353615756957808,
+        -0.0007136089304999871,
+        -0.0026358623153220906
+      ],
+      "name": "dxy",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_5",
+      "horizon": 5,
+      "regressors": [
+        "earn_in5",
+        "earn_in21",
+        "earn_days",
+        "exdiv_in5",
+        "exdiv_in21",
+        "exdiv_days",
+        "exdivx_in5",
+        "exdivx_in21",
+        "exdivx_days",
+        "banxico_in5",
+        "banxico_in21",
+        "banxico_days",
+        "fomc_in5",
+        "fomc_in21",
+        "fomc_days",
+        "vix_log",
+        "vix_d5",
+        "dxy_d5",
+        "dxy_d22"
+      ],
+      "n_obs": 126105,
+      "n_blocks": 320,
+      "block_dates": 10,
+      "skill_base": 0.3002920349511818,
+      "skill_reg": 0.30947701615595724,
+      "delta_skill_fold_mean": 0.009184981204775474,
+      "delta_skill_fold_std": 0.013476683866690074,
+      "delta_skill_pooled": 0.009474593306282227,
+      "delta_ci_lo": 0.0010785996361493424,
+      "delta_ci_hi": 0.020955048774932036,
+      "dm_t": 1.7685591640015463,
+      "dm_p": 0.07792311318053725,
+      "qlike_base": 0.27016850188892233,
+      "qlike_reg": 0.26224706158201366,
+      "delta_qlike": 0.007921440306908667,
+      "fold_deltas": [
+        0.011525871277990096,
+        0.02439506385542234,
+        -0.008365991519086013
+      ],
+      "name": "todos",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "earn_in5",
+        "earn_in21",
+        "earn_days"
+      ],
+      "n_obs": 140632,
+      "n_blocks": 77,
+      "block_dates": 42,
+      "skill_base": 0.1902017479659458,
+      "skill_reg": 0.19130510680262924,
+      "delta_skill_fold_mean": 0.0011033588366834435,
+      "delta_skill_fold_std": 0.0011317186911163576,
+      "delta_skill_pooled": 0.0010270211692777831,
+      "delta_ci_lo": -0.0010084639431871033,
+      "delta_ci_hi": 0.002810377750850168,
+      "dm_t": 1.029036678841646,
+      "dm_p": 0.3067263259950411,
+      "qlike_base": 0.17800607199634108,
+      "qlike_reg": 0.1780483779583251,
+      "delta_qlike": -4.230596198401271e-05,
+      "fold_deltas": [
+        0.0023363009747709995,
+        -0.00039689447750290707,
+        0.001370670012782238
+      ],
+      "name": "earnings_cal",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "exdiv_in5",
+        "exdiv_in21",
+        "exdiv_days"
+      ],
+      "n_obs": 132697,
+      "n_blocks": 79,
+      "block_dates": 42,
+      "skill_base": 0.19220521711536923,
+      "skill_reg": 0.19247368791042993,
+      "delta_skill_fold_mean": 0.0002684707950606861,
+      "delta_skill_fold_std": 0.0005600828734723944,
+      "delta_skill_pooled": 0.0002754852157485522,
+      "delta_ci_lo": -0.0004939383333662335,
+      "delta_ci_hi": 0.0010805364840787888,
+      "dm_t": 0.7062139449958091,
+      "dm_p": 0.4821592530196764,
+      "qlike_base": 0.16989644834863812,
+      "qlike_reg": 0.16967391660069994,
+      "delta_qlike": 0.00022253174793818165,
+      "fold_deltas": [
+        -0.000440406821709427,
+        0.0009289465800799146,
+        0.0003168726268115707
+      ],
+      "name": "exdiv_declared",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "exdivx_in5",
+        "exdivx_in21",
+        "exdivx_days"
+      ],
+      "n_obs": 127474,
+      "n_blocks": 76,
+      "block_dates": 42,
+      "skill_base": 0.18912494992277964,
+      "skill_reg": 0.18899743021258078,
+      "delta_skill_fold_mean": -0.00012751971019886454,
+      "delta_skill_fold_std": 0.0002317270088898495,
+      "delta_skill_pooled": -0.00011485624875893771,
+      "delta_ci_lo": -0.0005787457173791926,
+      "delta_ci_hi": 0.00030005200033484525,
+      "dm_t": -0.5465616428165297,
+      "dm_p": 0.5863023425652404,
+      "qlike_base": 0.1718011956497346,
+      "qlike_reg": 0.17188583004624655,
+      "delta_qlike": -8.463439651196225e-05,
+      "fold_deltas": [
+        0.0001827525181972156,
+        -0.00019130776372699998,
+        -0.00037400388506680926
+      ],
+      "name": "exdiv_expected",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "banxico_in5",
+        "banxico_in21",
+        "banxico_days"
+      ],
+      "n_obs": 147847,
+      "n_blocks": 80,
+      "block_dates": 42,
+      "skill_base": 0.18649670039755786,
+      "skill_reg": 0.18771772031839828,
+      "delta_skill_fold_mean": 0.0012210199208404122,
+      "delta_skill_fold_std": 0.0011648865530489827,
+      "delta_skill_pooled": 0.0013036475738201399,
+      "delta_ci_lo": -0.0003311604103948345,
+      "delta_ci_hi": 0.002860226678291317,
+      "dm_t": 1.507316084330225,
+      "dm_p": 0.13571830673202204,
+      "qlike_base": 0.1772768550861238,
+      "qlike_reg": 0.17645057610692716,
+      "delta_qlike": 0.000826278979196654,
+      "fold_deltas": [
+        0.0024845786830982597,
+        0.0015046669228535592,
+        -0.000326185843430582
+      ],
+      "name": "banxico",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "fomc_in5",
+        "fomc_in21",
+        "fomc_days"
+      ],
+      "n_obs": 147847,
+      "n_blocks": 80,
+      "block_dates": 42,
+      "skill_base": 0.18649670039755786,
+      "skill_reg": 0.1859512594654659,
+      "delta_skill_fold_mean": -0.0005454409320919673,
+      "delta_skill_fold_std": 0.0032326152380095356,
+      "delta_skill_pooled": -0.0008424461493323894,
+      "delta_ci_lo": -0.005920353205026528,
+      "delta_ci_hi": 0.00299066333089929,
+      "dm_t": -0.3368662204094267,
+      "dm_p": 0.737111033026438,
+      "qlike_base": 0.1772768550861238,
+      "qlike_reg": 0.17821414338615157,
+      "delta_qlike": -0.000937288300027761,
+      "fold_deltas": [
+        0.0015712904635005742,
+        -0.005112978621213515,
+        0.0019053653614370392
+      ],
+      "name": "fomc",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "vix_log",
+        "vix_d5"
+      ],
+      "n_obs": 147847,
+      "n_blocks": 80,
+      "block_dates": 42,
+      "skill_base": 0.18649670039755786,
+      "skill_reg": 0.1963988152868922,
+      "delta_skill_fold_mean": 0.009902114889334346,
+      "delta_skill_fold_std": 0.009485241230345186,
+      "delta_skill_pooled": 0.010230965833643895,
+      "delta_ci_lo": -0.007270199489353559,
+      "delta_ci_hi": 0.03423567301196192,
+      "dm_t": 0.9619253846715201,
+      "dm_p": 0.3390221895229774,
+      "qlike_base": 0.1772768550861238,
+      "qlike_reg": 0.17108030169758248,
+      "delta_qlike": 0.0061965533885413315,
+      "fold_deltas": [
+        -0.002596175797981881,
+        0.02037017587783163,
+        0.011932344588153287
+      ],
+      "name": "vix",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "dxy_d5",
+        "dxy_d22"
+      ],
+      "n_obs": 147833,
+      "n_blocks": 80,
+      "block_dates": 42,
+      "skill_base": 0.18642140016815642,
+      "skill_reg": 0.18700212484889633,
+      "delta_skill_fold_mean": 0.0005807246807399228,
+      "delta_skill_fold_std": 0.0010288068980569443,
+      "delta_skill_pooled": 0.0006178566992683916,
+      "delta_ci_lo": -0.001920710160775946,
+      "delta_ci_hi": 0.003191711723849825,
+      "dm_t": 0.481807332582531,
+      "dm_p": 0.6312749029136998,
+      "qlike_base": 0.17734196938731017,
+      "qlike_reg": 0.17660433049343174,
+      "delta_qlike": 0.0007376388938784284,
+      "fold_deltas": [
+        -0.0007686221020785089,
+        0.0017266866196521402,
+        0.0007841095246461371
+      ],
+      "name": "dxy",
+      "verdict": "descarta"
+    },
+    {
+      "target": "log_rv_fwd_21",
+      "horizon": 21,
+      "regressors": [
+        "earn_in5",
+        "earn_in21",
+        "earn_days",
+        "exdiv_in5",
+        "exdiv_in21",
+        "exdiv_days",
+        "exdivx_in5",
+        "exdivx_in21",
+        "exdivx_days",
+        "banxico_in5",
+        "banxico_in21",
+        "banxico_days",
+        "fomc_in5",
+        "fomc_in21",
+        "fomc_days",
+        "vix_log",
+        "vix_d5",
+        "dxy_d5",
+        "dxy_d22"
+      ],
+      "n_obs": 126208,
+      "n_blocks": 76,
+      "block_dates": 42,
+      "skill_base": 0.18979524483511925,
+      "skill_reg": 0.2035409132476147,
+      "delta_skill_fold_mean": 0.013745668412495434,
+      "delta_skill_fold_std": 0.016124207865749543,
+      "delta_skill_pooled": 0.013253004103090332,
+      "delta_ci_lo": -0.00574925521364299,
+      "delta_ci_hi": 0.03610212348149306,
+      "dm_t": 1.3340223082042895,
+      "dm_p": 0.18623329484431192,
+      "qlike_base": 0.17156782097539225,
+      "qlike_reg": 0.16403972716531165,
+      "delta_qlike": 0.007528093810080599,
+      "fold_deltas": [
+        -0.009031781129524297,
+        0.024198464117064944,
+        0.026070322249945654
+      ],
+      "name": "todos",
+      "verdict": "conserva (no robusto)"
+    }
+  ],
+  "extra": {
+    "in_out_windows": [
+      {
+        "horizon": 5,
+        "mask": "earn_in5",
+        "regressors": [
+          "earn_in5",
+          "earn_in21",
+          "earn_days"
+        ],
+        "in": {
+          "n": 12643,
+          "skill_har": 0.29026080192515913,
+          "skill_reg": 0.29574346503527926,
+          "delta": 0.005482663110120061
+        },
+        "out": {
+          "n": 79351,
+          "skill_har": 0.3000228445704739,
+          "skill_reg": 0.2991831677220297,
+          "delta": -0.0008396768484441495
+        },
+        "name": "earnings_cal"
+      },
+      {
+        "horizon": 21,
+        "mask": "earn_in21",
+        "regressors": [
+          "earn_in5",
+          "earn_in21",
+          "earn_days"
+        ],
+        "in": {
+          "n": 35026,
+          "skill_har": 0.204266351377279,
+          "skill_reg": 0.2102901102400021,
+          "delta": 0.0060237588627231236
+        },
+        "out": {
+          "n": 57088,
+          "skill_har": 0.17780023574895154,
+          "skill_reg": 0.1761481643137417,
+          "delta": -0.0016520714352098059
+        },
+        "name": "earnings_cal"
+      },
+      {
+        "horizon": 5,
+        "mask": "banxico_in5",
+        "regressors": [
+          "banxico_in5",
+          "banxico_in21",
+          "banxico_days"
+        ],
+        "in": {
+          "n": 14943,
+          "skill_har": 0.310667525691933,
+          "skill_reg": 0.3115874922771984,
+          "delta": 0.0009199665852653951
+        },
+        "out": {
+          "n": 81602,
+          "skill_har": 0.29935047566789197,
+          "skill_reg": 0.2997928448305539,
+          "delta": 0.0004423691626619656
+        },
+        "name": "banxico"
+      },
+      {
+        "horizon": 21,
+        "mask": "banxico_in21",
+        "regressors": [
+          "banxico_in5",
+          "banxico_in21",
+          "banxico_days"
+        ],
+        "in": {
+          "n": 62971,
+          "skill_har": 0.1917441445473771,
+          "skill_reg": 0.1947892780062943,
+          "delta": 0.0030451334589172772
+        },
+        "out": {
+          "n": 33778,
+          "skill_har": 0.17094290979994164,
+          "skill_reg": 0.16841924762619453,
+          "delta": -0.002523662173747152
+        },
+        "name": "banxico"
+      },
+      {
+        "horizon": 5,
+        "mask": "fomc_in5",
+        "regressors": [
+          "fomc_in5",
+          "fomc_in21",
+          "fomc_days"
+        ],
+        "in": {
+          "n": 14286,
+          "skill_har": 0.28668108114830293,
+          "skill_reg": 0.318846174695563,
+          "delta": 0.03216509354726004
+        },
+        "out": {
+          "n": 82259,
+          "skill_har": 0.30335510355995965,
+          "skill_reg": 0.3018774428620653,
+          "delta": -0.0014776606978943543
+        },
+        "name": "fomc"
+      },
+      {
+        "horizon": 21,
+        "mask": "fomc_in21",
+        "regressors": [
+          "fomc_in5",
+          "fomc_in21",
+          "fomc_days"
+        ],
+        "in": {
+          "n": 62062,
+          "skill_har": 0.20881563115908564,
+          "skill_reg": 0.20944569481696051,
+          "delta": 0.0006300636578748415
+        },
+        "out": {
+          "n": 34687,
+          "skill_har": 0.15046799608426686,
+          "skill_reg": 0.14745385951058554,
+          "delta": -0.003014136573681275
+        },
+        "name": "fomc"
+      },
+      {
+        "horizon": 5,
+        "mask": "exdiv_in5",
+        "regressors": [
+          "exdiv_in5",
+          "exdiv_in21",
+          "exdiv_days"
+        ],
+        "in": {
+          "n": 3027,
+          "skill_har": 0.33253519972293877,
+          "skill_reg": 0.3274709928160269,
+          "delta": -0.005064206906911829
+        },
+        "out": {
+          "n": 87467,
+          "skill_har": 0.29943901793188854,
+          "skill_reg": 0.2991189417194794,
+          "delta": -0.0003200762124091482
+        },
+        "name": "exdiv_declared"
+      },
+      {
+        "horizon": 21,
+        "mask": "exdiv_in21",
+        "regressors": [
+          "exdiv_in5",
+          "exdiv_in21",
+          "exdiv_days"
+        ],
+        "in": {
+          "n": 12601,
+          "skill_har": 0.2593010745061548,
+          "skill_reg": 0.25042921023870834,
+          "delta": -0.008871864267446523
+        },
+        "out": {
+          "n": 78008,
+          "skill_har": 0.17982570153102717,
+          "skill_reg": 0.18116128010171573,
+          "delta": 0.0013355785706884958
+        },
+        "name": "exdiv_declared"
+      }
+    ]
+  },
+  "inpc_separate": {
+    "nota": "muestra corta (INPC verificado solo 2024-2026); no entra en \"todos\"",
+    "results": [
+      {
+        "target": "log_rv_fwd_5",
+        "horizon": 5,
+        "regressors": [
+          "inpc_in5",
+          "inpc_in21",
+          "inpc_days"
+        ],
+        "n_obs": 19555,
+        "n_blocks": 33,
+        "block_dates": 10,
+        "skill_base": 0.3501190343389098,
+        "skill_reg": 0.34939521895269826,
+        "delta_skill_fold_mean": -0.0007238153862115423,
+        "delta_skill_fold_std": 0.011429920968275074,
+        "delta_skill_pooled": -0.00052442675644108,
+        "delta_ci_lo": -0.012560027080077607,
+        "delta_ci_hi": 0.013429492662741798,
+        "dm_t": -0.10940491068465184,
+        "dm_p": 0.9135645519693488,
+        "qlike_base": 0.21987988041072656,
+        "qlike_reg": 0.21908186540829644,
+        "delta_qlike": 0.0007980150024301247,
+        "fold_deltas": [
+          0.004991170133282763,
+          -0.016675919457314947,
+          0.009513303165397557
+        ],
+        "name": "inpc",
+        "verdict": "descarta"
+      },
+      {
+        "target": "log_rv_fwd_21",
+        "horizon": 21,
+        "regressors": [
+          "inpc_in5",
+          "inpc_in21",
+          "inpc_days"
+        ],
+        "n_obs": 19196,
+        "n_blocks": 8,
+        "block_dates": 42,
+        "skill_base": 0.15211432768840907,
+        "skill_reg": 0.1514506349898845,
+        "delta_skill_fold_mean": -0.0006636926985245836,
+        "delta_skill_fold_std": 0.0021408639604169753,
+        "delta_skill_pooled": -0.0006721927246087777,
+        "delta_ci_lo": -0.004389891344758642,
+        "delta_ci_hi": 0.003473700379365714,
+        "dm_t": -0.26218722495202224,
+        "dm_p": 0.8007252811663306,
+        "qlike_base": 0.12572903201424693,
+        "qlike_reg": 0.12535096082439853,
+        "delta_qlike": 0.0003780711898483946,
+        "fold_deltas": [
+          0.0007635240610219807,
+          -0.0036897104249470347,
+          0.0009351082683513035
+        ],
+        "name": "inpc",
+        "verdict": "descarta"
+      }
+    ]
+  }
+}

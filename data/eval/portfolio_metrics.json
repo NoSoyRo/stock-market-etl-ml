@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-28T22:47:44",
+  "generated_at": "2026-11-05T17:15:32",
   "universe": "bmv",
   "classification": {
-    "auc": 0.5065,
+    "auc": 0.5133,
     "target_col": "y"
   },
   "portfolio_dual": {
-    "auc": 0.5064502885172485,
-    "sharpe_gross": 1.5254773722579162,
-    "sharpe_net": -1.786249091327774,
-    "max_drawdown": -0.5311996654071603,
-    "calmar_ratio": -1.5352586775245283,
-    "win_rate_net": 0.4476744186046512,
-    "total_return_gross": 0.49830863073347564,
-    "total_return_net": -0.466746424499221
+    "auc": 0.513307484337019,
+    "sharpe_gross": 0.7639382896159356,
+    "sharpe_net": -0.47461724250065934,
+    "max_drawdown": -0.41805328341078757,
+    "calmar_ratio": -0.23080293890361872,
+    "win_rate_net": 0.4883720930232558,
+    "total_return_gross": 0.5822610085970723,
+    "total_return_net": -0.329761785266653
   },
   "benchmark_naftrac": {
-    "sharpe_ratio": 0.815563464131635,
+    "sharpe_ratio": 0.36473106915270953,
     "max_drawdown": -0.21383321878724537,
     "total_return": 0.15807749980158103,
     "win_rate": 0.4941860465116279
   },
   "vs_benchmark": {
-    "excess_return_net": -0.6248,
-    "sharpe_delta_net": -2.602
+    "excess_return_net": -0.4878,
+    "sharpe_delta_net": -0.839
   },
   "costs": {
     "commission_pct": 0.0025,
@@ -34,7 +34,10 @@
     "top_k": 5,
     "score_mode": "p_up",
     "weight_mode": "equal",
-    "horizon": 5
+    "horizon": 5,
+    "cost_mode": "turnover",
+    "seed": 42,
+    "min_p_up": 0.0
   },
   "periods": {
     "n_strategy": 172,

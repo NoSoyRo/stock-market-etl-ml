@@ -95,7 +95,11 @@ class Metrics:
         return correct / len(true_changes)
     
     @staticmethod
-    def sharpe_ratio(returns: np.ndarray, risk_free_rate: float = 0.0) -> float:
+    def sharpe_ratio(
+        returns: np.ndarray,
+        risk_free_rate: float = 0.0,
+        periods_per_year: float = 252.0,
+    ) -> float:
         """
         Sharpe Ratio - Retorno ajustado por riesgo
         
@@ -104,31 +108,38 @@ class Metrics:
         Args:
             returns: Serie de retornos
             risk_free_rate: Tasa libre de riesgo anualizada (default 0%)
+            periods_per_year: Periodos por año (252 diario; 50.4 si el periodo es de 5 días)
         """
+        returns = np.asarray(returns, dtype=float)
         if len(returns) == 0 or np.std(returns) == 0:
             return 0.0
         
-        # Convertir risk_free_rate anual a diario
-        daily_rf = (1 + risk_free_rate) ** (1/252) - 1
+        # Convertir risk_free_rate anual a tasa por periodo
+        period_rf = (1 + risk_free_rate) ** (1 / periods_per_year) - 1
         
-        excess_returns = returns - daily_rf
+        excess_returns = returns - period_rf
         
-        return np.mean(excess_returns) / np.std(returns) * np.sqrt(252)
+        return np.mean(excess_returns) / np.std(returns) * np.sqrt(periods_per_year)
     
     @staticmethod
-    def sortino_ratio(returns: np.ndarray, risk_free_rate: float = 0.0) -> float:
+    def sortino_ratio(
+        returns: np.ndarray,
+        risk_free_rate: float = 0.0,
+        periods_per_year: float = 252.0,
+    ) -> float:
         """
         Sortino Ratio - Similar a Sharpe pero solo penaliza downside
         
         Sortino = (Retorno promedio - Risk free rate) / Downside Deviation
         """
+        returns = np.asarray(returns, dtype=float)
         if len(returns) == 0:
             return 0.0
         
-        # Convertir risk_free_rate anual a diario
-        daily_rf = (1 + risk_free_rate) ** (1/252) - 1
+        # Convertir risk_free_rate anual a tasa por periodo
+        period_rf = (1 + risk_free_rate) ** (1 / periods_per_year) - 1
         
-        excess_returns = returns - daily_rf
+        excess_returns = returns - period_rf
         
         # Solo retornos negativos para downside deviation
         downside_returns = returns[returns < 0]
@@ -138,7 +149,7 @@ class Metrics:
         
         downside_std = np.std(downside_returns)
         
-        return np.mean(excess_returns) / downside_std * np.sqrt(252)
+        return np.mean(excess_returns) / downside_std * np.sqrt(periods_per_year)
     
     @staticmethod
     def max_drawdown(cumulative_returns: np.ndarray) -> float:
@@ -161,13 +172,17 @@ class Metrics:
         return float(np.min(drawdown))
     
     @staticmethod
-    def calmar_ratio(returns: np.ndarray, cumulative_returns: np.ndarray) -> float:
+    def calmar_ratio(
+        returns: np.ndarray,
+        cumulative_returns: np.ndarray,
+        periods_per_year: float = 252.0,
+    ) -> float:
         """
         Calmar Ratio - Retorno anualizado / Max Drawdown
         
         Mide retorno ajustado por máxima caída
         """
-        annual_return = np.mean(returns) * 252
+        annual_return = np.mean(returns) * periods_per_year
         mdd = abs(Metrics.max_drawdown(cumulative_returns))
         
         if mdd == 0:
@@ -256,9 +271,9 @@ class Metrics:
 
         wealth = np.cumprod(1 + returns)
         return {
-            "sharpe_ratio": Metrics.sharpe_ratio(returns),
+            "sharpe_ratio": Metrics.sharpe_ratio(returns, periods_per_year=periods_per_year),
             "max_drawdown": Metrics.max_drawdown(wealth),
-            "calmar_ratio": Metrics.calmar_ratio(returns, wealth),
+            "calmar_ratio": Metrics.calmar_ratio(returns, wealth, periods_per_year=periods_per_year),
             "win_rate": Metrics.win_rate_from_returns(returns),
             "total_return": Metrics.total_return(returns),
         }
@@ -331,7 +346,8 @@ class Metrics:
     def calculate_all_metrics(
         y_true: np.ndarray,
         y_pred: np.ndarray,
-        risk_free_rate: float = 0.0
+        risk_free_rate: float = 0.0,
+        periods_per_year: float = 252.0,
     ) -> Dict[str, float]:
         """
         Calcular todas las métricas de una vez
@@ -340,6 +356,7 @@ class Metrics:
             y_true: Valores reales
             y_pred: Valores predichos
             risk_free_rate: Tasa libre de riesgo anualizada
+            periods_per_year: Periodos por año para anualizar Sharpe/Sortino/Calmar (default 252)
             
         Returns:
             Dict con todas las métricas
@@ -364,10 +381,16 @@ class Metrics:
             cumulative_returns = np.cumprod(1 + returns) - 1
             
             metrics.update({
-                'sharpe_ratio': Metrics.sharpe_ratio(returns, risk_free_rate),
-                'sortino_ratio': Metrics.sortino_ratio(returns, risk_free_rate),
+                'sharpe_ratio': Metrics.sharpe_ratio(
+                    returns, risk_free_rate, periods_per_year=periods_per_year
+                ),
+                'sortino_ratio': Metrics.sortino_ratio(
+                    returns, risk_free_rate, periods_per_year=periods_per_year
+                ),
                 'max_drawdown': Metrics.max_drawdown(cumulative_returns),
-                'calmar_ratio': Metrics.calmar_ratio(returns, cumulative_returns)
+                'calmar_ratio': Metrics.calmar_ratio(
+                    returns, cumulative_returns, periods_per_year=periods_per_year
+                )
             })
         
         return metrics

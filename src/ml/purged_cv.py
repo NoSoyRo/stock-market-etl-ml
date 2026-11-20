@@ -84,9 +84,88 @@ def purged_walk_forward_splits(
         yield train_idx, test_idx
 
 
+def purged_walk_forward_date_splits(
+    dates:    pd.Series | pd.Index | np.ndarray,
+    n_splits: int = 6,
+    horizon:  int = 5,
+    embargo:  int = 10,
+    min_train_size: float = 0.50,
+) -> Iterator[tuple[np.ndarray, np.ndarray]]:
+    """
+    Walk-forward purged CV para un PANEL (varias filas por fecha).
+
+    `purged_walk_forward_splits` purga y embarga por número de FILAS. En un
+    panel con ~30 tickers por fecha, purgar 5 + 10 filas equivale a menos de
+    un día, y train y test llegan a compartir fechas. Esta versión trabaja
+    sobre fechas únicas: `horizon` y `embargo` se miden en días hábiles.
+
+    Con el test empezando en la fecha de posición `s`, una fila de train en
+    la posición j tiene una etiqueta que usa precios hasta j + horizon, así
+    que se exige j + horizon < s, más `embargo` días de separación:
+        j < s - horizon - embargo
+
+    Args:
+        dates: fecha de cada fila (no necesita estar ordenado).
+        Resto: igual que `purged_walk_forward_splits`, pero en días.
+
+    Yields:
+        (train_idx, test_idx) como posiciones de fila. Fold 0 = el más reciente.
+    """
+    row_dates = pd.to_datetime(pd.Series(np.asarray(dates)))
+    unique = np.sort(row_dates.unique())
+    pos = pd.Series(np.arange(len(unique)), index=unique)
+    row_pos = pos.reindex(row_dates.values).to_numpy()
+
+    m = len(unique)
+    test_size = int(m * (1 - min_train_size) / n_splits)
+    if test_size < 1:
+        test_size = max(1, m // (n_splits + 2))
+
+    for fold in range(n_splits):
+        test_end = m - fold * test_size
+        test_start = test_end - test_size
+        if test_start < 0:
+            break
+        train_cut = test_start - horizon - embargo
+        if train_cut <= 10:
+            continue
+        train_idx = np.flatnonzero(row_pos < train_cut)
+        test_idx = np.flatnonzero((row_pos >= test_start) & (row_pos < test_end))
+        yield train_idx, test_idx
+
+
 def compute_embargo_size(n: int, pct: float = 0.01) -> int:
     """Tamaño del embargo como porcentaje del dataset (López de Prado recomienda 1%)."""
     return max(1, int(n * pct))
+
+
+def probabilistic_sharpe_ratio(
+    sharpe_obs: float,
+    n_obs:      int,
+    sharpe_ref: float = 0.0,
+    skewness:   float = 0.0,
+    kurtosis:   float = 3.0,
+) -> float:
+    """
+    PSR — Bailey & López de Prado (2014): P(SR verdadero > sharpe_ref).
+
+    PSR = Φ[(SR − SR*)·√(T−1) / √(1 − γ3·SR + (γ4−1)/4·SR²)]
+    con SR por periodo (no anualizado) y γ4 = kurtosis NO excedente (normal = 3).
+    """
+    from src.ml.trial_stats import probabilistic_sharpe_ratio as _psr  # núcleo único
+
+    return _psr(sharpe_obs, n_obs, sharpe_ref, skewness, kurtosis)
+
+
+def expected_max_sharpe(n_trials: int, sr_std: float) -> float:
+    """Sharpe máximo esperado por azar entre n_trials ensayos (SR0 del paper).
+
+    SR0 = σ_SR · [(1−γ)·Φ⁻¹(1−1/N) + γ·Φ⁻¹(1−1/(N·e))], γ = Euler–Mascheroni.
+    `sr_std` = desviación del Sharpe (por periodo) ENTRE ensayos.
+    """
+    from src.ml.trial_stats import sr0_from_std  # núcleo único
+
+    return sr0_from_std(n_trials, sr_std)
 
 
 def deflated_sharpe_ratio(
@@ -95,47 +174,30 @@ def deflated_sharpe_ratio(
     n_obs:        int,
     skewness:     float = 0.0,
     kurtosis:     float = 3.0,
+    sr_std:       float | None = None,
 ) -> float:
     """
-    Deflated Sharpe Ratio (DSR) — Bailey & López de Prado (2014).
-
-    Corrige el Sharpe Ratio por la multiplicidad de estrategias evaluadas.
-    Si DSR < 0, la estrategia probablemente no tiene edge real.
+    Deflated Sharpe Ratio — Bailey & López de Prado (2014): PSR contra SR0,
+    el máximo esperado por azar entre n_trials ensayos.
 
     Args:
-        sharpe_obs:  SR observado (anualizado)
-        n_trials:    Número de configuraciones / estrategias probadas
-        n_obs:       Número de observaciones en el test
+        sharpe_obs:  SR observado POR PERIODO (no anualizado; cámbio vs. versión previa)
+        n_trials:    Nº de configuraciones probadas (ver src/ml/trials.py)
+        n_obs:       Nº de periodos (T)
         skewness:    Skewness de los retornos
-        kurtosis:    Kurtosis (3 = normal)
+        kurtosis:    Kurtosis no excedente (3 = normal)
+        sr_std:      Desviación del SR por periodo entre ensayos. Si es None se usa
+                     1/√(T−1), la del estimador bajo H0 (aproximación; mejor pasar la real).
 
     Returns:
-        DSR en escala z (0-1 aprox). >0.95 = evidencia fuerte.
+        Probabilidad en [0, 1]. > 0.95 = evidencia fuerte. Con n_trials ≤ 1 es el PSR contra 0.
     """
-    from scipy import stats
-
     if n_trials <= 1:
-        return float(stats.norm.cdf(sharpe_obs))
-
-    # Máximo SR esperado por azar entre n_trials ensayos
-    sr_max = (
-        (1 - 0.5772156649)  # Euler–Mascheroni
-        * np.sqrt(np.log(n_trials))
-        + 0.5772156649 / np.sqrt(np.log(n_trials))
-    )
-
-    # Varianza del SR estimado
-    var_sr = (
-        1 / n_obs
-        * (1 + 0.5 * sharpe_obs**2
-           - skewness * sharpe_obs
-           + (kurtosis - 3) / 4 * sharpe_obs**2)
-    )
-
-    dsr = stats.norm.cdf(
-        (sharpe_obs - sr_max) / np.sqrt(var_sr + 1e-12)
-    )
-    return float(dsr)
+        return probabilistic_sharpe_ratio(sharpe_obs, n_obs, 0.0, skewness, kurtosis)
+    if sr_std is None:
+        sr_std = 1.0 / np.sqrt(max(n_obs - 1, 1))
+    sr0 = expected_max_sharpe(n_trials, sr_std)
+    return probabilistic_sharpe_ratio(sharpe_obs, n_obs, sr0, skewness, kurtosis)
 
 
 # ─── LSTM vs LGBM comparison (KB-013) ────────────────────────────────────────

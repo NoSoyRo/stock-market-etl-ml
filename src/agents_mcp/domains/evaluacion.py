@@ -3,8 +3,9 @@ Sharpe y bitácora anti-overfitting.
 
 Esquema real:
   - data/eval/trial_log.jsonl       bitácora de pruebas (hash de config, N)
-  - src/ml/trial_stats.py           Deflated Sharpe correcto (el de
-                                     src/ml/purged_cv.py tiene la escala mal)
+  - src/ml/trial_stats.py           núcleo único del Deflated Sharpe (PSR, SR0, bitácora);
+                                     src/ml/purged_cv.py y src/ml/trials.py delegan en él
+                                     (antes el de purged_cv.py tenía la escala mal: ya corregido)
   - scripts/backtest_core_satellite.py  el backtest honesto vigente
                                      (--policy mecanico|veto|llm)
 
@@ -60,8 +61,10 @@ async def schema_evaluacion(args: dict) -> dict:
                 "data/eval/trial_log.jsonl — una fila por corrida de "
                 "backtest, con hash de su configuración (sube N solo con "
                 "configuraciones distintas, no con cambios de costo). "
-                "Deflated Sharpe correcto: src/ml/trial_stats.py (el de "
-                "purged_cv.py tiene la escala mal, no usarlo). "
+                "Deflated Sharpe: núcleo único en src/ml/trial_stats.py; "
+                "purged_cv.py y trials.py delegan en él (misma fórmula y misma "
+                "bitácora; N por familia con n_trials(familia) o global con "
+                "count_trials()). "
                 "Backtest vigente: scripts/backtest_core_satellite.py "
                 "(--policy mecanico=regla sola, veto=regla+Haiku, "
                 "llm=Haiku repartiendo libre, histórico). "
