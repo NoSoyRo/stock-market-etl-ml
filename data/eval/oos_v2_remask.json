@@ -1,0 +1,169 @@
+{
+  "generated_at": "2026-11-12T19:18:48",
+  "seed": 42,
+  "preregistro": "avances/2026-11-09_oos_v2_preregistro.md",
+  "window": [
+    "2026-06-19",
+    "2026-10-21"
+  ],
+  "meta": {
+    "frozen": {
+      "train_end": "2023-03-08",
+      "n_train": 103559,
+      "n_train_ridge": 103559
+    },
+    "refit": {
+      "train_end": "2026-06-09",
+      "n_train": 129994,
+      "n_train_ridge": 129994
+    }
+  },
+  "results": {
+    "E-frozen": {
+      "ic": {
+        "mean": -0.1370715493712502,
+        "std": 0.17471834400225236,
+        "t": -3.1381146645822873,
+        "n": 16,
+        "se": 0.02857331908921223,
+        "ci_lo": -0.19482907305716832,
+        "ci_hi": -0.0861322011929872
+      },
+      "n_periods": 19,
+      "turnover": 0.2526315789473685,
+      "gross_pct": 0.0012235159360058925,
+      "ew_gross_pct": 0.2492772426272062,
+      "net030_pct": -0.15035543143241523,
+      "ew_net030_pct": 0.2307013912340173,
+      "excess_net030_pct": -0.38105682266643254,
+      "excess_gross_pct": -0.24805372669120035,
+      "excess_gross_t": -1.3025156622495788,
+      "breakeven_per_side_pct": 0.0024215419566783283,
+      "sharpe_net030": -0.5831599005537486,
+      "pctile_vs_random_topk": 15.2,
+      "verdict": {
+        "S1": false,
+        "S2": false,
+        "label": "falla grosera",
+        "leak_alarm": false
+      }
+    },
+    "R-frozen": {
+      "ic": {
+        "mean": -0.046730338222648216,
+        "std": 0.15886964704368078,
+        "t": -1.2821380653914016,
+        "n": 19,
+        "se": 0.031262988997597836,
+        "ci_lo": -0.09674340565057633,
+        "ci_hi": 0.021531502553174358
+      },
+      "n_periods": 19,
+      "turnover": 0.23157894736842102,
+      "gross_pct": 0.4848813718597123,
+      "ew_gross_pct": 0.2492772426272062,
+      "net030_pct": 0.3459340034386597,
+      "ew_net030_pct": 0.2307013912340173,
+      "excess_net030_pct": 0.11523261220464237,
+      "excess_gross_pct": 0.2356041292325061,
+      "excess_gross_t": 0.9506656445772976,
+      "breakeven_per_side_pct": 1.0469029619698336,
+      "sharpe_net030": 1.3452498420276893,
+      "pctile_vs_random_topk": 84.6,
+      "verdict": {
+        "S1": false,
+        "S2": true,
+        "label": "falla grosera",
+        "leak_alarm": false
+      }
+    },
+    "E-refit": {
+      "ic": {
+        "mean": -0.012909132496167333,
+        "std": 0.16199952855737676,
+        "t": -0.3473442453855098,
+        "n": 19,
+        "se": 0.024321509426270628,
+        "ci_lo": -0.055789509441289596,
+        "ci_hi": 0.03821337112501324
+      },
+      "n_periods": 19,
+      "turnover": 0.24210526315789477,
+      "gross_pct": 0.14636378636323513,
+      "ew_gross_pct": 0.2492772426272062,
+      "net030_pct": 0.0011006284684982543,
+      "ew_net030_pct": 0.2307013912340173,
+      "excess_net030_pct": -0.22960076276551905,
+      "excess_gross_pct": -0.1029134562639711,
+      "excess_gross_t": -0.4305328202670227,
+      "breakeven_per_side_pct": 0.3022730370545073,
+      "sharpe_net030": 0.003588117377858432,
+      "pctile_vs_random_topk": 30.4,
+      "verdict": {
+        "S1": false,
+        "S2": false,
+        "label": "falla grosera",
+        "leak_alarm": false
+      }
+    },
+    "R-refit": {
+      "ic": {
+        "mean": -0.049946968291869925,
+        "std": 0.16665220298060357,
+        "t": -1.3063960957409653,
+        "n": 19,
+        "se": 0.033274321854101785,
+        "ci_lo": -0.10070194664144405,
+        "ci_hi": 0.0251797902175224
+      },
+      "n_periods": 19,
+      "turnover": 0.18947368421052632,
+      "gross_pct": 0.17952860188924377,
+      "ew_gross_pct": 0.2492772426272062,
+      "net030_pct": 0.06584439136292797,
+      "ew_net030_pct": 0.2307013912340173,
+      "excess_net030_pct": -0.16485699987108934,
+      "excess_gross_pct": -0.06974864073796244,
+      "excess_gross_t": -0.3016056677642929,
+      "breakeven_per_side_pct": 0.4737560327632822,
+      "sharpe_net030": 0.26009633828339374,
+      "pctile_vs_random_topk": 36.0,
+      "verdict": {
+        "S1": false,
+        "S2": false,
+        "label": "falla grosera",
+        "leak_alarm": false
+      }
+    },
+    "REV": {
+      "ic": {
+        "mean": -0.10196416736165063,
+        "std": 0.18594558489658725,
+        "t": -2.3902234712315593,
+        "n": 19,
+        "se": 0.03074138186783588,
+        "ci_lo": -0.1555145247055451,
+        "ci_hi": -0.035268322041735425
+      },
+      "n_periods": 19,
+      "turnover": 0.7526315789473685,
+      "gross_pct": -0.8408205799995195,
+      "ew_gross_pct": 0.24154529093438284,
+      "net030_pct": -1.2923995273679405,
+      "ew_net030_pct": 0.2219843565127672,
+      "excess_net030_pct": -1.514383883880708,
+      "excess_gross_pct": -1.0823658709339024,
+      "excess_gross_t": -2.6753494479719557,
+      "breakeven_per_side_pct": -0.5585870986010794,
+      "sharpe_net030": -4.438488901512237,
+      "pctile_vs_random_topk": 0.0,
+      "verdict": {
+        "S1": false,
+        "S2": false,
+        "label": "falla grosera",
+        "leak_alarm": false
+      }
+    }
+  },
+  "n_trials_logged": 5
+}

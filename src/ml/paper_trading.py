@@ -321,3 +321,34 @@ def compute_stats(trades: list[Trade], initial_capital: float) -> dict:
         "max_drawdown":round(float(max_dd), 2),
         "equity_final":round(initial_capital + total_pnl, 2),
     }
+
+
+# ─── Regla congelada y canasta contrafactual (M13; detrás de flag) ───────────
+
+PAPER_LOG_ENABLED = False          # apagado: nada existente lo llama
+PAPER_LOG_DIR     = DATA_DIR / "paper_log"
+
+
+def freeze_rule(cfg: dict) -> str:
+    """Hash de la regla (modelo, K, umbrales...) para congelarla antes de la 1ª señal."""
+    import hashlib
+    blob = json.dumps(cfg, sort_keys=True, default=str)
+    return hashlib.sha256(blob.encode()).hexdigest()[:16]
+
+
+def log_counterfactual(signal_date: str, universe: list[str], picks: list[str],
+                       rule_hash: str, *, seed: int = 0,
+                       enabled: bool | None = None, out_dir: Path | None = None) -> Path | None:
+    """Guarda en data/paper_log/<fecha>.json: picks del modelo, equiponderado y aleatorio (semilla)."""
+    if not (PAPER_LOG_ENABLED if enabled is None else enabled):
+        return None
+    rng = np.random.default_rng(seed)
+    rand = sorted(rng.choice(sorted(universe), size=len(picks), replace=False).tolist())
+    d = out_dir or PAPER_LOG_DIR
+    d.mkdir(parents=True, exist_ok=True)
+    path = d / f"{signal_date}.json"
+    path.write_text(json.dumps({
+        "signal_date": signal_date, "rule_hash": rule_hash, "seed": seed,
+        "model": sorted(picks), "equal_weight": sorted(universe), "random": rand,
+    }, indent=2))
+    return path

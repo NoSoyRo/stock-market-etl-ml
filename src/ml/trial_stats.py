@@ -19,15 +19,34 @@ TRIAL_LOG = ROOT / "data" / "eval" / "trial_log.jsonl"
 EULER = 0.5772156649
 
 
+def sr0_from_std(n_trials: int, sr_std: float) -> float:
+    """SR0 del paper: Sharpe máximo esperado por azar entre `n_trials` ensayos, en las
+    mismas unidades que `sr_std` (desviación del Sharpe entre ensayos)."""
+    if n_trials <= 1 or sr_std <= 0:
+        return 0.0
+    z1 = stats.norm.ppf(1 - 1.0 / n_trials)
+    z2 = stats.norm.ppf(1 - 1.0 / (n_trials * np.e))
+    return float(sr_std * ((1 - EULER) * z1 + EULER * z2))
+
+
 def expected_max_sharpe(n_trials: int, years: float) -> float:
     """Mejor Sharpe anual esperado entre n_trials estrategias sin habilidad.
     El Sharpe anual estimado con `years` años tiene desviación ~1/sqrt(years)."""
     if n_trials <= 1 or years <= 0:
         return 0.0
-    sd = 1.0 / np.sqrt(years)
-    z1 = stats.norm.ppf(1 - 1.0 / n_trials)
-    z2 = stats.norm.ppf(1 - 1.0 / (n_trials * np.e))
-    return float(sd * ((1 - EULER) * z1 + EULER * z2))
+    return sr0_from_std(n_trials, 1.0 / np.sqrt(years))
+
+
+def probabilistic_sharpe_ratio(sharpe_obs: float, n_obs: int, sharpe_ref: float = 0.0,
+                               skewness: float = 0.0, kurtosis: float = 3.0) -> float:
+    """PSR (Bailey y López de Prado 2014): P(Sharpe verdadero > sharpe_ref).
+
+    PSR = Φ[(SR − SR*)·√(T−1) / √(1 − γ3·SR + (γ4−1)/4·SR²)], con SR POR PERIODO (sin
+    anualizar) y γ4 = curtosis NO excedente (normal = 3). Es el núcleo único del DSR:
+    `purged_cv.py` delega aquí."""
+    denom = 1 - skewness * sharpe_obs + (kurtosis - 1) / 4 * sharpe_obs**2
+    z = (sharpe_obs - sharpe_ref) * np.sqrt(n_obs - 1) / np.sqrt(max(denom, 1e-12))
+    return float(stats.norm.cdf(z))
 
 
 def deflated_sharpe(daily_returns: np.ndarray, n_trials: int, periods: int = 252) -> dict:
@@ -42,8 +61,7 @@ def deflated_sharpe(daily_returns: np.ndarray, n_trials: int, periods: int = 252
     sr0 = expected_max_sharpe(n_trials, t / periods) / np.sqrt(periods)
     skew = float(stats.skew(r))
     kurt = float(stats.kurtosis(r, fisher=False))
-    denom = np.sqrt(max(1e-12, 1 - skew * sr + (kurt - 1) / 4 * sr**2))
-    dsr = stats.norm.cdf((sr - sr0) * np.sqrt(t - 1) / denom)
+    dsr = probabilistic_sharpe_ratio(sr, t, sr0, skew, kurt)
     return {
         "sharpe_anual": round(float(sr * np.sqrt(periods)), 3),
         "sr0_anual": round(float(sr0 * np.sqrt(periods)), 3),

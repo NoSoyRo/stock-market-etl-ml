@@ -1,0 +1,412 @@
+{
+ "generado": "2026-11-12",
+ "fuente_hechos": "2025-06-30 → 2026-10-29 (229 días, 4986 códigos)",
+ "n_tickers_mx": 40,
+ "n_mapeados": 39,
+ "n_confianza_alta": 36,
+ "sin_mapear": [
+  "NAFTRAC"
+ ],
+ "mapa": {
+  "AC": {
+   "ticker": "AC",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9821,
+   "segundo_corr": 0.6524
+  },
+  "ALFAA": {
+   "ticker": "ALFAA",
+   "metodo": "nombre",
+   "confianza": "baja",
+   "corr": null,
+   "segundo_corr": null
+  },
+  "ALSEA": {
+   "ticker": "ALSEA",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9921,
+   "segundo_corr": 0.5427
+  },
+  "AMXB": {
+   "ticker": "AMXB",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9874,
+   "segundo_corr": 0.7452
+  },
+  "ASURB": {
+   "ticker": "ASURB",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9735,
+   "segundo_corr": 0.6666
+  },
+  "BIMBOA": {
+   "ticker": "BIMBOA",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9865,
+   "segundo_corr": 0.6556
+  },
+  "BOLSAA": {
+   "ticker": "BOLSAA",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9352,
+   "segundo_corr": 0.4906
+  },
+  "CEMEXCPO": {
+   "ticker": "CEMEXCPO",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9689,
+   "segundo_corr": 0.7478
+  },
+  "CHDRAUIB": {
+   "ticker": "CHDRAUIB",
+   "metodo": "nombre",
+   "confianza": "media",
+   "corr": 0.8602,
+   "segundo_corr": 0.5707
+  },
+  "CUERVO": {
+   "ticker": "CUERVO",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9747,
+   "segundo_corr": 0.5382
+  },
+  "FEMSAUBD": {
+   "ticker": "FEMSAUBD",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9783,
+   "segundo_corr": 0.6349
+  },
+  "FIBRAPL14": {
+   "ticker": "FIBRAPL14",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9659,
+   "segundo_corr": 0.5243
+  },
+  "FINN13": {
+   "ticker": "FINN13",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.955,
+   "segundo_corr": 0.3412
+  },
+  "FUNO11": {
+   "ticker": "FUNO11",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9557,
+   "segundo_corr": 0.6028
+  },
+  "GAPB": {
+   "ticker": "GAPB",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.987,
+   "segundo_corr": 0.6341
+  },
+  "GCARSOA1": {
+   "ticker": "GCARSOA1",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9679,
+   "segundo_corr": 0.6014
+  },
+  "GCC": {
+   "ticker": "GCC",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9559,
+   "segundo_corr": 0.5666
+  },
+  "GENTERA*": {
+   "ticker": "GENTERA",
+   "metodo": "alias",
+   "confianza": "alta",
+   "corr": 0.981,
+   "segundo_corr": 0.5611
+  },
+  "GFINBURO": {
+   "ticker": "GFINBURO",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9717,
+   "segundo_corr": 0.5588
+  },
+  "GFNORTEO": {
+   "ticker": "GFNORTEO",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9796,
+   "segundo_corr": 0.6905
+  },
+  "GMEXICOB": {
+   "ticker": "GMEXICOB",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9777,
+   "segundo_corr": 0.6822
+  },
+  "GRUMAB": {
+   "ticker": "GRUMAB",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9737,
+   "segundo_corr": 0.5757
+  },
+  "HERDEZ": {
+   "ticker": "HERDEZ",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9738,
+   "segundo_corr": 0.3382
+  },
+  "HOTEL": {
+   "ticker": "HOTEL",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9518,
+   "segundo_corr": 0.2671
+  },
+  "KIMBERA": {
+   "ticker": "KIMBERA",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9777,
+   "segundo_corr": 0.6204
+  },
+  "KOFUBL": {
+   "ticker": "KOFUBL",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.944,
+   "segundo_corr": 0.6523
+  },
+  "LABB": {
+   "ticker": "LABB",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9795,
+   "segundo_corr": 0.5681
+  },
+  "MEGACPO": {
+   "ticker": "MEGACPO",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9781,
+   "segundo_corr": 0.6093
+  },
+  "NAFTRACISHRS": {
+   "ticker": "NAFTRACISHRS",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9543,
+   "segundo_corr": 0.4664
+  },
+  "OMAB": {
+   "ticker": "OMAB",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9453,
+   "segundo_corr": 0.6161
+  },
+  "ORBIA": {
+   "ticker": "ORBIA",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9873,
+   "segundo_corr": 0.5018
+  },
+  "PINFRA": {
+   "ticker": "PINFRA",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9849,
+   "segundo_corr": 0.6496
+  },
+  "POSADASA": {
+   "ticker": "POSADASA",
+   "metodo": "nombre",
+   "confianza": "baja",
+   "corr": null,
+   "segundo_corr": null
+  },
+  "Q": {
+   "ticker": "Q",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9773,
+   "segundo_corr": 0.5208
+  },
+  "TLEVISACPO": {
+   "ticker": "TLEVISACPO",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9865,
+   "segundo_corr": 0.5768
+  },
+  "VESTA": {
+   "ticker": "VESTA",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9341,
+   "segundo_corr": 0.5854
+  },
+  "VISTAA": {
+   "ticker": "VISTAA",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.967,
+   "segundo_corr": 0.3535
+  },
+  "VOLARA": {
+   "ticker": "VOLARA",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9895,
+   "segundo_corr": 0.4788
+  },
+  "WALMEX": {
+   "ticker": "WALMEX",
+   "metodo": "nombre",
+   "confianza": "alta",
+   "corr": 0.9531,
+   "segundo_corr": 0.7608
+  }
+ },
+ "dias_faltantes_hechos": {
+  "captura": [
+   "2025-09-12",
+   "2025-11-19",
+   "2026-03-09",
+   "2026-04-24",
+   "2026-04-27",
+   "2026-04-28",
+   "2026-04-29",
+   "2026-04-30",
+   "2026-05-04",
+   "2026-05-05",
+   "2026-05-06",
+   "2026-05-07",
+   "2026-05-08",
+   "2026-05-11",
+   "2026-05-12",
+   "2026-05-13",
+   "2026-05-14",
+   "2026-05-15",
+   "2026-05-18",
+   "2026-05-19",
+   "2026-05-20",
+   "2026-05-21",
+   "2026-05-22",
+   "2026-05-25",
+   "2026-05-26",
+   "2026-05-27",
+   "2026-05-28",
+   "2026-05-29",
+   "2026-06-01",
+   "2026-06-02",
+   "2026-06-03",
+   "2026-06-04",
+   "2026-06-05",
+   "2026-06-08",
+   "2026-06-09",
+   "2026-06-10",
+   "2026-06-11",
+   "2026-06-12",
+   "2026-06-15",
+   "2026-06-16",
+   "2026-06-17",
+   "2026-06-18",
+   "2026-06-19",
+   "2026-06-22",
+   "2026-06-23",
+   "2026-06-24",
+   "2026-06-25",
+   "2026-06-29",
+   "2026-06-30",
+   "2026-07-01",
+   "2026-07-02",
+   "2026-07-03",
+   "2026-07-06",
+   "2026-07-07",
+   "2026-07-08",
+   "2026-07-09",
+   "2026-07-10",
+   "2026-07-13",
+   "2026-07-14",
+   "2026-07-15",
+   "2026-07-16",
+   "2026-07-17",
+   "2026-07-20",
+   "2026-07-21",
+   "2026-07-22",
+   "2026-07-23",
+   "2026-07-24",
+   "2026-07-27",
+   "2026-07-28",
+   "2026-07-29",
+   "2026-07-30",
+   "2026-07-31",
+   "2026-08-04",
+   "2026-08-06",
+   "2026-08-07",
+   "2026-08-12",
+   "2026-08-14",
+   "2026-08-17",
+   "2026-08-18",
+   "2026-08-21",
+   "2026-08-24",
+   "2026-08-25",
+   "2026-08-27",
+   "2026-08-28",
+   "2026-08-31",
+   "2026-09-01",
+   "2026-09-03",
+   "2026-09-04",
+   "2026-09-07",
+   "2026-09-08",
+   "2026-09-11",
+   "2026-09-18",
+   "2026-09-21",
+   "2026-09-22",
+   "2026-09-23",
+   "2026-09-25",
+   "2026-09-29",
+   "2026-09-30",
+   "2026-10-02",
+   "2026-10-05",
+   "2026-10-08",
+   "2026-10-09",
+   "2026-10-12",
+   "2026-10-15",
+   "2026-10-16",
+   "2026-10-19",
+   "2026-10-22",
+   "2026-10-23",
+   "2026-10-26",
+   "2026-10-30"
+  ],
+  "sin_mercado": [
+   "2025-09-16",
+   "2025-11-17",
+   "2025-12-12",
+   "2025-12-25",
+   "2026-01-01",
+   "2026-02-02",
+   "2026-03-16",
+   "2026-04-02",
+   "2026-04-03",
+   "2026-05-01",
+   "2026-09-16"
+  ]
+ }
+}

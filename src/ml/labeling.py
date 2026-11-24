@@ -44,6 +44,9 @@ def triple_barrier_labels(
     horizon:     int   = 5,
     mult_target: float = 1.5,
     mult_stop:   float = 1.5,
+    open_:       pd.Series | None = None,
+    entry:       str   = "close",
+    tie_break:   str   = "target",
 ) -> pd.DataFrame:
     """
     Calcula labels triple-barrier para cada fecha de la serie.
@@ -54,17 +57,38 @@ def triple_barrier_labels(
         low:         Serie de mínimos diarios.
         vol:         Volatilidad relativa por fila (ej. atr_pct = ATR/precio).
                      Define el ancho de las barreras.
-        horizon:     Días hábiles hasta la barrera vertical.
+        horizon:     Barras hasta la barrera vertical.
         mult_target: Múltiplo de vol para la barrera superior (target).
         mult_stop:   Múltiplo de vol para la barrera inferior (stop).
+        open_:       Serie de aperturas. Obligatoria con entry="next_open" o
+                     tie_break="gap_aware".
+        entry:       Regla de entrada.
+                       "close"     → Close[i] (default, comportamiento histórico).
+                       "next_open" → Open[i+1]; el horizonte cuenta desde esa
+                                     barra (vertical en i+1+horizon, igual que
+                                     `compute_target(use_open_entry=True)`).
+        tie_break:   Qué pasa si una misma vela toca ambas barreras.
+                       "target"    → gana el target (optimista, default histórico).
+                       "stop"      → gana el stop (conservador).
+                       "gap_aware" → si el Open ya abre más allá de una barrera,
+                                     el llenado es al Open (no al precio de la
+                                     barrera); si no hay gap y se tocan ambas,
+                                     gana el stop.
 
     Returns:
         DataFrame alineado con `close` con columnas:
           - label  (int):   1 = trade ganador, 0 = perdedor
           - touch  (str):   "target" | "stop" | "time"
           - ret    (float): retorno realizado (%) del trade
-          - bars   (int):   barras hasta el cierre del trade
+          - bars   (int):   barras desde la señal hasta el cierre del trade
     """
+    if entry not in ("close", "next_open"):
+        raise ValueError("entry debe ser 'close' o 'next_open'")
+    if tie_break not in ("target", "stop", "gap_aware"):
+        raise ValueError("tie_break debe ser 'target', 'stop' o 'gap_aware'")
+    if (entry == "next_open" or tie_break == "gap_aware") and open_ is None:
+        raise ValueError("open_ es obligatorio con entry='next_open' o tie_break='gap_aware'")
+
     n = len(close)
     idx = close.index
 
@@ -72,6 +96,8 @@ def triple_barrier_labels(
     h = high.values
     l = low.values
     v = vol.values
+    o = open_.reindex(idx).values if open_ is not None else None
+    shift = 1 if entry == "next_open" else 0
 
     labels = np.full(n, np.nan)
     touches = np.empty(n, dtype=object)
@@ -82,12 +108,14 @@ def triple_barrier_labels(
         if i + 1 >= n or np.isnan(v[i]) or v[i] <= 0:
             continue
 
-        # Entrada = apertura del día siguiente (proxy: cierre actual)
-        entry = c[i]
-        up    = entry * (1 + mult_target * v[i])
-        dn    = entry * (1 - mult_stop   * v[i])
+        # Entrada: cierre de la señal, o apertura de la barra siguiente.
+        entry_px = o[i + 1] if entry == "next_open" else c[i]
+        if np.isnan(entry_px) or entry_px <= 0:
+            continue
+        up = entry_px * (1 + mult_target * v[i])
+        dn = entry_px * (1 - mult_stop   * v[i])
 
-        end = min(i + horizon, n - 1)
+        end = min(i + shift + horizon, n - 1)
 
         touched = None
         exit_price = c[end]
@@ -95,19 +123,40 @@ def triple_barrier_labels(
 
         # Recorrer la ventana buscando la primera barrera tocada
         for j in range(i + 1, end + 1):
-            if h[j] >= up:
-                touched, exit_price, nbars = "target", up, j - i
-                break
-            if l[j] <= dn:
-                touched, exit_price, nbars = "stop", dn, j - i
-                break
+            hit_up = h[j] >= up
+            hit_dn = l[j] <= dn
+            if tie_break == "gap_aware":
+                # Gap: el Open ya abrió fuera de una barrera → llenado al Open.
+                if o[j] >= up:
+                    touched, exit_price, nbars = "target", o[j], j - i
+                    break
+                if o[j] <= dn:
+                    touched, exit_price, nbars = "stop", o[j], j - i
+                    break
+                if hit_up and hit_dn:        # ambiguo sin gap: el peor caso
+                    touched, exit_price, nbars = "stop", dn, j - i
+                    break
+            if tie_break == "stop":
+                if hit_dn:
+                    touched, exit_price, nbars = "stop", dn, j - i
+                    break
+                if hit_up:
+                    touched, exit_price, nbars = "target", up, j - i
+                    break
+            else:
+                if hit_up:
+                    touched, exit_price, nbars = "target", up, j - i
+                    break
+                if hit_dn:
+                    touched, exit_price, nbars = "stop", dn, j - i
+                    break
 
         if touched is None:
             # Barrera vertical: clasificar por signo del retorno
             touched = "time"
             exit_price = c[end]
 
-        ret = (exit_price - entry) / entry * 100
+        ret = (exit_price - entry_px) / entry_px * 100
         labels[i]  = 1 if ret > 0 else 0
         touches[i] = touched
         rets[i]    = ret
