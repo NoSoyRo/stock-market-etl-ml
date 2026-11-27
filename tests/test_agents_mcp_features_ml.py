@@ -465,3 +465,53 @@ def test_quant_senior_still_consumes_legacy_tools(fake_forecast, monkeypatch):
     assert forecast["ok"] and forecast["evidencia"] == "sin_skill"
     portfolio = asyncio.run(quant_senior._gather_optimizacion("WALMEX"))
     assert "demo_no_vigente" in portfolio
+
+
+def _real_catalog() -> dict[str, dict]:
+    path = MLService(ROOT).catalog_path
+    catalog = yaml.safe_load(path.read_text(encoding="utf-8"))
+    return {item["id"]: item for item in catalog["modelos"]}
+
+
+def test_real_catalog_every_model_has_resolved_metrics():
+    svc = MLService(ROOT)
+    for model_id in MODEL_IDS:
+        metrics = svc.veredicto_modelo(model_id)["datos"]["metricas"]
+        assert metrics, model_id
+        assert all(v is not None for v in metrics.values()), (model_id, metrics)
+
+
+def test_real_catalog_sources_cover_metric_files_and_exist():
+    for model_id, item in _real_catalog().items():
+        for spec in item["metricas"].values():
+            assert spec["archivo"] in item["fuentes"], (model_id, spec["archivo"])
+        for source in item["fuentes"]:
+            assert (ROOT / source).exists(), (model_id, source)
+
+
+def test_real_catalog_reviewed_verdicts():
+    catalog = _real_catalog()
+    assert catalog["supermodel"]["evidencia"] == "no_evaluado"
+    assert catalog["reversion_5d"]["evidencia"] == "senal_debil_no_explotable"
+    assert catalog["regimen_hmm"]["evidencia"] == "sin_skill"
+
+
+def test_reversion_ic_route_points_to_open_entry_row():
+    """El reporte guarda los IC en una lista: si cambia el orden, esto debe fallar."""
+    specs = _real_catalog()["reversion_5d"]["metricas"]
+    route = specs["ic_open_t1"]["ruta"]
+    assert route.endswith(".mean")
+    report = json.loads((ROOT / specs["ic_open_t1"]["archivo"]).read_text(encoding="utf-8"))
+    row = report["ic"][int(route.split(".")[1])]
+    assert (row["señal"], row["entrada"], row["subconjunto"]) == (
+        "ret_5d", "open_close", "todo",
+    )
+    assert specs["t_open_t1"]["ruta"] == route.replace(".mean", ".t")
+
+
+def test_dot_get_reads_list_positions_and_rejects_bad_ones():
+    data = {"ic": [{"mean": 1}, {"mean": 2}]}
+    assert MLService._dot_get(data, "ic.1.mean") == 2
+    for route in ("ic.2.mean", "ic.-1.mean", "ic.x.mean"):
+        with pytest.raises(KeyError):
+            MLService._dot_get(data, route)

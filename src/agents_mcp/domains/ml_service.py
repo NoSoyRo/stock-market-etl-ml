@@ -84,6 +84,8 @@ class MLService:
         for part in route.split("."):
             if isinstance(cur, dict) and part in cur:
                 cur = cur[part]
+            elif isinstance(cur, list) and part.isdigit() and int(part) < len(cur):
+                cur = cur[int(part)]
             else:
                 raise KeyError(route)
         return cur
