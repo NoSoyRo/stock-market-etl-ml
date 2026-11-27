@@ -1,0 +1,135 @@
+version: 1
+modelos:
+  - id: supermodel
+    nombre: SuperModel
+    estado: produccion
+    evidencia: sin_skill
+    resumen: "Genera y registra señales diariamente, pero no decide el libro vigente y no tiene skill robusto demostrado."
+    fuentes:
+      - docs/SISTEMA_END_TO_END.md
+      - data/eval/agent_scorecard.json
+    metricas: {}
+    limites:
+      - "Producción significa que corre y deja track record; no implica estrategia explotable."
+      - "La decisión del libro corresponde a la regla core-satellite del dominio Lab."
+
+  - id: ridge_rank
+    nombre: Ridge sobre ranks de features
+    estado: investigacion
+    evidencia: senal_debil_no_explotable
+    resumen: "Presenta IC por fecha pequeño pero estadísticamente detectable; no cubre costos realistas de operación."
+    fuentes:
+      - data/eval/n1b_target.json
+      - data/eval/n4_combinacion.json
+      - avances/2026-11-19_ultimo_intento_ml.md
+    metricas:
+      ic_h5: {archivo: data/eval/n1b_target.json, ruta: cfg.ridge_rank_h5.ic}
+      t_nw_h5: {archivo: data/eval/n1b_target.json, ruta: cfg.ridge_rank_h5.t_nw}
+      folds_ic_pos: {archivo: data/eval/n1b_target.json, ruta: cfg.ridge_rank_h5.folds_ic_pos}
+      dsr_global: {archivo: data/eval/n1b_target.json, ruta: cfg.ridge_rank_h5.dsr_global.dsr}
+      ic_s1_n4: {archivo: data/eval/n4_combinacion.json, ruta: meta.ic_score.S1.ic}
+    limites:
+      - "No cubre el costo realista, cuya mediana estimada fue aproximadamente 0.54 % por lado."
+      - "La señal es útil como evidencia de ranking, no como recomendación operable."
+
+  - id: lightgbm_ranking
+    nombre: LightGBM de ranking
+    estado: investigacion
+    evidencia: sin_skill
+    resumen: "Permanece como modelo experimental; no existe evidencia suficiente para usarlo como decisor del libro."
+    fuentes:
+      - docs/SISTEMA_END_TO_END.md
+      - avances/2026-11-19_ultimo_intento_ml.md
+    metricas: {}
+    limites:
+      - "La complejidad adicional no produjo una ventaja robusta frente a modelos simples."
+
+  - id: woe
+    nombre: Weight of Evidence (WoE)
+    estado: descartado
+    evidencia: sin_skill
+    resumen: "La señal WoE no mejora de forma útil la tasa base y el baseline honesto queda como referencia reproducible."
+    fuentes:
+      - data/eval/agent_scorecard.json
+      - data/eval/purged_logistic_results.json
+    metricas:
+      brier: {archivo: data/eval/agent_scorecard.json, ruta: agentes.woe.brier}
+      brier_tasa_base: {archivo: data/eval/agent_scorecard.json, ruta: agentes.woe.brier_tasa_base}
+      skill_brier: {archivo: data/eval/agent_scorecard.json, ruta: agentes.woe.skill_brier}
+      purged_auc: {archivo: data/eval/purged_logistic_results.json, ruta: aggregate.mean_auc}
+      purged_dsr: {archivo: data/eval/purged_logistic_results.json, ruta: aggregate.deflated_sharpe_ratio}
+    limites:
+      - "El baseline no demuestra una ventaja explotable después de considerar múltiples pruebas."
+
+  - id: lstm_tcn
+    nombre: LSTM y TCN
+    estado: descartado
+    evidencia: sin_skill
+    resumen: "Las redes temporales quedaron cerca del azar; con señal débil aumentó el riesgo de sobreajuste."
+    fuentes:
+      - docs/SISTEMA_END_TO_END.md
+      - avances/2026-11-19_ultimo_intento_ml.md
+    metricas: {}
+    limites:
+      - "Mayor capacidad no compensó la baja relación señal/ruido."
+
+  - id: regimen_hmm
+    nombre: Régimen HMM
+    estado: investigacion
+    evidencia: no_evaluado
+    resumen: "Se conserva como descriptor de régimen; no hay evidencia independiente suficiente para tratarlo como alpha operable."
+    fuentes:
+      - docs/SISTEMA_END_TO_END.md
+      - data/eval/agent_scorecard.json
+    metricas: {}
+    limites:
+      - "Un régimen descriptivo no equivale por sí mismo a capacidad predictiva explotable."
+
+  - id: ising
+    nombre: Graph-Ising
+    estado: descartado
+    evidencia: sin_skill
+    resumen: "Se investigó como señal emergente de presión de mercado sin evidencia robusta de separación."
+    fuentes:
+      - docs/SISTEMA_END_TO_END.md
+      - avances/2026-11-19_ultimo_intento_ml.md
+    metricas: {}
+    limites:
+      - "No debe presentarse como modelo operativo."
+
+  - id: noticias_sentimiento
+    nombre: Sentimiento de noticias
+    estado: investigacion
+    evidencia: no_evaluado
+    resumen: "La cobertura observada no constituye evidencia de retorno; el scorecard no contaba con panel histórico diario suficiente."
+    fuentes:
+      - data/eval/agent_scorecard.json
+    metricas:
+      tickers_con_articulos: {archivo: data/eval/agent_scorecard.json, ruta: agentes.noticias.cobertura.n_tickers_con_articulos}
+      sentimiento_medio: {archivo: data/eval/agent_scorecard.json, ruta: agentes.noticias.cobertura.sentimiento_medio}
+    limites:
+      - "Ausencia de cobertura no significa sentimiento neutral."
+      - "El dominio Noticias es responsable de las consultas de evidencia periodística."
+
+  - id: reversion_5d
+    nombre: Reversión a 5 días
+    estado: descartado
+    evidencia: sin_skill
+    resumen: "La reversión se probó como idea de señal, pero no produjo alpha neto robusto."
+    fuentes:
+      - avances/2026-11-19_ultimo_intento_ml.md
+    metricas: {}
+    limites:
+      - "No usar retrospectivamente la mejor variante sin preregistro."
+
+  - id: vol_targeting
+    nombre: Volatility targeting
+    estado: investigacion
+    evidencia: senal_debil_no_explotable
+    resumen: "Reduce drawdown en varios folds, pero con costo realista pierde Sharpe; su valor observado es de control de riesgo."
+    fuentes:
+      - avances/2026-11-19_ultimo_intento_ml.md
+      - data/eval/n4_combinacion.json
+    metricas: {}
+    limites:
+      - "La mejora de drawdown se concentra en periodos de estrés y no implica alpha."
