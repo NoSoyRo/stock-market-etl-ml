@@ -3,9 +3,12 @@ from __future__ import annotations
 
 import asyncio
 from datetime import datetime, timezone
+import importlib
 import json
 from pathlib import Path
+import sys
 import time
+import types
 
 import pytest
 import yaml
@@ -280,6 +283,8 @@ def test_agent_limits_prompt_and_orchestrator_compatibility(root):
     options = agent.build_options()
     assert agent.name == "features-ml"
     assert options.tools == []
+    assert options.strict_mcp_config is True
+    assert options.setting_sources == []
     assert options.max_turns == fm.MAX_TURNS
     assert options.max_budget_usd == fm.MAX_BUDGET_USD
     assert set(t.name for t in agent.tools) == set(_tools(root))
@@ -303,3 +308,210 @@ def test_agent_limits_prompt_and_orchestrator_compatibility(root):
 
     orch = build_options()
     assert orch is not None
+
+
+def _set_evidence(root: Path, model_id: str, value: str) -> None:
+    path = MLService(root).catalog_path
+    catalog = yaml.safe_load(path.read_text(encoding="utf-8"))
+    for item in catalog["modelos"]:
+        if item["id"] == model_id:
+            item["evidencia"] = value
+    path.write_text(yaml.safe_dump(catalog, allow_unicode=True), encoding="utf-8")
+
+
+def _all_calls() -> dict[str, dict]:
+    return {
+        "schema_features_ml": {},
+        "registro_experimentos": {},
+        "veredicto_modelo": {"modelo": "supermodel"},
+        "senales_recientes": {},
+        "estado_track_record": {},
+        "calcular_dsr": {"sharpe_anual": 1.0, "anios": 3.0},
+        "plan_experimento": {
+            "hipotesis": "h",
+            "familia": "fam_a",
+            "config": {"alpha": 9},
+            "criterio_exito": "DSR > 0.95",
+        },
+        "pronostico_precio": {"ticker": "WALMEX"},
+        "recomendar_portafolio": {},
+    }
+
+
+@pytest.fixture
+def fake_forecast(monkeypatch):
+    """Evita el cómputo real de scripts/forecast_horizons.py."""
+    import pandas as pd
+
+    import scripts.forecast_horizons as fh
+
+    def run(ticker, model, label, days):
+        return {
+            "cutoff_date": "2026-09-10",
+            "price0": 100.0,
+            "daily": pd.DataFrame({"price_model": [101.0]}),
+            "mae_model": 1.0,
+            "mae_naive": 2.0,
+        }
+
+    monkeypatch.setattr(fh, "run_sin_ancla", run)
+
+
+def test_every_tool_returns_full_contract(root, fake_forecast):
+    registry = _tools(root)
+    calls = _all_calls()
+    assert set(calls) == set(registry)
+    for name, args in calls.items():
+        payload = _call(registry, name, args)
+        for key in ("as_of", "advertencias", "datos"):
+            assert key in payload, (name, key)
+
+
+def test_evidence_labels_come_from_catalog(root):
+    _set_evidence(root, "supermodel", "senal_debil_no_explotable")
+    registry = _tools(root)
+    verdict = _call(registry, "veredicto_modelo", {"modelo": "supermodel"})
+    signals = _call(registry, "senales_recientes")
+    assert verdict["evidencia"] == "senal_debil_no_explotable"
+    assert signals["evidencia"] == "senal_debil_no_explotable"
+
+
+def test_signals_without_catalog_are_labelled_not_evaluated(root):
+    MLService(root).catalog_path.unlink()
+    signals = _call(_tools(root), "senales_recientes")
+    assert signals["ok"]
+    assert signals["evidencia"] == "no_evaluado"
+    assert any("catálogo" in w for w in signals["advertencias"])
+
+
+@pytest.mark.parametrize("content", ["modelos: [sin cerrar", "- 1\n- 2\n", "modelos: 5\n"])
+def test_tools_never_raise_with_broken_catalog(root, fake_forecast, content):
+    MLService(root).catalog_path.write_text(content, encoding="utf-8")
+    registry = _tools(root)
+    for name, args in _all_calls().items():
+        _call(registry, name, args)
+    for name, args in (
+        ("schema_features_ml", {}),
+        ("veredicto_modelo", {"modelo": "supermodel"}),
+    ):
+        assert _call(registry, name, args)["error_tipo"] == "archivo_ausente"
+
+
+def test_tools_never_raise_with_broken_trial_log(root, fake_forecast):
+    path = root / "data" / "eval" / "trial_log.jsonl"
+    path.write_text("[1]\n", encoding="utf-8")
+    registry = _tools(root)
+    for name, args in _all_calls().items():
+        payload = _call(registry, name, args)
+        assert payload["n_trials_global"] is None, name
+
+
+def test_dsr_without_trial_count_is_an_error(root):
+    path = root / "data" / "eval" / "trial_log.jsonl"
+    path.write_text("[1]\n", encoding="utf-8")
+    result = _call(_tools(root), "calcular_dsr", {"sharpe_anual": 1.0, "anios": 3.0})
+    assert result["error_tipo"] == "archivo_ausente"
+
+
+def test_plan_experimento_includes_text_draft(root):
+    result = MLService(root).plan_experimento(
+        "la reversión mejora el IC", "fam_a", {"alpha": 9}, "DSR > 0.95"
+    )
+    draft = result["datos"]["borrador"]
+    assert isinstance(draft, str)
+    for piece in (
+        "la reversión mejora el IC",
+        "fam_a",
+        result["datos"]["preregistro"]["config_hash"],
+        '"alpha": 9',
+        "DSR > 0.95",
+    ):
+        assert piece in draft
+
+
+def test_track_record_empty_index_has_null_as_of(root):
+    svc = MLService(root)
+    (svc.signals_dir / "index.json").write_text('{"entries": []}', encoding="utf-8")
+    result = svc.estado_track_record()
+    assert result["ok"]
+    assert result["as_of"] is None
+
+
+def test_dsr_matches_trial_stats_deflated_sharpe(root):
+    import numpy as np
+    from scipy import stats
+
+    returns = np.random.default_rng(7).normal(0.0008, 0.01, 756)
+    expected = trial_stats.deflated_sharpe(returns, n_trials=50)
+    result = MLService(root).calcular_dsr(
+        returns.mean() / returns.std(ddof=1) * np.sqrt(252),
+        len(returns) / 252,
+        n_trials=50,
+        skew=float(stats.skew(returns)),
+        kurtosis=float(stats.kurtosis(returns, fisher=False)),
+    )
+    assert round(result["datos"]["dsr"], 3) == expected["dsr"]
+    assert round(result["datos"]["sr0_anual"], 3) == expected["sr0_anual"]
+
+
+def test_quant_senior_still_consumes_legacy_tools(fake_forecast, monkeypatch):
+    # quant_senior importa `anthropic` al cargar, pero estas dos etapas no lo usan.
+    if importlib.util.find_spec("anthropic") is None:
+        monkeypatch.setitem(sys.modules, "anthropic", types.ModuleType("anthropic"))
+        monkeypatch.delitem(sys.modules, "src.agents_mcp.quant_senior", raising=False)
+    quant_senior = importlib.import_module("src.agents_mcp.quant_senior")
+
+    forecast = json.loads(asyncio.run(quant_senior._gather_ml("WALMEX")))
+    assert forecast["ok"] and forecast["evidencia"] == "sin_skill"
+    portfolio = asyncio.run(quant_senior._gather_optimizacion("WALMEX"))
+    assert "demo_no_vigente" in portfolio
+
+
+def _real_catalog() -> dict[str, dict]:
+    path = MLService(ROOT).catalog_path
+    catalog = yaml.safe_load(path.read_text(encoding="utf-8"))
+    return {item["id"]: item for item in catalog["modelos"]}
+
+
+def test_real_catalog_every_model_has_resolved_metrics():
+    svc = MLService(ROOT)
+    for model_id in MODEL_IDS:
+        metrics = svc.veredicto_modelo(model_id)["datos"]["metricas"]
+        assert metrics, model_id
+        assert all(v is not None for v in metrics.values()), (model_id, metrics)
+
+
+def test_real_catalog_sources_cover_metric_files_and_exist():
+    for model_id, item in _real_catalog().items():
+        for spec in item["metricas"].values():
+            assert spec["archivo"] in item["fuentes"], (model_id, spec["archivo"])
+        for source in item["fuentes"]:
+            assert (ROOT / source).exists(), (model_id, source)
+
+
+def test_real_catalog_reviewed_verdicts():
+    catalog = _real_catalog()
+    assert catalog["supermodel"]["evidencia"] == "no_evaluado"
+    assert catalog["reversion_5d"]["evidencia"] == "senal_debil_no_explotable"
+    assert catalog["regimen_hmm"]["evidencia"] == "sin_skill"
+
+
+def test_reversion_ic_route_points_to_open_entry_row():
+    """El reporte guarda los IC en una lista: si cambia el orden, esto debe fallar."""
+    specs = _real_catalog()["reversion_5d"]["metricas"]
+    route = specs["ic_open_t1"]["ruta"]
+    assert route.endswith(".mean")
+    report = json.loads((ROOT / specs["ic_open_t1"]["archivo"]).read_text(encoding="utf-8"))
+    row = report["ic"][int(route.split(".")[1])]
+    assert (row["señal"], row["entrada"], row["subconjunto"]) == (
+        "ret_5d", "open_close", "todo",
+    )
+    assert specs["t_open_t1"]["ruta"] == route.replace(".mean", ".t")
+
+
+def test_dot_get_reads_list_positions_and_rejects_bad_ones():
+    data = {"ic": [{"mean": 1}, {"mean": 2}]}
+    assert MLService._dot_get(data, "ic.1.mean") == 2
+    for route in ("ic.2.mean", "ic.-1.mean", "ic.x.mean"):
+        with pytest.raises(KeyError):
+            MLService._dot_get(data, route)

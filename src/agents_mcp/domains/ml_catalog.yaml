@@ -3,13 +3,17 @@ modelos:
   - id: supermodel
     nombre: SuperModel
     estado: produccion
-    evidencia: sin_skill
-    resumen: "Genera y registra señales diariamente, pero no decide el libro vigente y no tiene skill robusto demostrado."
+    evidencia: no_evaluado
+    resumen: "Genera y registra señales, pero no decide el libro vigente. No hay evaluación del SuperModel completo, solo de un proxy parcial de su fusión."
     fuentes:
       - docs/SISTEMA_END_TO_END.md
-      - data/eval/agent_scorecard.json
-    metricas: {}
+      - data/eval/experiments.json
+    metricas:
+      proxy_auc_test_stacking: {archivo: data/eval/experiments.json, ruta: exp2_stacking_ab.test_auc_stacking}
+      proxy_auc_test_peso_auc: {archivo: data/eval/experiments.json, ruta: exp2_stacking_ab.test_auc_weight}
     limites:
+      - "Las métricas son de un proxy (ensemble, LightGBM y heurística): sin LSTM, régimen ni noticias."
+      - "Son AUC agrupados, insuficientes por sí solos como evidencia de ranking."
       - "Producción significa que corre y deja track record; no implica estrategia explotable."
       - "La decisión del libro corresponde a la regla core-satellite del dominio Lab."
 
@@ -28,9 +32,11 @@ modelos:
       folds_ic_pos: {archivo: data/eval/n1b_target.json, ruta: cfg.ridge_rank_h5.folds_ic_pos}
       dsr_global: {archivo: data/eval/n1b_target.json, ruta: cfg.ridge_rank_h5.dsr_global.dsr}
       ic_s1_n4: {archivo: data/eval/n4_combinacion.json, ruta: meta.ic_score.S1.ic}
+      ic_2024p_s1_n4: {archivo: data/eval/n4_combinacion.json, ruta: meta.ic_score.S1.ic24}
     limites:
       - "No cubre el costo realista, cuya mediana estimada fue aproximadamente 0.54 % por lado."
       - "La señal es útil como evidencia de ranking, no como recomendación operable."
+      - "El IC se debilita en 2024+: comparar ic_2024p_s1_n4 (h21) contra ic_s1_n4."
 
   - id: lightgbm_ranking
     nombre: LightGBM de ranking
@@ -40,9 +46,17 @@ modelos:
     fuentes:
       - docs/SISTEMA_END_TO_END.md
       - avances/2026-11-19_ultimo_intento_ml.md
-    metricas: {}
+      - data/eval/n1c_lgbm.json
+    metricas:
+      ic_h5: {archivo: data/eval/n1c_lgbm.json, ruta: cfg.lgbm_rank_aug_h5.ic}
+      t_nw_h5: {archivo: data/eval/n1c_lgbm.json, ruta: cfg.lgbm_rank_aug_h5.t_nw}
+      alfa_neto_h5_pct: {archivo: data/eval/n1c_lgbm.json, ruta: cfg.lgbm_rank_aug_h5.alpha_net_turn_pct}
+      ic_h21: {archivo: data/eval/n1c_lgbm.json, ruta: cfg.lgbm_rank_aug_h21.ic}
+      alfa_neto_h21_pct: {archivo: data/eval/n1c_lgbm.json, ruta: cfg.lgbm_rank_aug_h21.alpha_net_turn_pct}
+      dsr_global_h5: {archivo: data/eval/n1c_lgbm.json, ruta: cfg.lgbm_rank_aug_h5.dsr_global.dsr}
     limites:
       - "La complejidad adicional no produjo una ventaja robusta frente a modelos simples."
+      - "El alfa neto es negativo aun con un costo fijo optimista."
 
   - id: woe
     nombre: Weight of Evidence (WoE)
@@ -68,34 +82,50 @@ modelos:
     resumen: "Las redes temporales quedaron cerca del azar; con señal débil aumentó el riesgo de sobreajuste."
     fuentes:
       - docs/SISTEMA_END_TO_END.md
-      - avances/2026-11-19_ultimo_intento_ml.md
-    metricas: {}
+      - data/eval/lstm_vs_lgbm.json
+    metricas:
+      lstm_auc_walmex: {archivo: data/eval/lstm_vs_lgbm.json, ruta: tickers.WALMEX.aggregate.lstm_seq_mean_auc}
+      lstm_auc_alsea: {archivo: data/eval/lstm_vs_lgbm.json, ruta: tickers.ALSEA.aggregate.lstm_seq_mean_auc}
+      lstm_auc_gmexicob: {archivo: data/eval/lstm_vs_lgbm.json, ruta: tickers.GMEXICOB.aggregate.lstm_seq_mean_auc}
     limites:
+      - "Corrida en modo rápido: 3 emisoras, 2 folds y pocas épocas; solo AUC."
+      - "El reporte cubre LSTM, no TCN."
       - "Mayor capacidad no compensó la baja relación señal/ruido."
 
   - id: regimen_hmm
     nombre: Régimen HMM
     estado: investigacion
-    evidencia: no_evaluado
-    resumen: "Se conserva como descriptor de régimen; no hay evidencia independiente suficiente para tratarlo como alpha operable."
+    evidencia: sin_skill
+    resumen: "Separa los estados por volatilidad, no por dirección; sirve como descriptor y no hay skill direccional."
     fuentes:
-      - docs/SISTEMA_END_TO_END.md
-      - data/eval/agent_scorecard.json
-    metricas: {}
+      - avances/2026-11-05_panel_ideas_ml.md
+      - data/eval/stops_study.json
+    metricas:
+      eta2_volatilidad: {archivo: data/eval/stops_study.json, ruta: regimen.eta2_vol20}
+      eta2_retorno_5d: {archivo: data/eval/stops_study.json, ruta: regimen.eta2_ret5}
+      separa_por_vol_no_direccion: {archivo: data/eval/stops_study.json, ruta: regimen.separa_por_vol_no_direccion}
     limites:
+      - "El HMM se ajustó con toda la muestra (hay look-ahead): las cifras son solo descriptivas."
       - "Un régimen descriptivo no equivale por sí mismo a capacidad predictiva explotable."
 
   - id: ising
     nombre: Graph-Ising
     estado: descartado
     evidencia: sin_skill
-    resumen: "Se investigó como señal emergente de presión de mercado sin evidencia robusta de separación."
+    resumen: "Agregar sus features al baseline casi no cambió el AUC y no cumplió la regla de promoción en h=20 ni en h=5."
     fuentes:
       - docs/SISTEMA_END_TO_END.md
-      - avances/2026-11-19_ultimo_intento_ml.md
-    metricas: {}
+      - data/eval/frontier_ab.json
+      - data/eval/frontier_ab_h5.json
+    metricas:
+      delta_auc_h20: {archivo: data/eval/frontier_ab.json, ruta: verdicts.B_gim.delta_auc}
+      promovido_h20: {archivo: data/eval/frontier_ab.json, ruta: verdicts.B_gim.promote}
+      delta_auc_h5: {archivo: data/eval/frontier_ab_h5.json, ruta: verdicts.B_gim.delta_auc}
+      promovido_h5: {archivo: data/eval/frontier_ab_h5.json, ruta: verdicts.B_gim.promote}
+      regla_promocion: {archivo: data/eval/frontier_ab.json, ruta: promotion_rule}
     limites:
       - "No debe presentarse como modelo operativo."
+      - "La simulación sintética de ising_challenge.json no es evidencia de mercado."
 
   - id: noticias_sentimiento
     nombre: Sentimiento de noticias
@@ -114,12 +144,23 @@ modelos:
   - id: reversion_5d
     nombre: Reversión a 5 días
     estado: descartado
-    evidencia: sin_skill
-    resumen: "La reversión se probó como idea de señal, pero no produjo alpha neto robusto."
+    evidencia: senal_debil_no_explotable
+    resumen: "IC positivo aun entrando al Open siguiente, pero la rotación alta hace que el exceso neto frente al equiponderado sea negativo."
     fuentes:
-      - avances/2026-11-19_ultimo_intento_ml.md
-    metricas: {}
+      - avances/2026-11-05_panel_ideas_ml.md
+      - data/eval/reversal_study.json
+      - data/eval/reversal_study_mask.json
+    metricas:
+      ic_open_t1: {archivo: data/eval/reversal_study.json, ruta: ic.9.mean}
+      t_open_t1: {archivo: data/eval/reversal_study.json, ruta: ic.9.t}
+      pasa_puerta_sin_mascara: {archivo: data/eval/reversal_study.json, ruta: puerta.pasa_puerta}
+      pasa_puerta_con_mascara: {archivo: data/eval/reversal_study_mask.json, ruta: puerta.pasa_puerta}
+      exceso_bruto_vs_ew_pct: {archivo: data/eval/reversal_study.json, ruta: portafolio.exceso_bruto_vs_ew_pct}
+      exceso_neto_vs_ew_pct: {archivo: data/eval/reversal_study.json, ruta: portafolio.exceso_neto_vs_ew_pct}
+      costo_equilibrio_por_lado_pct: {archivo: data/eval/reversal_study.json, ruta: portafolio.costo_equilibrio_por_lado_pct}
     limites:
+      - "La puerta preregistrada no pasa sin máscara de calidad; con máscara pasa por margen mínimo."
+      - "El exceso neto usa 0.30 % por lado, un supuesto optimista."
       - "No usar retrospectivamente la mejor variante sin preregistro."
 
   - id: vol_targeting
@@ -129,7 +170,15 @@ modelos:
     resumen: "Reduce drawdown en varios folds, pero con costo realista pierde Sharpe; su valor observado es de control de riesgo."
     fuentes:
       - avances/2026-11-19_ultimo_intento_ml.md
+      - data/eval/n2a_riesgo.json
       - data/eval/n4_combinacion.json
-    metricas: {}
+    metricas:
+      mdd_1n: {archivo: data/eval/n4_combinacion.json, ruta: bench_1N.x1.diario.mdd}
+      mdd_1n_con_capa: {archivo: data/eval/n4_combinacion.json, ruta: bench_1N.x1_con_capa.mdd}
+      sharpe_1n: {archivo: data/eval/n4_combinacion.json, ruta: bench_1N.x1.diario.sharpe}
+      sharpe_1n_con_capa: {archivo: data/eval/n4_combinacion.json, ruta: bench_1N.x1_con_capa.sharpe}
+      mdd_1n_ewma_costo_030: {archivo: data/eval/n2a_riesgo.json, ruta: "configs.ew|ewma.pooled.mdd"}
+      sharpe_1n_ewma_costo_030: {archivo: data/eval/n2a_riesgo.json, ruta: "configs.ew|ewma.pooled.sharpe"}
     limites:
       - "La mejora de drawdown se concentra en periodos de estrés y no implica alpha."
+      - "Las métricas mdd_1n y sharpe_1n usan costo por emisora (N4); las ewma_costo_030, 0.30 % por lado (N2-A)."
