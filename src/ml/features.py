@@ -219,11 +219,11 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:  # noqa: C901
         return pd.Series(slopes, index=series.index)
 
     # ── Retornos ─────────────────────────────────────────────────────────────
-    df["ret_5d"]  = c.pct_change(5)  * 100
-    df["ret_10d"] = c.pct_change(10) * 100
-    df["ret_20d"] = c.pct_change(20) * 100
-    df["ret_60d"] = c.pct_change(60) * 100   # momentum trimestral
-    df["ret_90d"] = c.pct_change(90) * 100   # momentum cuatrimestral
+    df["ret_5d"]  = c.pct_change(5, fill_method=None)  * 100
+    df["ret_10d"] = c.pct_change(10, fill_method=None) * 100
+    df["ret_20d"] = c.pct_change(20, fill_method=None) * 100
+    df["ret_60d"] = c.pct_change(60, fill_method=None) * 100   # momentum trimestral
+    df["ret_90d"] = c.pct_change(90, fill_method=None) * 100   # momentum cuatrimestral
 
     # ── Medias móviles ────────────────────────────────────────────────────────
     sma20 = c.rolling(20).mean()
@@ -327,8 +327,8 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:  # noqa: C901
     df["_atr14"]     = atr14                    # auxiliar para el backtester
     df["hl_range_pct"] = (h - l) / (c + 1e-8) * 100
 
-    hv5  = c.pct_change().rolling(5).std()
-    hv20 = c.pct_change().rolling(20).std()
+    hv5  = c.pct_change(fill_method=None).rolling(5).std()
+    hv20 = c.pct_change(fill_method=None).rolling(20).std()
     df["hv_ratio"] = hv5 / hv20.replace(0, np.nan)
 
     return df
@@ -460,7 +460,7 @@ def add_macro_features(
     if "USDMXN" in macro and macro["USDMXN"] is not None:
         usd = macro["USDMXN"]["Close"].reindex(df.index, method="ffill")
         usd_sma20 = usd.rolling(20).mean()
-        df["usdmxn_ret5"]    = usd.pct_change(5) * 100
+        df["usdmxn_ret5"]    = usd.pct_change(5, fill_method=None) * 100
         df["usdmxn_vs_ma20"] = (usd - usd_sma20) / (usd_sma20 + 1e-8) * 100
     else:
         df["usdmxn_ret5"]    = np.nan
@@ -470,12 +470,12 @@ def add_macro_features(
     if "NAFTRAC" in macro and macro["NAFTRAC"] is not None:
         mkt = macro["NAFTRAC"]["Close"].reindex(df.index, method="ffill")
         mkt_sma50 = mkt.rolling(50).mean()
-        df["mkt_ret10"] = mkt.pct_change(10) * 100
+        df["mkt_ret10"] = mkt.pct_change(10, fill_method=None) * 100
         df["mkt_trend"] = (mkt - mkt_sma50) / (mkt_sma50 + 1e-8) * 100
         if ticker_close is not None:
             df["rel_str5"] = (
-                ticker_close.pct_change(5) * 100
-                - mkt.pct_change(5) * 100
+                ticker_close.pct_change(5, fill_method=None) * 100
+                - mkt.pct_change(5, fill_method=None) * 100
             )
         else:
             df["rel_str5"] = np.nan
@@ -487,14 +487,14 @@ def add_macro_features(
     # ── WTI ───────────────────────────────────────────────────────────────────
     if "WTI" in macro and macro["WTI"] is not None:
         wti = macro["WTI"]["Close"].reindex(df.index, method="ffill")
-        df["wti_ret5"] = wti.pct_change(5) * 100
+        df["wti_ret5"] = wti.pct_change(5, fill_method=None) * 100
     else:
         df["wti_ret5"] = np.nan
 
     # ── S&P 500 ───────────────────────────────────────────────────────────────
     if "SP500" in macro and macro["SP500"] is not None:
         sp = macro["SP500"]["Close"].reindex(df.index, method="ffill")
-        df["sp500_ret5"] = sp.pct_change(5) * 100
+        df["sp500_ret5"] = sp.pct_change(5, fill_method=None) * 100
     else:
         df["sp500_ret5"] = np.nan
 

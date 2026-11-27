@@ -100,3 +100,24 @@ vendor/apexcharts.min.js
 data/news/.medallion.lock
 # Office editor temporary lock files
 ~$*
+
+# Evaluacion de multiples estrategias
+.venv-linux/
+
+# Historial Banxico: se versiona el ZIP reproducible
+/data/rates/banxico/
+!/data/rates/banxico_historico.zip
+
+# Respaldos locales de reparacion del mercado
+/data/market_backups/
+
+# Resultados preliminares y pruebas individuales
+/data/estrategias/
+/data/estrategias_reales/
+/data/estrategias_corregidas/sma_walmex.json
+/data/estrategias_corregidas/rsi_walmex.json
+
+# Exportaciones anteriores de evaluacion
+/data/eval/evaluacion_export.json
+/data/eval/strategies_comparison.json
+/data/eval/strategy_validation.json

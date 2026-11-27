@@ -99,7 +99,7 @@ class GraphIsingMarket:
         Solo correlaciones positivas (influencia de manada); top-k por nodo;
         filas normalizadas a suma 1 para que J controle la fuerza total.
         """
-        corr = returns_window.corr().to_numpy()
+        corr = returns_window.corr().to_numpy(copy=True)
         n = corr.shape[0]
         np.fill_diagonal(corr, 0.0)
         corr = np.clip(np.nan_to_num(corr), 0.0, None)

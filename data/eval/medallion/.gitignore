@@ -1,0 +1,10 @@
+# Resultados generados por Medallion de Evaluación/Riesgo
+# Conservar únicamente la estructura y los archivos de configuración.
+
+bronze/*
+silver/*
+gold/*
+
+!bronze/.gitkeep
+!silver/.gitkeep
+!gold/.gitkeep

@@ -254,11 +254,35 @@ class Metrics:
                 "total_return": 0.0,
             }
 
-        wealth = np.cumprod(1 + returns)
+        if periods_per_year <= 0:
+            raise ValueError("periods_per_year debe ser positivo")
+
+        wealth = np.concatenate((
+            [1.0],
+            np.cumprod(1 + returns)
+        ))
+
+        volatility = float(np.std(returns))
+        mean_return = float(np.mean(returns))
+
+        sharpe = (
+            mean_return / volatility * np.sqrt(periods_per_year)
+            if volatility > 0 else 0.0
+        )
+
+        mdd = Metrics.max_drawdown(wealth)
+
+        annual_return = mean_return * periods_per_year
+
+        calmar = (
+            annual_return / abs(mdd)
+            if mdd != 0 else 0.0
+        )
+
         return {
-            "sharpe_ratio": Metrics.sharpe_ratio(returns),
-            "max_drawdown": Metrics.max_drawdown(wealth),
-            "calmar_ratio": Metrics.calmar_ratio(returns, wealth),
+            "sharpe_ratio": float(sharpe),
+            "max_drawdown": float(mdd),
+            "calmar_ratio": float(calmar),
             "win_rate": Metrics.win_rate_from_returns(returns),
             "total_return": Metrics.total_return(returns),
         }

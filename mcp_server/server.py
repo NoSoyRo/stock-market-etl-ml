@@ -116,6 +116,60 @@ async def vision_360(ticker: str) -> str:
     return _con_disclaimer(await _vision_360(ticker))
 
 
+
+# === HERRAMIENTAS GOLD DE ESTRATEGIAS ===
+
+@mcp.tool()
+def resumen_estrategias() -> dict:
+    """Resume las estrategias evaluadas, aprobaciones y decision Gold."""
+    from src.agents_mcp.domains import evaluacion_semantica as sem
+    return sem.resumen_estrategias()
+
+
+@mcp.tool()
+def consultar_estrategia(nombre: str) -> dict:
+    """Consulta metricas, configuracion y resultados de una estrategia."""
+    from src.agents_mcp.domains import evaluacion_semantica as sem
+    return sem.consultar_estrategia(nombre)
+
+
+@mcp.tool()
+def comparar_estrategias(
+    criterio: str = "rendimiento_neto"
+) -> dict:
+    """Compara estrategias por rendimiento_neto, sharpe_neto o cumplimiento."""
+    from src.agents_mcp.domains import evaluacion_semantica as sem
+    return sem.comparar_estrategias(criterio)
+
+
+@mcp.tool()
+def consultar_benchmark() -> dict:
+    """Consulta el benchmark NAFTRAC mediante buy and hold."""
+    from src.agents_mcp.domains import evaluacion_semantica as sem
+    return sem.consultar_benchmark()
+
+
+@mcp.tool()
+def consultar_validacion(nombre: str) -> dict:
+    """Consulta los criterios de validacion y motivos de rechazo."""
+    from src.agents_mcp.domains import evaluacion_semantica as sem
+    return sem.consultar_validacion(nombre)
+
+
+@mcp.tool()
+def consultar_calidad() -> dict:
+    """Consulta calidad, fuentes, trazabilidad y limitaciones de Gold."""
+    from src.agents_mcp.domains import evaluacion_semantica as sem
+    return sem.consultar_calidad()
+
+
+@mcp.tool()
+def consultar_decision() -> dict:
+    """Consulta la decision de evaluacion sin ejecutar operaciones."""
+    from src.agents_mcp.domains import evaluacion_semantica as sem
+    return sem.consultar_decision()
+
+
 def build_app():
     """Construye la app ASGI (Starlette) del transporte streamable-http,
     con el middleware de autenticación por Bearer token ya montado."""

@@ -106,3 +106,192 @@ por eso — la API relevante (`@mcp.tool()`, `mcp.streamable_http_app()`,
 `mcp.run(...)`) es equivalente a la de `FastMCP` en `mcp<2`. Si el venv
 baja de versión a `mcp<2`, basta cambiar el import de vuelta a
 `from mcp.server.fastmcp import FastMCP`.
+
+## Capa semántica de evaluación de múltiples estrategias
+
+El servidor incorpora siete herramientas adicionales para consultar
+directamente el producto Gold de evaluación y riesgo.
+
+Estas herramientas no requieren invocar un modelo de lenguaje,
+volver a entrenar modelos ni ejecutar nuevos backtests.
+
+### Arquitectura de integración
+
+    Resultados históricos de estrategias
+                    |
+                    v
+            Bronze: integridad
+                    |
+                    v
+            Silver: validación
+                    |
+                    v
+            Gold: consolidación
+                    |
+                    v
+            Capa semántica
+               /         \
+              v           v
+       Agente interno   MCP externo
+              |
+              v
+          Orquestador
+
+### Producto de datos
+
+El producto consultado es:
+
+    data/eval/medallion/gold/evaluacion_multiples_estrategias.json
+
+Para regenerarlo desde los resultados existentes, ejecutar
+desde la raíz del repositorio:
+
+    python -m scripts.medallion_estrategias
+
+La generación requiere que los archivos originales y homologados
+de las estrategias estén disponibles.
+
+### Herramientas disponibles
+
+| Herramienta | Argumentos | Descripción |
+|---|---|---|
+| resumen_estrategias | Ninguno | Resumen general |
+| consultar_estrategia | nombre | Métricas y configuración |
+| comparar_estrategias | criterio | Ranking de estrategias |
+| consultar_benchmark | Ninguno | Métricas de NAFTRAC |
+| consultar_validacion | nombre | Criterios de aprobación |
+| consultar_calidad | Ninguno | Calidad y trazabilidad |
+| consultar_decision | Ninguno | Decisión global |
+
+### Identificadores de estrategias
+
+- topk_2
+- topk_5
+- topk_10
+- topk_5_ranking
+- sma_50_200
+- rsi_14
+
+### Criterios de comparación
+
+- rendimiento_neto
+- sharpe_neto
+- cumplimiento
+
+### Ejemplos de consultas
+
+Resumen general:
+
+    {"name": "resumen_estrategias", "arguments": {}}
+
+Consultar una estrategia:
+
+    {"name": "consultar_estrategia", "arguments": {"nombre": "sma_50_200"}}
+
+Comparar por Sharpe neto:
+
+    {"name": "comparar_estrategias", "arguments": {"criterio": "sharpe_neto"}}
+
+Consultar la validación de RSI:
+
+    {"name": "consultar_validacion", "arguments": {"nombre": "rsi_14"}}
+
+Consultar la decisión global:
+
+    {"name": "consultar_decision", "arguments": {}}
+
+Estos objetos corresponden a los parámetros de una llamada
+MCP tools/call, no a solicitudes JSON-RPC completas.
+
+### Estructura de las respuestas
+
+Las consultas exitosas incluyen:
+
+- Identificador de consulta.
+- Nombre del producto de datos.
+- Versión del esquema.
+- Fecha de generación.
+- Periodo de evaluación.
+- Configuración común.
+- Fuente de información.
+- Resultado solicitado.
+- Aviso sobre las limitaciones financieras.
+
+### Integridad y calidad
+
+Antes de responder, la capa semántica comprueba:
+
+- Existencia y estructura del producto Gold.
+- Integridad de los archivos Bronze y Silver.
+- Hashes SHA-256 de los archivos correspondientes.
+- Consistencia entre métricas, rankings y decisiones.
+- Correspondencia del contenido Gold con su reconstrucción
+  a partir de Silver.
+
+Si la información es inválida, la consulta debe fallar en lugar
+de proporcionar resultados inconsistentes.
+
+Las consultas son de solo lectura.
+
+### Integración con los agentes existentes
+
+Las siete herramientas se incorporan al agente de Evaluación,
+conservando sus tres herramientas originales.
+
+El orquestador puede acceder a ellas mediante el agente
+de Evaluación existente.
+
+El servidor MCP externo también permite invocarlas directamente,
+sin pasar por un modelo de lenguaje.
+
+### Resultado histórico de referencia
+
+- Estrategias evaluadas: 6.
+- Estrategias aprobadas: 0.
+- Estrategias no aprobadas: 6.
+- Decisión global: NO_BET_LIVE.
+
+SMA presenta el mayor rendimiento neto y RSI presenta el mayor
+Sharpe neto entre las estrategias evaluadas.
+
+Ninguna estrategia supera el rendimiento neto del benchmark.
+
+Un producto de datos válido no implica que una estrategia
+esté aprobada para operar con capital real.
+
+### Pruebas automatizadas
+
+Desde la raíz del repositorio:
+
+    python -m pytest -v \
+        tests/test_medallion_estrategias.py \
+        tests/test_evaluacion_semantica.py \
+        tests/test_mcp_estrategias.py \
+        tests/test_agents_mcp_evaluacion_lab.py
+
+Estas pruebas no requieren consumir créditos de una API de IA.
+
+### Alcance de la integración
+
+Se ha comprobado localmente:
+
+- Registro de herramientas.
+- Consultas directas al producto Gold.
+- Integración con el agente de Evaluación.
+- Registro y permisos del orquestador.
+- Consultas MCP mediante HTTP.
+- Autenticación mediante Bearer Token.
+- Manejo de errores.
+- Detección de alteraciones en el producto de datos.
+
+No se ha validado un despliegue en producción ni una conversación
+completa mediante un modelo de lenguaje.
+
+Para pruebas locales, evitar exponer el puerto del servidor a
+Internet y utilizar un token de autenticación seguro.
+
+### Documentación complementaria
+
+Consultar [Evaluación y riesgo](../docs/evaluacion_riesgo.md)
+para conocer la metodología, resultados, criterios de aprobación
+y limitaciones de las estrategias.

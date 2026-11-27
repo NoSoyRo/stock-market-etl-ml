@@ -1,0 +1,648 @@
+{
+  "generated_at": "2026-11-25T17:39:44.306846+00:00",
+  "source": "Yahoo Finance",
+  "target_date": "2026-10-23",
+  "backup_directory": "data\\market_backups\\20261125_113846_339310",
+  "summary": {
+    "reparado": 29,
+    "archivo_vacio": 1,
+    "ya_valido": 6,
+    "no_recuperable": 2
+  },
+  "records": [
+    {
+      "symbol": "AC.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 218.02000427246094,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 220.72000122070312,
+        "High": 222.97000122070312,
+        "Low": 217.4600067138672,
+        "Close": 218.02000427246094,
+        "Volume": 1392226.0
+      }
+    },
+    {
+      "symbol": "ALFAA.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "status": "archivo_vacio"
+    },
+    {
+      "symbol": "ALSEA.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 52.0,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 51.290000915527344,
+        "High": 52.75,
+        "Low": 51.09000015258789,
+        "Close": 52.0,
+        "Volume": 1465848.0
+      }
+    },
+    {
+      "symbol": "AMXB.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "status": "ya_valido"
+    },
+    {
+      "symbol": "ASURB.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 464.8699951171875,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 469.989990234375,
+        "High": 473.32000732421875,
+        "Low": 456.0199890136719,
+        "Close": 464.8699951171875,
+        "Volume": 405000.0
+      }
+    },
+    {
+      "symbol": "BIMBOA.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 62.81999969482422,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 59.810001373291016,
+        "High": 63.56999969482422,
+        "Low": 59.810001373291016,
+        "Close": 62.81999969482422,
+        "Volume": 3425528.0
+      }
+    },
+    {
+      "symbol": "BOLSAA.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 37.06999969482422,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 35.45000076293945,
+        "High": 37.08000183105469,
+        "Low": 35.400001525878906,
+        "Close": 37.06999969482422,
+        "Volume": 2491445.0
+      }
+    },
+    {
+      "symbol": "CEMEXCPO.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 19.09000015258789,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 19.0,
+        "High": 19.149999618530273,
+        "Low": 18.649999618530273,
+        "Close": 19.09000015258789,
+        "Volume": 22612873.0
+      }
+    },
+    {
+      "symbol": "CHDRAUIB.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 90.91000366210938,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 91.69000244140625,
+        "High": 92.22000122070312,
+        "Low": 90.69999694824219,
+        "Close": 90.91000366210938,
+        "Volume": 281215.0
+      }
+    },
+    {
+      "symbol": "CUERVO.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 16.31999969482422,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 16.299999237060547,
+        "High": 16.600000381469727,
+        "Low": 16.0,
+        "Close": 16.31999969482422,
+        "Volume": 2107666.0
+      }
+    },
+    {
+      "symbol": "FEMSAUBD.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "status": "ya_valido"
+    },
+    {
+      "symbol": "FUNO11.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 32.939998626708984,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 32.33000183105469,
+        "High": 33.150001525878906,
+        "Low": 32.33000183105469,
+        "Close": 32.939998626708984,
+        "Volume": 6105803.0
+      }
+    },
+    {
+      "symbol": "GAPB.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "status": "ya_valido"
+    },
+    {
+      "symbol": "GCARSOA1.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "status": "ya_valido"
+    },
+    {
+      "symbol": "GCC.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 177.8300018310547,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 177.4600067138672,
+        "High": 178.5800018310547,
+        "Low": 174.13999938964844,
+        "Close": 177.8300018310547,
+        "Volume": 182288.0
+      }
+    },
+    {
+      "symbol": "GENTERA.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 37.310001373291016,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 37.5,
+        "High": 37.93000030517578,
+        "Low": 37.0099983215332,
+        "Close": 37.310001373291016,
+        "Volume": 3441063.0
+      }
+    },
+    {
+      "symbol": "GFINBURO.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 47.08000183105469,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 45.81999969482422,
+        "High": 47.130001068115234,
+        "Low": 45.40999984741211,
+        "Close": 47.08000183105469,
+        "Volume": 1200001.0
+      }
+    },
+    {
+      "symbol": "GFNORTEO.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 213.5,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 208.58999633789062,
+        "High": 214.69000244140625,
+        "Low": 206.88999938964844,
+        "Close": 213.5,
+        "Volume": 8080911.0
+      }
+    },
+    {
+      "symbol": "GMEXICOB.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 229.08999633789062,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 230.1735382080078,
+        "High": 233.6953887939453,
+        "Low": 226.4925079345703,
+        "Close": 227.91517639160156,
+        "Volume": 8678096.0
+      }
+    },
+    {
+      "symbol": "GRUMAB.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 251.0,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 246.49000549316406,
+        "High": 253.92999267578125,
+        "Low": 244.2899932861328,
+        "Close": 251.0,
+        "Volume": 536081.0
+      }
+    },
+    {
+      "symbol": "HERDEZ.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 55.70000076293945,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 55.5,
+        "High": 57.970001220703125,
+        "Low": 55.38999938964844,
+        "Close": 55.70000076293945,
+        "Volume": 45612.0
+      }
+    },
+    {
+      "symbol": "HOTEL.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "status": "no_recuperable"
+    },
+    {
+      "symbol": "KIMBERA.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 37.86000061035156,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 37.849998474121094,
+        "High": 38.09000015258789,
+        "Low": 37.7400016784668,
+        "Close": 37.86000061035156,
+        "Volume": 4453692.0
+      }
+    },
+    {
+      "symbol": "KOFUBL.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 220.86000061035156,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 219.64999389648438,
+        "High": 222.1999969482422,
+        "Low": 219.33999633789062,
+        "Close": 220.86000061035156,
+        "Volume": 537209.0
+      }
+    },
+    {
+      "symbol": "LABB.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 15.260000228881836,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 14.65999984741211,
+        "High": 15.460000038146973,
+        "Low": 14.609999656677246,
+        "Close": 15.260000228881836,
+        "Volume": 4188986.0
+      }
+    },
+    {
+      "symbol": "MEGACPO.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 54.209999084472656,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 55.11000061035156,
+        "High": 55.95000076293945,
+        "Low": 54.13999938964844,
+        "Close": 54.209999084472656,
+        "Volume": 953451.0
+      }
+    },
+    {
+      "symbol": "NAFTRAC.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "status": "ya_valido"
+    },
+    {
+      "symbol": "NAFTRACISHRS.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 69.51000213623047,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 69.62000274658203,
+        "High": 69.79000091552734,
+        "Low": 69.12000274658203,
+        "Close": 69.56999969482422,
+        "Volume": 4031507.0
+      }
+    },
+    {
+      "symbol": "OMAB.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 229.17999267578125,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 229.22999572753906,
+        "High": 232.47999572753906,
+        "Low": 225.17999267578125,
+        "Close": 229.17999267578125,
+        "Volume": 499991.0
+      }
+    },
+    {
+      "symbol": "ORBIA.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 23.030000686645508,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 23.09000015258789,
+        "High": 23.389999389648438,
+        "Low": 22.950000762939453,
+        "Close": 23.030000686645508,
+        "Volume": 1262953.0
+      }
+    },
+    {
+      "symbol": "PINFRA.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 307.8599853515625,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 303.6300048828125,
+        "High": 312.3999938964844,
+        "Low": 300.2699890136719,
+        "Close": 307.8599853515625,
+        "Volume": 289770.0
+      }
+    },
+    {
+      "symbol": "POSADASA.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "status": "no_recuperable"
+    },
+    {
+      "symbol": "Q.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 190.3699951171875,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 191.82000732421875,
+        "High": 192.61000061035156,
+        "Low": 184.7899932861328,
+        "Close": 190.3699951171875,
+        "Volume": 1071732.0
+      }
+    },
+    {
+      "symbol": "TLEVISACPO.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 8.8100004196167,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 8.800000190734863,
+        "High": 8.90999984741211,
+        "Low": 8.770000457763672,
+        "Close": 8.8100004196167,
+        "Volume": 3684097.0
+      }
+    },
+    {
+      "symbol": "VESTA.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 67.81999969482422,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 67.06999969482422,
+        "High": 68.06999969482422,
+        "Low": 66.62999725341797,
+        "Close": 67.81999969482422,
+        "Volume": 1580115.0
+      }
+    },
+    {
+      "symbol": "VISTAA.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 1399.989990234375,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 1325.0,
+        "High": 1399.989990234375,
+        "Low": 1325.0,
+        "Close": 1399.989990234375,
+        "Volume": 679.0
+      }
+    },
+    {
+      "symbol": "VOLARA.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 0.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 10.699999809265137,
+        "Volume": 0.0
+      },
+      "status": "reparado",
+      "recovered": {
+        "Open": 10.59000015258789,
+        "High": 10.75,
+        "Low": 10.399999618530273,
+        "Close": 10.699999809265137,
+        "Volume": 2251949.0
+      }
+    },
+    {
+      "symbol": "WALMEX.MX",
+      "date": "2026-10-23",
+      "source": "Yahoo Finance",
+      "status": "ya_valido"
+    }
+  ]
+}

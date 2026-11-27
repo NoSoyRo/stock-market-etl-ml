@@ -1,0 +1,105 @@
+{
+  "evaluation_period": {
+    "start": "2023-05-10",
+    "end": "2026-10-30",
+    "trading_sessions": 876,
+    "periods_per_year": 252,
+    "metric_frequency": "daily",
+    "closed_trades": 1,
+    "open_positions": 0
+  },
+  "benchmark": {
+    "sharpe_gross": 0.49110246121059303,
+    "sharpe_net": 0.48029551254566444,
+    "max_drawdown": -0.16233691145602763,
+    "calmar_ratio": 0.4650100043947382,
+    "win_rate_net": 0.5011415525114156,
+    "total_return_gross": 0.2513533158682302,
+    "total_return_net": 0.24535331586823528,
+    "auc": null,
+    "final_equity_gross": 125135.33158682326,
+    "final_equity_net": 124535.33158682326,
+    "n_periods": 876
+  },
+  "n_strategies": 6,
+  "strategies": [
+    {
+      "name": "sma_50_200",
+      "type": "rule_based",
+      "return_net": 0.12463835371951015,
+      "sharpe_net": 0.42126550647447103,
+      "max_drawdown": -0.0805456955557561,
+      "final_equity_net": 112463.83537195118,
+      "auc": null,
+      "closed_trades": 100,
+      "open_positions": 11,
+      "excess_return_net": -0.12071496214872512,
+      "file": "data/estrategias_homologadas/sma_50_200.json"
+    },
+    {
+      "name": "rsi_14",
+      "type": "rule_based",
+      "return_net": 0.11029444315900716,
+      "sharpe_net": 0.5008071869076703,
+      "max_drawdown": -0.075689981974746,
+      "final_equity_net": 111029.44431590103,
+      "auc": null,
+      "closed_trades": 98,
+      "open_positions": 8,
+      "excess_return_net": -0.13505887270922812,
+      "file": "data/estrategias_homologadas/rsi_14.json"
+    },
+    {
+      "name": "topk_2",
+      "type": "machine_learning",
+      "return_net": 0.0,
+      "sharpe_net": 0.0,
+      "max_drawdown": 0.0,
+      "final_equity_net": 100000.0,
+      "auc": 0.49970747201783494,
+      "closed_trades": 0,
+      "open_positions": 0,
+      "excess_return_net": -0.24535331586823528,
+      "file": "data/estrategias_homologadas/topk_2.json"
+    },
+    {
+      "name": "topk_5",
+      "type": "machine_learning",
+      "return_net": 0.0,
+      "sharpe_net": 0.0,
+      "max_drawdown": 0.0,
+      "final_equity_net": 100000.0,
+      "auc": 0.49970747201783494,
+      "closed_trades": 0,
+      "open_positions": 0,
+      "excess_return_net": -0.24535331586823528,
+      "file": "data/estrategias_homologadas/topk_5.json"
+    },
+    {
+      "name": "topk_10",
+      "type": "machine_learning",
+      "return_net": 0.0,
+      "sharpe_net": 0.0,
+      "max_drawdown": 0.0,
+      "final_equity_net": 100000.0,
+      "auc": 0.49970747201783494,
+      "closed_trades": 0,
+      "open_positions": 0,
+      "excess_return_net": -0.24535331586823528,
+      "file": "data/estrategias_homologadas/topk_10.json"
+    },
+    {
+      "name": "topk_5_ranking",
+      "type": "machine_learning",
+      "return_net": -0.45254871201541824,
+      "sharpe_net": -0.8734050674138705,
+      "max_drawdown": -0.524126603833579,
+      "final_equity_net": 54745.12879845801,
+      "auc": 0.49970747201783494,
+      "closed_trades": 689,
+      "open_positions": 0,
+      "excess_return_net": -0.6979020278836535,
+      "file": "data/estrategias_homologadas/topk_5_ranking.json"
+    }
+  ]
+}

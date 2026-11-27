@@ -1,0 +1,67 @@
+{
+  "generated_at": "2026-11-25T17:49:51.104914+00:00",
+  "source": "Yahoo Finance",
+  "backup_directory": "data\\market_backups\\20261125_114947_408542",
+  "records": [
+    {
+      "symbol": "VISTAA.MX",
+      "date": "2026-09-15",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 1340.0,
+        "High": 0.0,
+        "Low": 0.0,
+        "Close": 1342.0,
+        "Volume": 0.0
+      },
+      "recovered": {
+        "Open": 1340.0,
+        "High": 1359.989990234375,
+        "Low": 1336.8599853515625,
+        "Close": 1342.0,
+        "Volume": 627.0
+      },
+      "status": "reparado"
+    },
+    {
+      "symbol": "HOTEL.MX",
+      "date": "2026-10-12",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 5.0,
+        "High": 5.099999904632568,
+        "Low": 5.099999904632568,
+        "Close": 5.099999904632568,
+        "Volume": 308.0
+      },
+      "recovered": {
+        "Open": 5.0,
+        "High": 5.099999904632568,
+        "Low": 5.0,
+        "Close": 5.099999904632568,
+        "Volume": 50960.0
+      },
+      "status": "reparado"
+    },
+    {
+      "symbol": "HOTEL.MX",
+      "date": "2026-10-22",
+      "source": "Yahoo Finance",
+      "previous": {
+        "Open": 5.079999923706055,
+        "High": 5.050000190734863,
+        "Low": 5.050000190734863,
+        "Close": 5.050000190734863,
+        "Volume": 101.0
+      },
+      "recovered": {
+        "Open": 5.079999923706055,
+        "High": 5.099999904632568,
+        "Low": 5.050000190734863,
+        "Close": 5.050000190734863,
+        "Volume": 4095.0
+      },
+      "status": "reparado"
+    }
+  ]
+}

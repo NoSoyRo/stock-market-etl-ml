@@ -258,10 +258,10 @@ def add_rates_features(
 # ── 5. Bootstrap de historial vía Banxico ────────────────────────────────────
 
 _BANXICO_SERIES = {
-    "tiie28":   "CF102",
-    "tiie91":   "CF110",
-    "cete28":   "SF43783",
-    "cete364":  "SF43786",
+    "tiie28":   "SF43783",
+    "tiie91":   "SF60649",
+    "cete28":   "SF43936",
+    "cete364":  "SF43945",
     "tasa_obj": "SF61745",
 }
 

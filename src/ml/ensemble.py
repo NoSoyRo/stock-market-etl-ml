@@ -115,16 +115,55 @@ class EnsembleModel:
         """
         from src.ml.woe import compute_all_woe, woe_transform, iv_summary
 
-        df = df.dropna(subset=feature_cols + [target_col]).copy()
-        # Reset index para evitar duplicados por múltiples tickers en la misma fecha
-        df = df.reset_index(drop=True)
+        df = df.dropna(
+            subset=feature_cols + [target_col]
+        ).copy()
 
-        # Split interno temporal para estimar pesos
-        n_val   = int(len(df) * val_ratio)
-        df_tr   = df.iloc[:-n_val] if n_val > 0 else df
-        df_val  = df.iloc[-n_val:] if n_val > 0 else df
+        # Separacion temporal con purga para Top-K
+        if "exit_date" in df.columns:
+            df = df.sort_index()
 
-        # ── WoE ──────────────────────────────────────────────────────────────
+            fechas = df.index.unique().sort_values()
+
+            if len(fechas) < 2:
+                raise ValueError("Fechas insuficientes")
+
+            corte = int(len(fechas) * (1 - val_ratio))
+            corte = max(1, min(corte, len(fechas) - 1))
+
+            fecha_val = fechas[corte]
+
+            candidatos = df[df.index < fecha_val]
+
+            df_tr = candidatos[
+                candidatos["exit_date"] < fecha_val
+            ].copy()
+
+            df_val = df[df.index >= fecha_val].copy()
+
+            if df_tr.empty or df_val.empty:
+                raise ValueError(
+                    "Datos insuficientes para validacion temporal"
+                )
+
+            assert df_tr["exit_date"].max() < df_val.index.min()
+
+            print("Inicio de validacion interna:", fecha_val)
+            print("Filas excluidas en validacion:",
+                  len(candidatos) - len(df_tr))
+
+            df_tr = df_tr.reset_index(drop=True)
+            df_val = df_val.reset_index(drop=True)
+
+        else:
+            # Compatibilidad con otros modelos del repositorio
+            df = df.reset_index(drop=True)
+
+            n_val = int(len(df) * val_ratio)
+
+            df_tr = df.iloc[:-n_val] if n_val > 0 else df
+            df_val = df.iloc[-n_val:] if n_val > 0 else df
+
         self._woe_maps = compute_all_woe(df_tr, feature_cols, target_col=target_col)
         self.iv_df     = iv_summary(self._woe_maps)
         self.top_feats = self.iv_df.head(self.top_features)["feature"].tolist()

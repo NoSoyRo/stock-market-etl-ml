@@ -1,0 +1,533 @@
+{
+  "total_estrategias": 6,
+  "evaluaciones": {
+    "topk_2": {
+      "agente": "strategy_validator",
+      "estrategia": "topk_2",
+      "tipo_estrategia": "machine_learning",
+      "sin_operaciones": true,
+      "exploratoria": false,
+      "preguntas": [
+        {
+          "pregunta": "¿El Sharpe neto es positivo?",
+          "estado": "no_cumple",
+          "evidencia": 0.0,
+          "explicacion": "No hubo operaciones. El Sharpe cero es una convencion y no demuestra rendimiento ajustado al riesgo."
+        },
+        {
+          "pregunta": "¿El retorno neto es positivo?",
+          "estado": "no_cumple",
+          "evidencia": 0.0,
+          "explicacion": "El retorno despues de costos debe ser positivo."
+        },
+        {
+          "pregunta": "¿La perdida maxima esta dentro del limite?",
+          "estado": "cumple",
+          "evidencia": 0.0,
+          "explicacion": "El drawdown absoluto no debe superar 30%."
+        },
+        {
+          "pregunta": "¿Se consideran comisiones y deslizamiento?",
+          "estado": "cumple",
+          "evidencia": {
+            "commission_pct": 0.0025,
+            "slippage_pct": 0.0005
+          },
+          "explicacion": "Se verifica que existan costos de transaccion no negativos y no nulos."
+        },
+        {
+          "pregunta": "¿La estrategia supera a NAFTRAC?",
+          "estado": "no_cumple",
+          "evidencia": -0.24535331586823528,
+          "explicacion": "El exceso de retorno neto frente al benchmark debe ser positivo."
+        },
+        {
+          "pregunta": "¿Existe un periodo de evaluacion fuera del entrenamiento?",
+          "estado": "cumple",
+          "evidencia": {
+            "train_start": "2008-04-25",
+            "train_end": "2023-04-27",
+            "test_start": "2023-05-09",
+            "test_end": "2026-10-30"
+          },
+          "explicacion": "Se comprueba la separacion cronologica declarada entre entrenamiento y prueba."
+        },
+        {
+          "pregunta": "¿Se evaluaron periodos suficientes?",
+          "estado": "cumple",
+          "evidencia": 876,
+          "explicacion": "Se utiliza un minimo configurable posteriormente de 20 periodos."
+        },
+        {
+          "pregunta": "¿Se cuenta con una metrica AUC valida?",
+          "estado": "no_cumple",
+          "evidencia": 0.49970747201783494,
+          "explicacion": "El AUC debe ser superior a 0.5 y no superar uno."
+        }
+      ],
+      "resumen": {
+        "cumple": 4,
+        "no_cumple": 4,
+        "pendiente": 0,
+        "no_aplica": 0,
+        "aplicables": 8,
+        "proporcion_cumplimiento": 0.5
+      },
+      "aprobada": false,
+      "nombre": "topk_2"
+    },
+    "topk_5": {
+      "agente": "strategy_validator",
+      "estrategia": "topk_5",
+      "tipo_estrategia": "machine_learning",
+      "sin_operaciones": true,
+      "exploratoria": false,
+      "preguntas": [
+        {
+          "pregunta": "¿El Sharpe neto es positivo?",
+          "estado": "no_cumple",
+          "evidencia": 0.0,
+          "explicacion": "No hubo operaciones. El Sharpe cero es una convencion y no demuestra rendimiento ajustado al riesgo."
+        },
+        {
+          "pregunta": "¿El retorno neto es positivo?",
+          "estado": "no_cumple",
+          "evidencia": 0.0,
+          "explicacion": "El retorno despues de costos debe ser positivo."
+        },
+        {
+          "pregunta": "¿La perdida maxima esta dentro del limite?",
+          "estado": "cumple",
+          "evidencia": 0.0,
+          "explicacion": "El drawdown absoluto no debe superar 30%."
+        },
+        {
+          "pregunta": "¿Se consideran comisiones y deslizamiento?",
+          "estado": "cumple",
+          "evidencia": {
+            "commission_pct": 0.0025,
+            "slippage_pct": 0.0005
+          },
+          "explicacion": "Se verifica que existan costos de transaccion no negativos y no nulos."
+        },
+        {
+          "pregunta": "¿La estrategia supera a NAFTRAC?",
+          "estado": "no_cumple",
+          "evidencia": -0.24535331586823528,
+          "explicacion": "El exceso de retorno neto frente al benchmark debe ser positivo."
+        },
+        {
+          "pregunta": "¿Existe un periodo de evaluacion fuera del entrenamiento?",
+          "estado": "cumple",
+          "evidencia": {
+            "train_start": "2008-04-25",
+            "train_end": "2023-04-27",
+            "test_start": "2023-05-09",
+            "test_end": "2026-10-30"
+          },
+          "explicacion": "Se comprueba la separacion cronologica declarada entre entrenamiento y prueba."
+        },
+        {
+          "pregunta": "¿Se evaluaron periodos suficientes?",
+          "estado": "cumple",
+          "evidencia": 876,
+          "explicacion": "Se utiliza un minimo configurable posteriormente de 20 periodos."
+        },
+        {
+          "pregunta": "¿Se cuenta con una metrica AUC valida?",
+          "estado": "no_cumple",
+          "evidencia": 0.49970747201783494,
+          "explicacion": "El AUC debe ser superior a 0.5 y no superar uno."
+        }
+      ],
+      "resumen": {
+        "cumple": 4,
+        "no_cumple": 4,
+        "pendiente": 0,
+        "no_aplica": 0,
+        "aplicables": 8,
+        "proporcion_cumplimiento": 0.5
+      },
+      "aprobada": false,
+      "nombre": "topk_5"
+    },
+    "topk_10": {
+      "agente": "strategy_validator",
+      "estrategia": "topk_10",
+      "tipo_estrategia": "machine_learning",
+      "sin_operaciones": true,
+      "exploratoria": false,
+      "preguntas": [
+        {
+          "pregunta": "¿El Sharpe neto es positivo?",
+          "estado": "no_cumple",
+          "evidencia": 0.0,
+          "explicacion": "No hubo operaciones. El Sharpe cero es una convencion y no demuestra rendimiento ajustado al riesgo."
+        },
+        {
+          "pregunta": "¿El retorno neto es positivo?",
+          "estado": "no_cumple",
+          "evidencia": 0.0,
+          "explicacion": "El retorno despues de costos debe ser positivo."
+        },
+        {
+          "pregunta": "¿La perdida maxima esta dentro del limite?",
+          "estado": "cumple",
+          "evidencia": 0.0,
+          "explicacion": "El drawdown absoluto no debe superar 30%."
+        },
+        {
+          "pregunta": "¿Se consideran comisiones y deslizamiento?",
+          "estado": "cumple",
+          "evidencia": {
+            "commission_pct": 0.0025,
+            "slippage_pct": 0.0005
+          },
+          "explicacion": "Se verifica que existan costos de transaccion no negativos y no nulos."
+        },
+        {
+          "pregunta": "¿La estrategia supera a NAFTRAC?",
+          "estado": "no_cumple",
+          "evidencia": -0.24535331586823528,
+          "explicacion": "El exceso de retorno neto frente al benchmark debe ser positivo."
+        },
+        {
+          "pregunta": "¿Existe un periodo de evaluacion fuera del entrenamiento?",
+          "estado": "cumple",
+          "evidencia": {
+            "train_start": "2008-04-25",
+            "train_end": "2023-04-27",
+            "test_start": "2023-05-09",
+            "test_end": "2026-10-30"
+          },
+          "explicacion": "Se comprueba la separacion cronologica declarada entre entrenamiento y prueba."
+        },
+        {
+          "pregunta": "¿Se evaluaron periodos suficientes?",
+          "estado": "cumple",
+          "evidencia": 876,
+          "explicacion": "Se utiliza un minimo configurable posteriormente de 20 periodos."
+        },
+        {
+          "pregunta": "¿Se cuenta con una metrica AUC valida?",
+          "estado": "no_cumple",
+          "evidencia": 0.49970747201783494,
+          "explicacion": "El AUC debe ser superior a 0.5 y no superar uno."
+        }
+      ],
+      "resumen": {
+        "cumple": 4,
+        "no_cumple": 4,
+        "pendiente": 0,
+        "no_aplica": 0,
+        "aplicables": 8,
+        "proporcion_cumplimiento": 0.5
+      },
+      "aprobada": false,
+      "nombre": "topk_10"
+    },
+    "topk_5_ranking": {
+      "agente": "strategy_validator",
+      "estrategia": "topk_5_ranking",
+      "tipo_estrategia": "machine_learning",
+      "sin_operaciones": false,
+      "exploratoria": true,
+      "preguntas": [
+        {
+          "pregunta": "¿El Sharpe neto es positivo?",
+          "estado": "no_cumple",
+          "evidencia": -0.8734050674138705,
+          "explicacion": "El Sharpe neto debe ser mayor que cero."
+        },
+        {
+          "pregunta": "¿El retorno neto es positivo?",
+          "estado": "no_cumple",
+          "evidencia": -0.45254871201541824,
+          "explicacion": "El retorno despues de costos debe ser positivo."
+        },
+        {
+          "pregunta": "¿La perdida maxima esta dentro del limite?",
+          "estado": "no_cumple",
+          "evidencia": -0.524126603833579,
+          "explicacion": "El drawdown absoluto no debe superar 30%."
+        },
+        {
+          "pregunta": "¿Se consideran comisiones y deslizamiento?",
+          "estado": "cumple",
+          "evidencia": {
+            "commission_pct": 0.0025,
+            "slippage_pct": 0.0005
+          },
+          "explicacion": "Se verifica que existan costos de transaccion no negativos y no nulos."
+        },
+        {
+          "pregunta": "¿La estrategia supera a NAFTRAC?",
+          "estado": "no_cumple",
+          "evidencia": -0.6979020278836535,
+          "explicacion": "El exceso de retorno neto frente al benchmark debe ser positivo."
+        },
+        {
+          "pregunta": "¿Existe un periodo de evaluacion fuera del entrenamiento?",
+          "estado": "cumple",
+          "evidencia": {
+            "train_start": "2008-04-25",
+            "train_end": "2023-04-27",
+            "test_start": "2023-05-09",
+            "test_end": "2026-10-30"
+          },
+          "explicacion": "Se comprueba la separacion cronologica declarada entre entrenamiento y prueba."
+        },
+        {
+          "pregunta": "¿Se evaluaron periodos suficientes?",
+          "estado": "cumple",
+          "evidencia": 876,
+          "explicacion": "Se utiliza un minimo configurable posteriormente de 20 periodos."
+        },
+        {
+          "pregunta": "¿Se cuenta con una metrica AUC valida?",
+          "estado": "no_cumple",
+          "evidencia": 0.49970747201783494,
+          "explicacion": "El AUC debe ser superior a 0.5 y no superar uno."
+        }
+      ],
+      "resumen": {
+        "cumple": 3,
+        "no_cumple": 5,
+        "pendiente": 0,
+        "no_aplica": 0,
+        "aplicables": 8,
+        "proporcion_cumplimiento": 0.375
+      },
+      "aprobada": false,
+      "nombre": "topk_5_ranking"
+    },
+    "sma_50_200": {
+      "agente": "strategy_validator",
+      "estrategia": "sma_50_200",
+      "tipo_estrategia": "rule_based",
+      "sin_operaciones": false,
+      "exploratoria": false,
+      "preguntas": [
+        {
+          "pregunta": "¿El Sharpe neto es positivo?",
+          "estado": "cumple",
+          "evidencia": 0.42126550647447103,
+          "explicacion": "El Sharpe neto debe ser mayor que cero."
+        },
+        {
+          "pregunta": "¿El retorno neto es positivo?",
+          "estado": "cumple",
+          "evidencia": 0.12463835371951015,
+          "explicacion": "El retorno despues de costos debe ser positivo."
+        },
+        {
+          "pregunta": "¿La perdida maxima esta dentro del limite?",
+          "estado": "cumple",
+          "evidencia": -0.0805456955557561,
+          "explicacion": "El drawdown absoluto no debe superar 30%."
+        },
+        {
+          "pregunta": "¿Se consideran comisiones y deslizamiento?",
+          "estado": "cumple",
+          "evidencia": {
+            "commission_pct": 0.0025,
+            "slippage_pct": 0.0005
+          },
+          "explicacion": "Se verifica que existan costos de transaccion no negativos y no nulos."
+        },
+        {
+          "pregunta": "¿La estrategia supera a NAFTRAC?",
+          "estado": "no_cumple",
+          "evidencia": -0.12071496214872512,
+          "explicacion": "El exceso de retorno neto frente al benchmark debe ser positivo."
+        },
+        {
+          "pregunta": "¿Existe un periodo de evaluacion fuera del entrenamiento?",
+          "estado": "no_aplica",
+          "evidencia": {
+            "train_start": null,
+            "train_end": null,
+            "test_start": null,
+            "test_end": null
+          },
+          "explicacion": "La estrategia utiliza reglas deterministas y no requiere entrenamiento supervisado."
+        },
+        {
+          "pregunta": "¿Se evaluaron periodos suficientes?",
+          "estado": "cumple",
+          "evidencia": 876,
+          "explicacion": "Se utiliza un minimo configurable posteriormente de 20 periodos."
+        },
+        {
+          "pregunta": "¿Se cuenta con una metrica AUC valida?",
+          "estado": "no_aplica",
+          "evidencia": null,
+          "explicacion": "La estrategia utiliza reglas deterministas y no requiere entrenamiento supervisado."
+        }
+      ],
+      "resumen": {
+        "cumple": 5,
+        "no_cumple": 1,
+        "pendiente": 0,
+        "no_aplica": 2,
+        "aplicables": 6,
+        "proporcion_cumplimiento": 0.8333333333333334
+      },
+      "aprobada": false,
+      "nombre": "sma_50_200"
+    },
+    "rsi_14": {
+      "agente": "strategy_validator",
+      "estrategia": "rsi_14",
+      "tipo_estrategia": "rule_based",
+      "sin_operaciones": false,
+      "exploratoria": false,
+      "preguntas": [
+        {
+          "pregunta": "¿El Sharpe neto es positivo?",
+          "estado": "cumple",
+          "evidencia": 0.5008071869076703,
+          "explicacion": "El Sharpe neto debe ser mayor que cero."
+        },
+        {
+          "pregunta": "¿El retorno neto es positivo?",
+          "estado": "cumple",
+          "evidencia": 0.11029444315900716,
+          "explicacion": "El retorno despues de costos debe ser positivo."
+        },
+        {
+          "pregunta": "¿La perdida maxima esta dentro del limite?",
+          "estado": "cumple",
+          "evidencia": -0.075689981974746,
+          "explicacion": "El drawdown absoluto no debe superar 30%."
+        },
+        {
+          "pregunta": "¿Se consideran comisiones y deslizamiento?",
+          "estado": "cumple",
+          "evidencia": {
+            "commission_pct": 0.0025,
+            "slippage_pct": 0.0005
+          },
+          "explicacion": "Se verifica que existan costos de transaccion no negativos y no nulos."
+        },
+        {
+          "pregunta": "¿La estrategia supera a NAFTRAC?",
+          "estado": "no_cumple",
+          "evidencia": -0.13505887270922812,
+          "explicacion": "El exceso de retorno neto frente al benchmark debe ser positivo."
+        },
+        {
+          "pregunta": "¿Existe un periodo de evaluacion fuera del entrenamiento?",
+          "estado": "no_aplica",
+          "evidencia": {
+            "train_start": null,
+            "train_end": null,
+            "test_start": null,
+            "test_end": null
+          },
+          "explicacion": "La estrategia utiliza reglas deterministas y no requiere entrenamiento supervisado."
+        },
+        {
+          "pregunta": "¿Se evaluaron periodos suficientes?",
+          "estado": "cumple",
+          "evidencia": 876,
+          "explicacion": "Se utiliza un minimo configurable posteriormente de 20 periodos."
+        },
+        {
+          "pregunta": "¿Se cuenta con una metrica AUC valida?",
+          "estado": "no_aplica",
+          "evidencia": null,
+          "explicacion": "La estrategia utiliza reglas deterministas y no requiere entrenamiento supervisado."
+        }
+      ],
+      "resumen": {
+        "cumple": 5,
+        "no_cumple": 1,
+        "pendiente": 0,
+        "no_aplica": 2,
+        "aplicables": 6,
+        "proporcion_cumplimiento": 0.8333333333333334
+      },
+      "aprobada": false,
+      "nombre": "rsi_14"
+    }
+  },
+  "comparacion": [
+    {
+      "estrategia": "rsi_14",
+      "cumple": 5,
+      "no_cumple": 1,
+      "pendiente": 0,
+      "no_aplica": 2,
+      "aplicables": 6,
+      "proporcion_cumplimiento": 0.8333333333333334,
+      "sin_operaciones": false,
+      "exploratoria": false,
+      "aprobada": false
+    },
+    {
+      "estrategia": "sma_50_200",
+      "cumple": 5,
+      "no_cumple": 1,
+      "pendiente": 0,
+      "no_aplica": 2,
+      "aplicables": 6,
+      "proporcion_cumplimiento": 0.8333333333333334,
+      "sin_operaciones": false,
+      "exploratoria": false,
+      "aprobada": false
+    },
+    {
+      "estrategia": "topk_10",
+      "cumple": 4,
+      "no_cumple": 4,
+      "pendiente": 0,
+      "no_aplica": 0,
+      "aplicables": 8,
+      "proporcion_cumplimiento": 0.5,
+      "sin_operaciones": true,
+      "exploratoria": false,
+      "aprobada": false
+    },
+    {
+      "estrategia": "topk_2",
+      "cumple": 4,
+      "no_cumple": 4,
+      "pendiente": 0,
+      "no_aplica": 0,
+      "aplicables": 8,
+      "proporcion_cumplimiento": 0.5,
+      "sin_operaciones": true,
+      "exploratoria": false,
+      "aprobada": false
+    },
+    {
+      "estrategia": "topk_5",
+      "cumple": 4,
+      "no_cumple": 4,
+      "pendiente": 0,
+      "no_aplica": 0,
+      "aplicables": 8,
+      "proporcion_cumplimiento": 0.5,
+      "sin_operaciones": true,
+      "exploratoria": false,
+      "aprobada": false
+    },
+    {
+      "estrategia": "topk_5_ranking",
+      "cumple": 3,
+      "no_cumple": 5,
+      "pendiente": 0,
+      "no_aplica": 0,
+      "aplicables": 8,
+      "proporcion_cumplimiento": 0.375,
+      "sin_operaciones": false,
+      "exploratoria": true,
+      "aprobada": false
+    }
+  ],
+  "aprobadas": 0,
+  "generated_at": "2026-11-26T16:42:21.970023+00:00",
+  "source": "data/estrategias_homologadas/strategies_catalog.json",
+  "source_type": "homologated_catalog"
+}

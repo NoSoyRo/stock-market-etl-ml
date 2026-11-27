@@ -1,0 +1,193 @@
+{
+  "universe": "bmv",
+  "evaluation_start": "2023-05-10",
+  "evaluation_end": "2026-10-30",
+  "minimum_historical_sessions": 200,
+  "capital": 100000,
+  "capital_per_asset": 2857.1428571428573,
+  "eligible_tickers": [
+    "WALMEX",
+    "FEMSAUBD",
+    "GMEXICOB",
+    "CEMEXCPO",
+    "GFNORTEO",
+    "BIMBOA",
+    "ALSEA",
+    "KIMBERA",
+    "GRUMAB",
+    "ASURB",
+    "GAPB",
+    "ORBIA",
+    "AC",
+    "VESTA",
+    "PINFRA",
+    "OMAB",
+    "MEGACPO",
+    "TLEVISA",
+    "BOLSAA",
+    "GCARSOA1",
+    "LABB",
+    "CUERVO",
+    "HERDEZ",
+    "GENTERA",
+    "VOLARA",
+    "Q",
+    "FUNO11",
+    "GCC",
+    "AMXL",
+    "CHDRAUIB",
+    "GFINBURO",
+    "VISTA",
+    "KOFUBL",
+    "HOTEL",
+    "POSADAS"
+  ],
+  "excluded_tickers": [
+    {
+      "ticker": "ALFAA",
+      "reason": "sin_datos"
+    }
+  ],
+  "details": [
+    {
+      "ticker": "WALMEX",
+      "historical_tradable_sessions": 4789
+    },
+    {
+      "ticker": "FEMSAUBD",
+      "historical_tradable_sessions": 4779
+    },
+    {
+      "ticker": "GMEXICOB",
+      "historical_tradable_sessions": 4788
+    },
+    {
+      "ticker": "CEMEXCPO",
+      "historical_tradable_sessions": 4783
+    },
+    {
+      "ticker": "GFNORTEO",
+      "historical_tradable_sessions": 4746
+    },
+    {
+      "ticker": "BIMBOA",
+      "historical_tradable_sessions": 4791
+    },
+    {
+      "ticker": "ALSEA",
+      "historical_tradable_sessions": 4605
+    },
+    {
+      "ticker": "KIMBERA",
+      "historical_tradable_sessions": 4784
+    },
+    {
+      "ticker": "GRUMAB",
+      "historical_tradable_sessions": 3578
+    },
+    {
+      "ticker": "ASURB",
+      "historical_tradable_sessions": 3598
+    },
+    {
+      "ticker": "GAPB",
+      "historical_tradable_sessions": 4041
+    },
+    {
+      "ticker": "ORBIA",
+      "historical_tradable_sessions": 4276
+    },
+    {
+      "ticker": "AC",
+      "historical_tradable_sessions": 3620
+    },
+    {
+      "ticker": "VESTA",
+      "historical_tradable_sessions": 2481
+    },
+    {
+      "ticker": "PINFRA",
+      "historical_tradable_sessions": 4079
+    },
+    {
+      "ticker": "OMAB",
+      "historical_tradable_sessions": 3850
+    },
+    {
+      "ticker": "MEGACPO",
+      "historical_tradable_sessions": 3589
+    },
+    {
+      "ticker": "TLEVISA",
+      "historical_tradable_sessions": 4764
+    },
+    {
+      "ticker": "BOLSAA",
+      "historical_tradable_sessions": 3487
+    },
+    {
+      "ticker": "GCARSOA1",
+      "historical_tradable_sessions": 3612
+    },
+    {
+      "ticker": "LABB",
+      "historical_tradable_sessions": 3488
+    },
+    {
+      "ticker": "CUERVO",
+      "historical_tradable_sessions": 1569
+    },
+    {
+      "ticker": "HERDEZ",
+      "historical_tradable_sessions": 3488
+    },
+    {
+      "ticker": "GENTERA",
+      "historical_tradable_sessions": 2862
+    },
+    {
+      "ticker": "VOLARA",
+      "historical_tradable_sessions": 2224
+    },
+    {
+      "ticker": "Q",
+      "historical_tradable_sessions": 1962
+    },
+    {
+      "ticker": "FUNO11",
+      "historical_tradable_sessions": 2664
+    },
+    {
+      "ticker": "GCC",
+      "historical_tradable_sessions": 3634
+    },
+    {
+      "ticker": "AMXL",
+      "historical_tradable_sessions": 3521
+    },
+    {
+      "ticker": "CHDRAUIB",
+      "historical_tradable_sessions": 3022
+    },
+    {
+      "ticker": "GFINBURO",
+      "historical_tradable_sessions": 4790
+    },
+    {
+      "ticker": "VISTA",
+      "historical_tradable_sessions": 887
+    },
+    {
+      "ticker": "KOFUBL",
+      "historical_tradable_sessions": 1025
+    },
+    {
+      "ticker": "HOTEL",
+      "historical_tradable_sessions": 2075
+    },
+    {
+      "ticker": "POSADAS",
+      "historical_tradable_sessions": 463
+    }
+  ]
+}
