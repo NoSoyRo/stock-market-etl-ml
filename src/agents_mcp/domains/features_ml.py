@@ -63,11 +63,16 @@ def create_ml_tools(root=ROOT, *, service: MLService | None = None):
 
     @tool("schema_features_ml", "Describe el catálogo, estados y reglas del dominio Features/ML.", {}, annotations=READ_ONLY)
     async def schema_features_ml(args: dict) -> dict:
-        return _reply(await asyncio.to_thread(service.schema))
+        try:
+            return _reply(await asyncio.to_thread(service.schema))
+        except Exception as exc:
+            return _tool_error(service, exc)
 
     @tool(
         "registro_experimentos",
-        "Consulta la bitácora de trials, con N global y por familia.",
+        "Consulta la bitácora de trials, con N global y por familia. Las familias no son "
+        "ids del catálogo (p. ej. n1b_ridge_rank_h5); sin filtros se listan todas en "
+        "n_por_familia. prefijo filtra por el inicio del nombre (p. ej. n1b_ridge_rank).",
         {
             "type": "object",
             "properties": {
@@ -279,6 +284,9 @@ class MLDomainAgent(DomainAgent):
             mcp_servers={self.server_name: server},
             allowed_tools=allowed,
             tools=[],
+            # Aísla el agente: sin conectores MCP ni settings de quien lo corre.
+            strict_mcp_config=True,
+            setting_sources=[],
             model=self.model,
             max_turns=MAX_TURNS,
             max_budget_usd=MAX_BUDGET_USD,

@@ -28,9 +28,11 @@ modelos:
       folds_ic_pos: {archivo: data/eval/n1b_target.json, ruta: cfg.ridge_rank_h5.folds_ic_pos}
       dsr_global: {archivo: data/eval/n1b_target.json, ruta: cfg.ridge_rank_h5.dsr_global.dsr}
       ic_s1_n4: {archivo: data/eval/n4_combinacion.json, ruta: meta.ic_score.S1.ic}
+      ic_2024p_s1_n4: {archivo: data/eval/n4_combinacion.json, ruta: meta.ic_score.S1.ic24}
     limites:
       - "No cubre el costo realista, cuya mediana estimada fue aproximadamente 0.54 % por lado."
       - "La señal es útil como evidencia de ranking, no como recomendación operable."
+      - "El IC se debilita en 2024+: comparar ic_2024p_s1_n4 (h21) contra ic_s1_n4."
 
   - id: lightgbm_ranking
     nombre: LightGBM de ranking

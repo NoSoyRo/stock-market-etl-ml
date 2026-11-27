@@ -27,8 +27,12 @@ class MLService:
         self.trial_log_path = self.root / "data" / "eval" / "trial_log.jsonl"
         self.signals_dir = self.root / "data" / "signals" / "history"
 
-    def _n_global(self) -> int:
-        return count_trials(path=str(self.trial_log_path))
+    def _n_global(self) -> int | None:
+        """N global de trials; None si la bitácora está ilegible o corrupta."""
+        try:
+            return count_trials(path=str(self.trial_log_path))
+        except (OSError, UnicodeError, AttributeError, TypeError):
+            return None
 
     def _base(
         self,
@@ -57,11 +61,22 @@ class MLService:
         return self._base(ok=False, error_tipo=tipo, mensaje=mensaje, **kwargs)
 
     def _load_catalog(self) -> list[dict[str, Any]]:
-        if not self.catalog_path.exists():
+        """Entradas del catálogo; lista vacía si falta, está ilegible o mal formado."""
+        try:
+            data = yaml.safe_load(self.catalog_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, yaml.YAMLError):
             return []
-        data = yaml.safe_load(self.catalog_path.read_text(encoding="utf-8")) or {}
-        models = data.get("modelos", data if isinstance(data, list) else [])
-        return list(models or [])
+        models = data.get("modelos") if isinstance(data, dict) else None
+        if not isinstance(models, list):
+            return []
+        return [m for m in models if isinstance(m, dict)]
+
+    def _catalog_error(self) -> dict[str, Any]:
+        return self._error(
+            "archivo_ausente",
+            "El catálogo ML falta, está vacío o no se puede leer.",
+            fuentes=["src/agents_mcp/domains/ml_catalog.yaml"],
+        )
 
     @staticmethod
     def _dot_get(data: Any, route: str) -> Any:
@@ -112,11 +127,7 @@ class MLService:
     def schema(self) -> dict[str, Any]:
         models = self._load_catalog()
         if not models:
-            return self._error(
-                "archivo_ausente",
-                "No se encontró o está vacío el catálogo ML.",
-                fuentes=["src/agents_mcp/domains/ml_catalog.yaml"],
-            )
+            return self._catalog_error()
         return self._base(
             fuentes=["src/agents_mcp/domains/ml_catalog.yaml"],
             datos={
@@ -204,6 +215,8 @@ class MLService:
 
     def veredicto_modelo(self, modelo: str) -> dict[str, Any]:
         catalog = {str(m.get("id")): m for m in self._load_catalog()}
+        if not catalog:
+            return self._catalog_error()
         if modelo not in catalog:
             return self._error(
                 "modelo_desconocido",
@@ -350,12 +363,31 @@ class MLService:
 
         age_days = (cutoff.date() - signal_date).days
         rel = str(selected_path.relative_to(self.root))
+        fuentes = [rel]
+        advertencias = [
+            "Señal informativa de Features/ML: no decide el libro vigente."
+        ]
+        # Las señales son salida del SuperModel: llevan su etiqueta del catálogo.
+        evidencia = next(
+            (
+                m.get("evidencia")
+                for m in self._load_catalog()
+                if m.get("id") == "supermodel"
+            ),
+            None,
+        )
+        if evidencia:
+            fuentes.append("src/agents_mcp/domains/ml_catalog.yaml")
+        else:
+            evidencia = "no_evaluado"
+            advertencias.append(
+                "Sin etiqueta de SuperModel en el catálogo: se marca como no_evaluado."
+            )
         return self._base(
             as_of=str(rec.get("timestamp_utc") or signal_date.isoformat()),
-            fuentes=[rel],
-            advertencias=[
-                "Señal informativa de Features/ML: no decide el libro vigente."
-            ],
+            fuentes=fuentes,
+            evidencia=evidencia,
+            advertencias=advertencias,
             datos={
                 "date": signal_date.isoformat(),
                 "regime": rec.get("regime"),
@@ -398,11 +430,11 @@ class MLService:
             if close_date <= today:
                 closed += 1
 
+        as_of = data.get("last_updated") or (
+            max(valid_dates).isoformat() if valid_dates else None
+        )
         return self._base(
-            as_of=str(
-                data.get("last_updated")
-                or (max(valid_dates).isoformat() if valid_dates else None)
-            ),
+            as_of=str(as_of) if as_of else None,
             fuentes=["data/signals/history/index.json"],
             datos={
                 "n_signales": len(valid_dates),
@@ -422,6 +454,12 @@ class MLService:
         skew: float = 0.0,
         kurtosis: float = 3.0,
     ) -> dict[str, Any]:
+        if n_trials is None and self._n_global() is None:
+            return self._error(
+                "archivo_ausente",
+                "No se puede leer la bitácora de trials: falta el N global.",
+                fuentes=["data/eval/trial_log.jsonl"],
+            )
         try:
             sr_ann = float(sharpe_anual)
             years = float(anios)
@@ -489,6 +527,28 @@ class MLService:
         )
         n_family = trial_stats.n_trials(familia, self.trial_log_path)
         n_global = self._n_global()
+        if n_global is None:
+            return self._error(
+                "archivo_ausente",
+                "No se puede leer la bitácora de trials: falta el N global.",
+                fuentes=["data/eval/trial_log.jsonl"],
+            )
+        nuevos = 0 if duplicate else 1
+        borrador = "\n".join([
+            "# Preregistro (borrador)",
+            f"Familia: {familia.strip()}",
+            f"Hipótesis: {hipotesis.strip()}",
+            f"Configuración (hash {h}):",
+            json.dumps(config, sort_keys=True, ensure_ascii=False, indent=2, default=str),
+            f"Criterio de éxito (fijado antes de correr): {criterio_exito.strip()}",
+            f"Trials de la familia: {n_family} -> {n_family + nuevos}",
+            f"Trials globales: {n_global} -> {n_global + nuevos} (estimado)",
+            (
+                "Esta configuración ya está en la bitácora."
+                if duplicate
+                else "Configuración nueva en esta familia."
+            ),
+        ])
         return self._base(
             fuentes=["src/ml/trial_stats.py", "data/eval/trial_log.jsonl"],
             datos={
@@ -501,9 +561,10 @@ class MLService:
                 },
                 "ya_existe": duplicate,
                 "n_familia_actual": n_family,
-                "n_familia_despues": n_family + (0 if duplicate else 1),
+                "n_familia_despues": n_family + nuevos,
                 "n_global_actual": n_global,
-                "n_global_despues_estimado": n_global + (0 if duplicate else 1),
+                "n_global_despues_estimado": n_global + nuevos,
+                "borrador": borrador,
                 "nota": "Borrador de preregistro: no se escribió ni ejecutó nada.",
             },
         )
